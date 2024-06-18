@@ -14,7 +14,7 @@
         <input type="text" id="Email" name="Email"><br>
         <label for="Password">Password :</label><br>
         <input type="text" id="Password" name="Password"><br><br>
-        
+        <button type="button" onclick="get()">login</button>
         
       </div>
     <p>TEST AAAAAAAAAAAAAaA</p>
@@ -25,9 +25,13 @@
         const supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxZGF3aGV3aW1seWFrZmh6enNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTMxNjQxNzAsImV4cCI6MjAyODc0MDE3MH0.wPzVjebaiUroccRtWKPgGLeGJ0l-00e2ajH3L7T74is"
         const connection = createClient(supabase_url, supabase_key)
         
-            const{data,error}= await connection.from('artist_t').select('*');
+        async function get(){
+            const{data, error}= await connection.from('artist_t').select('*');
+            
             console.log(data);
-    
+        }
+        
+      
         
          
 
