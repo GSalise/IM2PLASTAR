@@ -146,30 +146,7 @@
         </form>
       </div>
       
-      <script type="text/javascript">
-        const{createClient} = supabase;
-const supabaseUrl = "https://kqdawhewimlyakfhzzso.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxZGF3aGV3aW1seWFrZmh6enNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTMxNjQxNzAsImV4cCI6MjAyODc0MDE3MH0.wPzVjebaiUroccRtWKPgGLeGJ0l-00e2ajH3L7T74is"; // Ensure this key is safe
-const connection = createClient(supabaseUrl, supabaseKey);
-
-    async function signup(){
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    var email = document.getElementById('email').value;
-    
-    const { data, error } = await connection.from('signup').select('email').eq('email', email)
-    console.log(username);
-    if (data.length > 0) {
-        alert('existing')
-    }else{
-        const {data: ACCdata, error: ACCerror} = await connection.from('login').insert({
-        username:username,
-        password:password,
-        email:email
-        }).select('id')
-    }
-    }
-      </script>
+      <script type="text/javascript" src="plastar.js"></script>
       
       </body>
 </html>
