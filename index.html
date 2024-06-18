@@ -26,9 +26,16 @@
         const connection = createClient(supabase_url, supabase_key)
         
         async function get(){
-            const{data, error}= await connection.from('artist_t').select('*');
-            
-            console.log(data);
+            const Email = document.getElementById('Email').value;
+            const Password = document.getElementById('Password').value;
+            const{data, error}= await connection.from('users_t').select('*').eq('email',Email).eq('password',Password);
+
+           if(data.length > 0){
+           console.log(data);
+            }else{
+                alert('skibidi sigma');
+            }
+        
         }
         
       
