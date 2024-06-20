@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm" style="background-color: #7F00FF;">
+        <div class="container-fluid" style="height: 90px;">
+            <a class="navbar-brand text-white" style = "font-size: 30px;" href="#"> PLASTAR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex">
+        <div class="bg-warning" style="background-color: #ff7300; width: 400px; height: 100vh; padding: 20px;">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Link 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Link 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Link 3</a>
+                </li>
+            </ul>
+        </div>
+        <div class="container-fluid" style="margin-left: 17px; padding-top: 100px;" >
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>Mary</td>
+                        <td>Moe</td>
+                        <td>mary@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>July</td>
+                        <td>Dooley</td>
+                        <td>july@example.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let userID = localStorage.getItem("ID");
+            console.log(userID);
+        });
+    </script>
+</body>
+</html>
