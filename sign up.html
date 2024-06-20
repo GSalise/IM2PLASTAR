@@ -18,7 +18,7 @@
         <hr>
         <div class="row">
             <div class="col-md-6">
-                <label for="username"><b>Username</b></label>
+                <label for="username"><b>name</b></label>
                 <input type="text" id="username" placeholder="Enter Username" name="username" required>
             </div>
             <div class="col-md-6">
@@ -55,6 +55,17 @@
 </div>
 
     <script type="text/javascript" src="plastar.js"></script>
+    <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', (event) => {
+                  let userID = localStorage.getItem("ID");
+                  console.log("Retrieved User ID from localStorage:", userID); // Debugging line
 
+                  if (userID === null) {
+                      console.error("User ID not found in localStorage.");
+                  } else {
+                      console.log("User ID:", userID);
+                  }
+              });
+  </script>
 </body>
 </html>
