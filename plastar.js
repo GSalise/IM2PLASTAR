@@ -32,8 +32,11 @@ const{createClient} = supabase;
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
             var email = document.getElementById('email').value;
+            var purok = document.getElementById('purok').value;
+            var address = document.getElementById('address').value;
+            var contact = document.getElementById('contact').value;
             
-            const { data, error } = await connection.from('signup').select('email').eq('email', email)
+            const { data, error } = await connection.from('contact').select('email').eq('email', email);
             console.log(username);
             if (data.length > 0) {
                 alert('existing')
@@ -41,11 +44,25 @@ const{createClient} = supabase;
                 const {data: ACCdata, error: ACCerror} = await connection.from('login').insert({
                 username:username,
                 password:password,
-                email:email
-                }).select('id')
+                email:email,
+                address:address,
+                purok:purok,
+                contact:contact
+                })
             }
+            }
+           
+            function load(){
+                ('DOMContentLoaded', (event) => {
+                    let userID = localStorage.getItem("ID");
+                    console.log(userID);
+                });
             }
 
+        function logout(){
+            localStorage.clear;
+            location.href ="index.html"
+                }
 
 
 
