@@ -9,25 +9,36 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div class="container-fluid" style="height: 70px;">
-           <span class="navbar-text">PLASTAR</span>
+  <nav class="navbar navbar-expand-sm" style="background-color: #7F00FF;">
+    <div class="container-fluid" style="height: 90px;">
+        <a class="navbar-brand text-white" style = "font-size: 30px;" href="#"> PLASTAR</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
         </div>
-    </nav>
-    <div class="container bg-primary" style="width: fit-content; float: left; height: 100vh; padding: 20px;">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link 3</a>
-          </li>
-        </ul>
     </div>
-    <div style="margin-left: 100px; margin-top: 100px;">
+</nav>
+<div class="d-flex">
+  <div class="bg-warning" style="background-color: #ff7300; width: 250px; height: 100vh; padding: 20px;">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link text-dark" href="#">Link 1</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link text-dark" href="#">Link 2</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link text-dark" href="#">Link 3</a>
+          </li>
+      </ul>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-top: 10px; margin-left: 10px;">
+      ADD ITEM
+    </button>
+    
+    <div style="margin-left: 10px; margin-top: 100px;">
         <table class="table table-bordered">
             <thead>
               <tr>
@@ -56,6 +67,63 @@
         </table>
     </div>
     <button type="button" onclick="logout()">Logout</button>
+
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">ADD ITEM</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form> 
+              <label  class="form-label" for="item-name"><b>Item name:</b></label>
+              <input  class="form-control" type="text" id="item-name" placeholder="Enter name" name="item-name" required><br>
+              <label  class="form-label" for="price"><b>Estimated price upon purchase:</b></label><br>
+              <input   class="form-control" type="text" id="price" placeholder="Price" name="price" required><br>
+              <p><b>ITEM TYPE:</b></p>
+              <div class="d-flex flex-wrap ">
+                <div class="form-check me-3">
+                  <input type="radio" class="form-check-input" id="furniture" name="itemType" value="furniture">
+                  <label class="form-check-label" for="furniture">Furniture</label>
+                </div>
+                <div class="form-check me-3">
+                  <input type="radio" class="form-check-input" id="misc" name="itemType" value="misc">
+                  <label class="form-check-label" for="misc">Misc</label>
+                </div>
+                <div class="form-check me-3">
+                  <input type="radio" class="form-check-input" id="tools" name="itemType" value="tools">
+                  <label class="form-check-label" for="tools">Tools</label>
+                </div>
+                <div class="form-check me-3">
+                  <input type="radio" class="form-check-input" id="equipment" name="itemType" value="equipment">
+                  <label class="form-check-label" for="equipment">Equipment</label>
+                </div>
+                <div class="form-check me-3">
+                  <input type="radio" class="form-check-input" id="electronics" name="itemType" value="electronics">
+                  <label class="form-check-label" for="electronics">Electronics</label>
+                </div>
+                <div class="form-check me-3">
+                  <input type="radio" class="form-check-input" id="vehicle" name="itemType" value="vehicle">
+                  <label class="form-check-label" for="vehicle">Vehicle</label>
+                </div>
+              </div>
+            </form>
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+           
+            <button type="submit" class="btn btn-primary" style="width: 100%;" onclick="addItem()">Add</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
     
     <script type="text/javascript" src="plastar.js"></script>
 </body>

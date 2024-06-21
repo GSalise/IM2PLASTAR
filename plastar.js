@@ -76,4 +76,28 @@ function logout() {
     location.href = "index.html";
 }
 
-// Call load function on page loa
+// ADD ITEM FUNCTION
+
+async function addItem(){
+
+    var Item_name =document.getElementById('item-name').value;
+    var Price = document.getElementById('price').value;
+    var Type =  document.querySelector('input[name="itemType"]:checked').value;
+    console.log("Item Name:", Item_name);
+    console.log("Price:", Price);
+    console.log("Type:", Type);
+    var itemCost = parseFloat(Price);
+    const { data:dataitem, error:erritem } = await connection.from('item_t').insert({
+        item_name:Item_name, 
+        category:Type,
+        item_cost:itemCost
+        });
+    
+    if(erritem){
+        console.log('failed');
+        console.log(erritem);
+    } else{
+        console.log('added');
+    }
+        
+}
