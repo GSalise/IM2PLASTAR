@@ -127,3 +127,18 @@ async function addB(){
     }
         
 }
+
+async function getbinfo(){
+
+    
+    let { data: borrowinfo, error } = await connection
+    .from('borrowinfo_t')
+    .select(`borrowid,borrower_t (name), item_t(item_name)`).eq('borrowerid',1);
+     
+    if(error){
+        console.log('fail');
+    }else{
+        console.log(borrowinfo[0].borrower_t.name);
+        console.log(borrowinfo[0].item_t.item_name);
+    }
+}
