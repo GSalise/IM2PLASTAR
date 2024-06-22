@@ -101,3 +101,29 @@ async function addItem(){
     }
         
 }
+
+async function addB(){
+
+    var Bname =document.getElementById('Bname').value;
+    var contact = document.getElementById('contact').value;
+    var Baddress =  document.getElementById('Baddress').value;
+    console.log( Bname);
+    console.log(contact);
+    console.log(Baddress);
+    
+    const { data:datab, error:errb } = await connection.from('borrower_t').insert({
+        name:Bname, 
+        contact:contact,
+        address:Baddress
+        });
+
+        
+       
+    if(errb){
+        console.log('failed');
+        console.log(errb);
+    } else{
+        console.log('added');
+    }
+        
+}
