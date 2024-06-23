@@ -1,0 +1,17 @@
+.header{
+    height: 15vh;
+    width: 100vw;
+    box-sizing: border-box;
+    background-color: #aeaeae;
+    padding: 10px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textSection {
+    display: flex; /* Makes the text inline with the hamburger button */
+    align-items: center; /* Aligns the text vertically */
+    margin-left: 10px; /* Adds a margin to separate the text from the button */
+  }

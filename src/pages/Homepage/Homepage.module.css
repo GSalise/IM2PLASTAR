@@ -1,0 +1,21 @@
+:root, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Apply background to the root element */
+  .body {
+    background-color: #00ffd5; /* Set background color */
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    height: 100vh;
+    padding: 0;
+  }
