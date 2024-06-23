@@ -102,6 +102,7 @@ async function addItem(){
         
 }
 
+// add borrower function
 async function addB(){
 
     var Bname =document.getElementById('Bname').value;
@@ -128,9 +129,8 @@ async function addB(){
         
 }
 
+// get borrow info
 async function getbinfo(){
-
-    
     let { data: borrowinfo, error } = await connection
     .from('borrowinfo_t')
     .select(`borrowid,borrower_t (name), item_t(item_name)`).eq('borrowerid',1);
@@ -141,4 +141,45 @@ async function getbinfo(){
         console.log(borrowinfo[0].borrower_t.name);
         console.log(borrowinfo[0].item_t.item_name);
     }
+}
+
+
+// get borrowers
+
+async function getborrowers(){
+    
+    let { data: borrower, error } = await connection
+    .from('borrower_t')
+    .select('name,contact,address,infraction,is_banned').order('name',{ascending: false});
+
+    if(error){
+        console.log('failed');
+        console.log(error);
+    }else{
+        for(let i=0; i<borrower.length;++i){
+            console.log(borrower[i].name,borrower[i].contact,borrower[i].address,borrower[i].infraction,borrower[i].is_banned);
+        }
+    }
+
+}
+
+//get items
+async function getitems(){
+    let { data: item, error } = await connection
+    .from('item_t')
+    .select('item_name,category,item_cost,status')
+
+
+    if(error){
+        console.log('failed')
+        console.log(error)
+    }else{
+    for(let i=0; i<item.length;++i){
+        
+        if(item[0].status === null){
+        console.log(item[i].item_name,item[i].category,item[i].item_cost,'not used');
+        }
+    }
+    }
+    
 }
