@@ -11,7 +11,7 @@ const Homepage = ({token}) => {
 
   return (
     <div>
-      <h3>Welcome back, {token.user.user_metadata.full_Name}</h3>
+      <h3>Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay}, {token.user.user_metadata.contact}</h3>
       <button onClick={handleLogout}>Logout</button>
     </div>
   )

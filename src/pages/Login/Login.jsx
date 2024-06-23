@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
-import { supabase } from '../client'
-import { Link } from 'react-router-dom'
+import { supabase } from '../../client'
+import { Link, useNavigate } from 'react-router-dom'
+import styles from './Login.module.css'
 
-const Signup = () => {
+//The Logic
+const Login = ({setToken}) => {
+  let navigate = useNavigate()
 
   const [formData, setFormData] = useState({
-    fullName:'',
     email:'',
     password:''
   })
@@ -26,16 +28,16 @@ const Signup = () => {
     e.preventDefault()
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
-        options: {
-          data: {
-            full_Name: formData.fullName,
-          }
-        }
       })
-      alert('Check email for verification')
+
+      if (error) throw error
+      console.log(data)
+      setToken(data)
+      navigate('/homepage')
+      
 
     } catch (error) {
       alert(error)
@@ -43,15 +45,11 @@ const Signup = () => {
     
   }
 
-
+  //The HTML
   return (
-    <div>
+    <div className={styles.html}>
+    <div className={styles.body}>
       <form onSubmit={handleSubmit}>
-        <input 
-          placeholder='FullName'
-          name='fullName'
-          onChange={handleChange}
-        />
 
         <input 
           placeholder='Email'
@@ -67,15 +65,16 @@ const Signup = () => {
         />
 
         <button type='submit'>
-          Sign Up!
+          Log In
         </button>
 
 
 
       </form>
-      Already have an account? <Link to='/'>Login</Link>
+      You don't have an account? <Link to='/signup'>Sign Up</Link>
+    </div>
     </div>
   )
 }
 
-export default Signup
+export default Login

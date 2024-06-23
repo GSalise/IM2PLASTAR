@@ -1,0 +1,75 @@
+:root, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Apply background to the root element */
+  .body {
+    background-color: #FFA500; /* Set background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    background-color: #800080; /* Purple background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .container h1 {
+    color: white;
+  }
+  
+  .form-group {
+    margin-bottom: 5px;
+    text-align: left;
+    padding: 10px;
+    align-items: center;
+  }
+  
+  .form-group label {
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+
+  
+
+  
+.cancel-button {
+    background-color: #FF0000; /* Red background */
+    color: white;
+  }
+  
+.signup {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #008000; /* Green background */
+    color: white;
+  }
+  
