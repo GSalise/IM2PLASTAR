@@ -49,31 +49,33 @@ const Login = ({setToken}) => {
   return (
     <div className={styles.html}>
     <div className={styles.body}>
-      <form onSubmit={handleSubmit}>
-
-        <input 
-          placeholder='Email'
-          name='email'
-          onChange={handleChange}
-        />
-
-        <input 
-          placeholder='Password'
-          name='password'
-          type="password"
-          onChange={handleChange}
-        />
-
-        <button type='submit'>
-          Log In
-        </button>
-
-
-
-      </form>
-      You don't have an account? <Link to='/signup'>Sign Up</Link>
+      <div></div>
+        <form className={styles['loginform']} onSubmit={handleSubmit}>
+            <center><h2>Welcome Back!</h2></center>
+            <input 
+                placeholder='Email'
+                name='email'
+                onChange={handleChange}
+            />
+            <input 
+                placeholder='Password'
+                name='password'
+                type="password"
+                onChange={handleChange}
+            />
+            <button type='submit'>
+                Log In
+            </button>
+            <div>
+                You don't have an account? <Link to='/signup'>Sign Up</Link>
+            </div>
+            <div>
+                <a href="/forgot-password">Forgot your Password?</a>
+            </div>
+        </form>
     </div>
-    </div>
+</div>
+
   )
 }
 
