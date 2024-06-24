@@ -6,6 +6,7 @@ import { supabase } from '../../client'
 import TableItem from '../../stuff/TableItem/TableItem'
 import TableBorrower from '../../stuff/TableBorrower/TableBorrower'
 import TableLogsBorrow from '../../stuff/TableLogs/TableLogs'
+import Sidebar from '../../stuff/Sidebar/Sidebar'
 
 const Homepage = ({token}) => {
   let navigate = useNavigate()
@@ -40,6 +41,8 @@ const Homepage = ({token}) => {
     <div className={styles.body}>
     <div>
       <Header />
+      <Sidebar/>
+      <div style={{marginLeft:"300px"}}>
       <h3>Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay}, {token.user.user_metadata.contact}</h3>
       <button onClick={handleLogout}>Logout</button>
       <button onClick={toggleTable}>Switch View</button>
@@ -52,6 +55,7 @@ const Homepage = ({token}) => {
         <TableLogsBorrow />
       </div>
     </div>
+  </div>
   </div>
   )
 }
