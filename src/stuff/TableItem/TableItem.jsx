@@ -16,6 +16,7 @@ const TableItem = () => {
             }
 
             if(data){
+              console.log(data)
                 setItems(data)
                 setFetchError(null)
             }
@@ -30,14 +31,26 @@ const TableItem = () => {
   return (
     <div>
       {fetchError && (<p>{fetchError}</p>)}
-      {items && (
-        <div className='itemdisplay'>
-            {items.map((item) => (
-              <li key={item.item_name}>{item.item_name}</li>
-            ))}
-        </div>
-
-      )}
+      <table>
+        <thead>
+          <tr>
+            <th>Item name</th>
+            <th>Category</th>
+            <th>Penalty Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items && items.map((item) => (
+            <tr key={item.item_name}>
+              <td>{item.item_name}</td>
+              <td>{item.category}</td>
+              <td>{item.item_cost}</td>
+              <td>{item.status? 'Available' : 'Not Available'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
