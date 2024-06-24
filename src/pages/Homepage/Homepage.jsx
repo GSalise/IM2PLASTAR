@@ -4,6 +4,8 @@ import styles from './Homepage.module.css'
 import Header from '../../stuff/Header/Header'
 import { supabase } from '../../client'
 import TableItem from '../../stuff/TableItem/TableItem'
+import TableBorrower from '../../stuff/TableBorrower/TableBorrower'
+import TableLogsBorrow from '../../stuff/TableLogs/TableLogs'
 
 const Homepage = ({token}) => {
   let navigate = useNavigate()
@@ -15,6 +17,8 @@ const Homepage = ({token}) => {
 
   const [items, setItems] = useState([])
 
+  const [showTable, setShowTable] = useState(false)
+
   useEffect(() => {
 
     getitems();
@@ -25,6 +29,10 @@ const Homepage = ({token}) => {
     const { data, error } = await supabase.from('item_t').select()
     setItems(data)
   }
+
+  const toggleTable = () => {
+    setShowTable(!showTable)
+  }
     
   
 
@@ -34,8 +42,14 @@ const Homepage = ({token}) => {
       <Header />
       <h3>Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay}, {token.user.user_metadata.contact}</h3>
       <button onClick={handleLogout}>Logout</button>
+      <button onClick={toggleTable}>Switch View</button>
       <div>
-        <TableItem />
+        {/* {showTable? (
+          <TableItem />
+        ) : (
+          <TableBorrower />
+        )} */}
+        <TableLogsBorrow />
       </div>
     </div>
   </div>

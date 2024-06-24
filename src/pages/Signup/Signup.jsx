@@ -1,33 +1,31 @@
-import React from 'react'
-import { useState } from 'react'
-import { supabase } from '../../client'
-import { Link } from 'react-router-dom'
-import styles from './Signup.module.css'
+import React, { useState } from 'react';
+import { supabase } from '../../client';
+import { Link } from 'react-router-dom';
+import styles from './Signup.module.css';
 
 const Signup = () => {
-
   const [formData, setFormData] = useState({
-    username:'',
-    email:'',
-    password:'',
+    username: '',
+    email: '',
+    password: '',
     contact: '',
     address: '',
     baranggay: '',
-  })
+  });
 
-  console.log(formData)
+  console.log(formData);
 
-  function handleChange(event){
-    setFormData((prevFormData)=>{
-      return{
+  function handleChange(event) {
+    setFormData((prevFormData) => {
+      return {
         ...prevFormData,
-        [event.target.name]:event.target.value
-      }
-    })
+        [event.target.name]: event.target.value,
+      };
+    });
   }
 
-  async function handleSubmit(e){
-    e.preventDefault()
+  async function handleSubmit(e) {
+    e.preventDefault();
 
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -39,65 +37,60 @@ const Signup = () => {
             contact: formData.contact,
             baranggay: formData.baranggay,
             address: formData.address,
-          }
-        }
-      })
-      alert('Check email for verification')
-
+          },
+        },
+      });
+      alert('Check email for verification');
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-    
   }
 
-
   return (
-    <div className={styles.body}> 
+    <div className={styles.body}>
       <div className={styles.container}>
-        <h1>Sign Up</h1>
-
+        <h1>SIGN UP</h1>
         <form onSubmit={handleSubmit}>
-
-          <div className={styles['form-group']}>
-          <label>Name</label>
-            <input 
+          <div className={styles.sformGroup}>
+            <label>Name</label>
+            <input
               placeholder='Enter username'
               name='username'
               onChange={handleChange}
             />
           </div>
 
-          <div className={styles['form-group']}>
+          <div className={styles.sformGroup}>
             <label>Email</label>
-            <input 
+            <input
               placeholder='Enter email'
               name='email'
               onChange={handleChange}
             />
           </div>
 
-          <div className={styles['form-group']}>
-            <label>Contact</label>
-            <input 
+          <div className={styles.sformGroup}>
+            <label>Password</label>
+            <input
               placeholder='Enter password'
               name='password'
-              type="password"
+              type='password'
               onChange={handleChange}
             />
           </div>
 
-          <div className={styles['form-group']}>
+          <div className={styles.sformGroup}>
             <label>Address</label>
-            <input 
+            <input
               placeholder='Enter address'
               name='address'
               onChange={handleChange}
             />
           </div>
 
-          <div className={styles['form-group']}>
+          <div className={styles.sformGroup}>
             <label>Contact No.</label>
-            <input 
+            <input
               placeholder='Enter contact'
               name='contact'
               type='text'
@@ -107,26 +100,24 @@ const Signup = () => {
             />
           </div>
 
-          <div className={styles['form-group']}>
+          <div className={styles.sformGroup}>
             <label>Assigned Baranggay</label>
-            <input 
+            <input
               placeholder='Enter baranggay'
               name='baranggay'
               onChange={handleChange}
             />
           </div>
-          
-          <button type='submit'className={styles.signup}>
-            Sign Up!
+
+          <button type='submit' className={styles.ssignupButton}>
+            SIGN UP
           </button>
-
-
-
         </form>
         Already have an account? <Link to='/'>Login</Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
+
