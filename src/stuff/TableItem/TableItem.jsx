@@ -31,7 +31,7 @@ const TableItem = () => {
   return (
     <div>
       {fetchError && (<p>{fetchError}</p>)}
-      <table>
+      <table class="table table-bordered" style={{width:"1500px"}}>
         <thead>
           <tr>
             <th>Item name</th>
