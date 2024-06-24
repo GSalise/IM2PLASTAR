@@ -70,7 +70,7 @@ const Signup = () => {
           </div>
 
           <div className={styles.sformGroup}>
-            <label>Password</label>
+            <label>Passsword</label>
             <input
               placeholder='Enter password'
               name='password'
