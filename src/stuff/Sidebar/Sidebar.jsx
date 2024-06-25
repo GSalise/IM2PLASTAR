@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Sidebar=()=>{
+const Sidebar=({handleTableSelect})=>{
   return (
     <div className="d-flex" style={{float: "left"}}>
     <div className="bg-warning" style={{
@@ -10,8 +10,10 @@ const Sidebar=()=>{
           height: "100vh",
            padding: "20px",
            }}>
-        <button>Link 1</button>
-        <button>Link 2</button>
+        <button onClick={() => handleTableSelect('items')}>Items</button>
+        <button onClick={() => handleTableSelect('log')}>Borrow Log</button>
+        <button onClick={() => handleTableSelect('borrower')}>Borrowers</button>
+        <button>Inititate Borrow</button>
     </div>
     </div>
   )

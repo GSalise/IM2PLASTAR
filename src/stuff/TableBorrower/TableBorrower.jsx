@@ -30,8 +30,9 @@ const TableBorrower = () => {
 
   return (
     <div>
+      <div></div>
       {fetchError && (<p>{fetchError}</p>)}
-      <table class="table table-bordered" style={{width:"1500px"}}>
+      <table className="table table-bordered" style={{width:"1500px"}}>
         <thead>
           <tr>
             <th>Name</th>

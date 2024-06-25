@@ -17,44 +17,39 @@ const Homepage = ({token}) => {
   }
 
   const [items, setItems] = useState([])
+  const [activeTable, setActiveTable] = useState('items')
 
-  const [showTable, setShowTable] = useState(false)
+
 
   useEffect(() => {
 
-    getitems();
-
-  }, []);
+    getitems()
+    
+  }, [])
 
   async function getitems(){
     const { data, error } = await supabase.from('item_t').select()
     setItems(data)
   }
 
-  const toggleTable = () => {
-    setShowTable(!showTable)
+
+  function handleTableSelect(tableType) {
+    setActiveTable(tableType);
   }
-    
+  
   
 
   return (
     <div className={styles.body}>
     <div>
-      <Header />
-      <Sidebar/>
+      <Header token={token} handleLogout={handleLogout}/>
+      <Sidebar handleTableSelect={handleTableSelect} />
       <div style={{marginLeft:"300px"}}>
-      <h3>Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay}, {token.user.user_metadata.contact}</h3>
-      <button onClick={handleLogout}>Logout</button>
-      <button onClick={toggleTable}>Switch View</button>
-      <div>
-        {/* {showTable? (
-          <TableItem />
-        ) : (
-          <TableBorrower />
-        )} */}
-        <TableLogsBorrow />
-      </div>
+        {activeTable === 'items' && <TableItem items={items} />}
+        {activeTable === 'log' && <TableLogsBorrow />}
+        {activeTable === 'borrower' && <TableBorrower />}
     </div>
+    
   </div>
   </div>
   )
