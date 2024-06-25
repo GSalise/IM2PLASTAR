@@ -70,7 +70,7 @@ const Login = ({setToken}) => {
                 You don't have an account? <Link to='/signup'>Sign Up</Link>
             </div>
             <div>
-                <a href="/forgot-password">Forgot your Password?</a>
+                <Link to='/forgotpass'>Forgot your password</Link>
             </div>
         </form>
     </div>

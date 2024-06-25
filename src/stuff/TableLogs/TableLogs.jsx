@@ -31,7 +31,7 @@ const TableLogsBorrow = () => {
   return (
     <div>
       {fetchError && (<p>{fetchError}</p>)}
-      <table class="table table-bordered" style={{width:"1500px"}}>
+      <table className="table table-bordered" style={{width:"1500px"}}>
         <thead>
           <tr>
             <th>Start date</th>
