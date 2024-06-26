@@ -41,19 +41,16 @@ const Homepage = ({token}) => {
 
   return (
     <div className={styles.body}>
-    <div>
-      <Header token={token} handleLogout={handleLogout}/>
-      <Sidebar handleTableSelect={handleTableSelect} />
-      <div style={{marginLeft:"300px"}}>
-        {activeTable === 'items' && <TableItem items={items} />}
-        {activeTable === 'log' && <TableLogsBorrow />}
-        {activeTable === 'borrower' && <TableBorrower />}
+      <div>
+        <Header token={token} handleLogout={handleLogout}/>
+        <Sidebar handleTableSelect={handleTableSelect} />
+        <div style={{marginLeft:"300px"}}>
+          {activeTable === 'items' && <TableItem items={items} />}
+          {activeTable === 'log' && <TableLogsBorrow />}
+          {activeTable === 'borrower' && <TableBorrower />}
+      </div>
     </div>
-    
   </div>
-  </div>
-
-  
   )
 }
 
