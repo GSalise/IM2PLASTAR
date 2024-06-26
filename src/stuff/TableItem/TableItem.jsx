@@ -8,7 +8,44 @@ const TableItem = () => {
     const [itemData, setItemData] = useState({
       itemName: '',
       penaltyP: '',
+      category: '',
     });
+
+    console.log(itemData)
+
+    function handleChange(event) {
+      setItemData((prevItemData) => {
+        return {
+          ...prevItemData,
+          [event.target.name]: event.target.value,
+        };
+      });
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+  
+      if(!itemData.itemName ||!itemData.category ||!itemData.penaltyP){
+       
+        alert('way sud amaw')
+        return
+      }
+
+      const { data, error } = await supabase.from('item_t').insert({
+        item_name:itemData.itemName, 
+        category:itemData.category,
+        item_cost:itemData.penaltyP
+      })
+
+      if(error){
+        console.log(error, 'something is wrong')
+      }
+      if(data){
+        console.log(data)
+      }
+
+
+    }
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -55,38 +92,40 @@ const TableItem = () => {
                         <label>Name</label>
                         <input
                           name='itemName'
+                          onChange={handleChange}
                         />
                       </div>
                       <div>
                         <label>Item price upon purchase</label>
                         <input
                           name='penaltyP'
+                          onChange={handleChange}
                         />
                       </div>
                       <div>
                         <label>Select type</label>
                         <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="furniture" name="itemType" value="furniture" />
+                          <input type="radio" className="form-check-input" id="furniture" name="category" value="furniture" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="furniture">Furniture</label>
                         </div>
                         <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="misc" name="itemType" value="misc" />
+                          <input type="radio" className="form-check-input" id="misc" name="category" value="misc" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="misc">Misc</label>
                         </div>
                         <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="tools" name="itemType" value="tools" />
+                          <input type="radio" className="form-check-input" id="tools" name="category" value="tools" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="tools">Tools</label>
                         </div>
                         <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="equipment" name="itemType" value="equipment" />
+                          <input type="radio" className="form-check-input" id="equipment" name="category" value="equipment" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="equipment">Equipment</label>
                         </div>
                         <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="electronics" name="itemType" value="electronics" />
+                          <input type="radio" className="form-check-input" id="electronics" name="category" value="electronics" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="electronics">Electronics</label>
                         </div>
                         <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="vehicle" name="itemType" value="vehicle" />
+                          <input type="radio" className="form-check-input" id="vehicle" name="category" value="vehicle" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="vehicle">Vehicle</label>
                         </div>
                       </div>
@@ -95,7 +134,7 @@ const TableItem = () => {
 
                   {/* <!-- Modal footer --> */}
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-danger" onClick={handleSubmit}>Submit</button>
                   </div>
 
           </div>
