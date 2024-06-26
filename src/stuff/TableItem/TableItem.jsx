@@ -6,6 +6,7 @@ import ModalAddItem from '../Modal/Modal'
 const TableItem = () => {
     const [fetchError, setFetchError] = useState(null)
     const [items, setItems] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null); // State for selected item
 
     const picsize = {
       width: '20px',
@@ -36,15 +37,17 @@ const TableItem = () => {
         fetchItems()
     }, [])
 
+   
+      const select = (item) => {
+          setSelectedItem(item); // Set the selected item
+      }
 
-    async function handleEdit(e){
-      console.log('edit test')
-    }
+
 
 
   return (
     <div>
-      <ModalAddItem />
+      <ModalAddItem selectedItem={selectedItem }/>
       {fetchError && (<p>{fetchError}</p>)}
       <table className="table table-bordered" style={{width:"1300px"}}>
         <thead>
@@ -58,12 +61,16 @@ const TableItem = () => {
         </thead>
         <tbody>
           {items && items.map((item) => (
-            <tr key={item.item_name}>
+            <tr key={item.itemid}>
               <td>{item.item_name}</td>
               <td>{item.category}</td>
               <td>{item.item_cost}</td>
               <td>{item.status? 'Available' : 'Not Available'}</td>
-              <td><img style={picsize} src={editpic} onClick={handleEdit} /></td>
+              <td>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style={{border:"none", backgroundColor:"white"}}>
+                  <img style={picsize} src={editpic} onClick={() => select(item)} />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

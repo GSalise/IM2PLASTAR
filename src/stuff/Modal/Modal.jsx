@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { supabase } from '../../client'
 
-const Modal = () => {
+const Modal = ({ selectedItem })  => {
     
 
     const [itemData, setItemData] = useState({
@@ -9,9 +9,36 @@ const Modal = () => {
         penaltyP: '',
         category: '',
       });
-  
+
+      const [nitemData, setnItemData] = useState({
+        nitemid:'',
+        nitemName: '',
+        npenaltyP: '',
+        nstatus: '',
+      });
       console.log(itemData)
-  
+   
+   
+      useEffect(() => {
+        if (selectedItem) {
+          setnItemData({
+            nitemid: selectedItem.itemid,
+            nitemName: selectedItem.item_name,
+            npenaltyP: selectedItem.item_cost,
+            nstatus: selectedItem.status
+          });
+        }
+      }, [selectedItem]);
+     
+      
+      const handleUpdateChange = (event) => {
+        const { name, value } = event.target;
+        setnItemData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      };
+
       function handleChange(event) {
         setItemData((prevItemData) => {
           return {
@@ -46,10 +73,31 @@ const Modal = () => {
   
       }
 
+       async function handleUpdate(e){
+         e.preventDefault();
+
+         const {data,error} = await supabase.from('item_t').update({
+          item_name:nitemData.nitemName, 
+          category:nitemData.ncategory,
+          item_cost:nitemData.npenaltyP,
+          status: nitemData.nstatus === 'true',
+         }).eq('itemid',nitemData.nitemid).select();
+
+              if(error){
+                console.log(error, 'something is wrong')
+              }
+              if(data){
+                console.log('success',data);
+                window.location.reload();
+              }
+                
+       }
+
 
   return (
     <div>
         <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginTop: "10px", marginLeft: "10px"}}>ADD ITEM</button>
+          
           <div className="modal" id="myModal">
             <div className="modal-dialog">
               <div className="modal-content">
@@ -78,7 +126,7 @@ const Modal = () => {
                         />
                       </div>
                       <div>
-                        <label>Select type</label>
+                        <p>Select type</p>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="furniture" name="category" value="furniture" onChange={handleChange} />
                           <label className="form-check-label" htmlFor="furniture">Furniture</label>
@@ -116,7 +164,76 @@ const Modal = () => {
         </div>
       </div>
 
-
+     {/* UPDATE MODAL */}
+     <div className="modal" id="updateModal">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Update</h4>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div>
+                  <label>Name</label>
+                  <input
+                    name="nitemName"
+                    value={nitemData.nitemName}
+                    onChange={handleUpdateChange}
+                    className="form-control"
+                  />
+                </div>
+                <div>
+                  <label>Item price upon purchase</label>
+                  <input
+                    name="npenaltyP"
+                    value={nitemData.npenaltyP}
+                    onChange={handleUpdateChange}
+                    className="form-control"
+                  />
+                </div>
+                <div className="d-flex flex-wrap">
+                  <p>STATUS</p>
+                  <div className="form-check me-3">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      id="Available"
+                      name="nstatus"
+                      value="true"
+                      checked={nitemData.nstatus === 'true'}
+                      onChange={handleUpdateChange}
+                    />
+                    <label className="form-check-label" htmlFor="Available">
+                      AVAILABLE
+                    </label>
+                  </div>
+                  <div className="form-check me-3">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      id="NotAvailable"
+                      name="nstatus"
+                      value="false"
+                      checked={nitemData.nstatus === 'false'}
+                      onChange={handleUpdateChange}
+                    />
+                    <label className="form-check-label" htmlFor="NotAvailable">
+                      NOT AVAILABLE
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-danger" onClick={handleUpdate}>
+                UPDATE
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       </div>
   )
 }
