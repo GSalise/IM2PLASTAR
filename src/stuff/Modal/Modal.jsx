@@ -16,8 +16,8 @@ const Modal = ({ selectedItem })  => {
         npenaltyP: '',
         nstatus: '',
       });
-      console.log(itemData)
-   
+      //console.log(itemData)
+
    
       useEffect(() => {
         if (selectedItem) {
@@ -25,7 +25,7 @@ const Modal = ({ selectedItem })  => {
             nitemid: selectedItem.itemid,
             nitemName: selectedItem.item_name,
             npenaltyP: selectedItem.item_cost,
-            nstatus: selectedItem.status
+            nstatus: selectedItem.status,
           });
         }
       }, [selectedItem]);
@@ -61,14 +61,16 @@ const Modal = ({ selectedItem })  => {
           item_name:itemData.itemName, 
           category:itemData.category,
           item_cost:itemData.penaltyP
-        })
+        }).select()
   
         if(error){
           console.log(error, 'something is wrong')
         }
         if(data){
-          console.log(data)
+          console.log('success',data)
+          window.location.reload()
         }
+        
   
   
       }
@@ -92,6 +94,22 @@ const Modal = ({ selectedItem })  => {
               }
                 
        }
+
+       async function handleDelete(e){
+        e.preventDefault()
+
+        const {data,error} = await supabase.from('item_t').delete().eq('itemid', nitemData.nitemid).select()
+       
+        if(error){
+          console.log(error, 'something is wrong')
+        }
+        if(data){
+          console.log('success',data);
+          window.location.reload();
+        }
+      
+      }
+        
 
 
   return (
@@ -229,10 +247,35 @@ const Modal = ({ selectedItem })  => {
               <button type="button" className="btn btn-danger" onClick={handleUpdate}>
                 UPDATE
               </button>
+              <button type='button' className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                DELETE
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="modal" id="confirmDeleteModal">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <p>Confirmation</p>
+            </div>
+            <div className="modal-body">
+              <h4 className="modal-title">ARE YOU SURE YOU WANT TO DELETE THIS ITEM?</h4>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-danger" onClick={handleDelete}>
+                YES
+              </button>
+              <button type='button' className='btn btn-primary' data-bs-dismiss="modal">
+                NO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       
       </div>
   )
