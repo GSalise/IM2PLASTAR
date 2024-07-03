@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../client';
 import { useNavigate } from 'react-router-dom';
 
-function ResetPassword() {
+function ResetPassword({token}) {
   const [newPass, setNewPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
   const [message, setMessage] = useState('');
@@ -61,6 +61,7 @@ function ResetPassword() {
       />
       <button onClick={handlePasswordReset}>Reset Password</button>
       {message && <p>{message}</p>}
+      <h3>Welcome,</h3>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { supabase } from '../../client';
 import { useState } from 'react';
+import { redirect } from 'react-router-dom';
 
 
 function PasswordRecovery() {

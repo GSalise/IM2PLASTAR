@@ -103,35 +103,35 @@ const ModalBorrower = ({ selectedBorrower }) => {
                         </div>
                         <div className="modal-body">
                             <form>
-                                <div>
+                                <div style={{marginBottom:"10px"}}>
                                     <label>Name</label>
                                     <input
                                         name='name'
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginBottom:"10px"}}>
                                     <label>Contact</label>
                                     <input
                                         name='contact'
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginBottom:"10px"}}>
                                     <label>Address</label>
                                     <input
                                         name='address'
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginBottom:"10px", height : "fit-content"}}>
                                     <label>Infraction</label>
                                     <input
                                         name='infraction'
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginRight:"150px",marginTop:"10px", height : "fit-content"}}>
                                     <p>Status</p>
                                     <div className="form-check me-3">
                                         <input type="radio" className="form-check-input" id="is_banned_true" name="is_banned" value="true" onChange={handleChange} />

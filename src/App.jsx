@@ -27,7 +27,7 @@ const App = () => {
           <Route path={'/signup'} element={<Signup />} />
           <Route path={'/'} element={<Login setToken={setToken}/>} />
           <Route path={'/forgotpass'} element={<Forgot />} />
-          <Route path={'/updatepass'} element={<Updatepass/>}/>
+          <Route path={'/updatepass'} element={<Updatepass token={token}/>}/>
           {token?<Route path={'/homepage'} element={<Homepage token={token}/>} />:""}
       </Routes>
       
