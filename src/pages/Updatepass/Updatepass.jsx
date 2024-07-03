@@ -1,36 +1,47 @@
-import React, { useState } from 'react';
-import { supabase } from '../../client'; // Assuming supabase is correctly imported
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../../client';
+import { useNavigate } from 'react-router-dom';
 
-function PasswordReset() {
+function ResetPassword() {
   const [newPass, setNewPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    
+    if (!token) {
+      setMessage('Invalid or missing token.');
+    }
+  }, []);
 
   const handlePasswordReset = async () => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
     try {
-      const user = supabase.auth.user();
-      if (user) {
-        if (newPass !== confirmPass) {
-          throw new Error('New passwords do not match');
-        }
-
-        // Attempt to update the password
-        const { error } = await supabase.auth.update({
-          password: newPass,
-        });
-
-        if (error) {
-          throw error;
-        }
-
-        // Password updated successfully
-        console.log('Password updated successfully');
-        // Optionally, you can add a success message or redirect to another page
-      } else {
-        throw new Error('User not authenticated');
+      if (newPass !== confirmPass) {
+        throw new Error('New passwords do not match');
       }
+
+      const { data, error } = await supabase.auth.updateUser({
+        access_token: token,
+        password: newPass,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setMessage('Password updated successfully');
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
     } catch (error) {
       console.error('Password update error:', error.message);
-      // Handle error state - display error message to the user
+      setMessage(`Error: ${error.message}`);
     }
   };
 
@@ -49,9 +60,9 @@ function PasswordReset() {
         onChange={(e) => setConfirmPass(e.target.value)}
       />
       <button onClick={handlePasswordReset}>Reset Password</button>
-      {/* You can show a loading indicator or success message based on state */}
+      {message && <p>{message}</p>}
     </div>
   );
 }
 
-export default PasswordReset;
+export default ResetPassword;

@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../client'
-
+import editpic from '../../assets/edit.svg'
+import ModalBorrower from '../ModalBorrower/ModalBorrower'
 const TableBorrower = () => {
     const [fetchError, setFetchError] = useState(null)
     const [Borrower, setBorrower] = useState(null)
+    const [selectedBorrower, setSelectedBorrower] = useState(null);
+
+    const picsize = {
+      width: '20px',
+      height: 'auto',
+    }
+
+    const colsizepic = {
+      width: '30px',
+    }
 
     useEffect(() => {
         const fetchBorrower = async () => {
@@ -25,12 +36,15 @@ const TableBorrower = () => {
         fetchBorrower()
     }, [])
 
-
+    const select = (borrower) => {
+      setSelectedBorrower(borrower); // Set the selected item
+  }
+  
 
 
   return (
     <div>
-      <div></div>
+      <ModalBorrower/>
       {fetchError && (<p>{fetchError}</p>)}
       <table className="table table-bordered" style={{width:"1500px"}}>
         <thead>
@@ -40,6 +54,7 @@ const TableBorrower = () => {
             <th>Address</th>
             <th>Infraction</th>
             <th>Status</th>
+            <th style={colsizepic}></th>
           </tr>
         </thead>
         <tbody>
@@ -50,6 +65,11 @@ const TableBorrower = () => {
               <td>{borrower.address}</td>
               <td>{borrower.infraction}</td>
               <td>{borrower.is_banned? 'Banned' : 'Not Banned'}</td>
+              <td>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#updateModalBorrower" style={{border:"none", backgroundColor:"white"}}>
+                  <img style={picsize} src={editpic} onClick={() => select(borrower)}/>
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
