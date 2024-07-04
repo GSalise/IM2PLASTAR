@@ -1,17 +1,36 @@
-.header{
-    height: 15vh;
-    width: 100vw;
-    box-sizing: border-box;
-    background-color: #aeaeae;
-    padding: 10px 20px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header {
+  height: 15vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, #7f00ff, #ff7b00);
+  padding: 10px 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .textSection {
-    display: flex; /* Makes the text inline with the hamburger button */
-    align-items: center; /* Aligns the text vertically */
-    margin-left: 10px; /* Adds a margin to separate the text from the button */
-  }
+  flex: 1; /* Take remaining space */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center align text */
+  margin-left: 10px;
+}
+
+.logoutButton {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.logoutButton:hover {
+  background-color: white;
+  color: #ff7b00;
+}

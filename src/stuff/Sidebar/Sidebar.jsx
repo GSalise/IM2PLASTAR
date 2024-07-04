@@ -1,22 +1,23 @@
-import React from 'react'
+import React from 'react';
+import styles from './Sidebar.module.css';
 
-
-const Sidebar=({handleTableSelect})=>{
+const Sidebar = ({ handleTableSelect }) => {
   return (
-    <div className="d-flex" style={{float: "left"}}>
-    <div className="bg-warning" style={{
-        backgroundColor: "#ff7300",
-         width: "250px",
-          height: "100vh",
-           padding: "20px",
-           }}>
-        <button onClick={() => handleTableSelect('items')}>Items</button>
-        <button onClick={() => handleTableSelect('log')}>Borrow Log</button>
-        <button onClick={() => handleTableSelect('borrower')}>Borrowers</button>
-        <button>Inititate Borrow</button>
+    <div className={styles.sidebarContainer}>
+      <div className={styles.sidebar}>
+        <button className={styles.sidebarButton} onClick={() => handleTableSelect('items')}>
+          Items
+        </button>
+        <button className={styles.sidebarButton} onClick={() => handleTableSelect('log')}>
+          Borrow Log
+        </button>
+        <button className={styles.sidebarButton} onClick={() => handleTableSelect('borrower')}>
+          Borrowers
+        </button>
+        <button className={styles.sidebarButton}>Initiate Borrow</button>
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
