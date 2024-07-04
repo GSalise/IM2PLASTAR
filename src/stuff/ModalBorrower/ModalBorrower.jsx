@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../client';
+import { useRef } from 'react';
 
-const ModalBorrower = ({ selectedBorrower }) => {
+const ModalBorrower = ({ selectedBorrower, refresh }) => {
+
     const [borrowerData, setBorrowerData] = useState({
         name: '',
         contact: '',
@@ -13,7 +15,7 @@ const ModalBorrower = ({ selectedBorrower }) => {
     useEffect(() => {
         if (selectedBorrower) {
             setBorrowerData({
-                id: selectedBorrower.id,
+                id: selectedBorrower.borrowerid,
                 name: selectedBorrower.name,
                 contact: selectedBorrower.contact,
                 address: selectedBorrower.address,
@@ -52,7 +54,8 @@ const ModalBorrower = ({ selectedBorrower }) => {
         }
         if (data) {
             console.log('success', data);
-            window.location.reload();
+            refresh()
+          
         }
     };
 
@@ -65,28 +68,28 @@ const ModalBorrower = ({ selectedBorrower }) => {
             address: borrowerData.address,
             infraction: borrowerData.infraction,
             is_banned: borrowerData.is_banned === 'true',
-        }).eq('id', borrowerData.id).select();
+        }).eq('borrowerid', borrowerData.id).select();
 
         if (error) {
             console.log(error, 'something is wrong');
         }
         if (data) {
             console.log('success', data);
-            window.location.reload();
+            refresh()
         }
     };
 
     const handleDelete = async (e) => {
         e.preventDefault();
 
-        const { data, error } = await supabase.from('borrower_t').delete().eq('id', borrowerData.id).select();
+        const { data, error } = await supabase.from('borrower_t').delete().eq('borrowerid', borrowerData.id).select();
 
         if (error) {
             console.log(error, 'something is wrong');
         }
         if (data) {
             console.log('success', data);
-            window.location.reload();
+            refresh()
         }
     };
 
@@ -145,7 +148,7 @@ const ModalBorrower = ({ selectedBorrower }) => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" onClick={handleSubmit}>Submit</button>
+                            <button type="button" className="btn btn-danger" onClick={handleSubmit} data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -231,7 +234,7 @@ const ModalBorrower = ({ selectedBorrower }) => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" onClick={handleUpdate}>
+                            <button type="button" className="btn btn-danger" onClick={handleUpdate} data-bs-dismiss="modal">
                                 UPDATE
                             </button>
                             <button type='button' className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
@@ -252,7 +255,7 @@ const ModalBorrower = ({ selectedBorrower }) => {
                             <h4 className="modal-title">ARE YOU SURE YOU WANT TO DELETE THIS BORROWER?</h4>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" onClick={handleDelete}>
+                            <button type="button" className="btn btn-danger" onClick={handleDelete} data-bs-dismiss="modal">
                                 YES
                             </button>
                             <button type='button' className='btn btn-primary' data-bs-dismiss="modal">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { supabase } from '../../client'
 import editpic from '../../assets/edit.svg'
 import ModalBorrower from '../ModalBorrower/ModalBorrower'
+
 const TableBorrower = () => {
     const [fetchError, setFetchError] = useState(null)
     const [Borrower, setBorrower] = useState(null)
@@ -16,23 +17,23 @@ const TableBorrower = () => {
       width: '30px',
     }
 
+    const fetchBorrower = async () => {
+      const {data, error} = await supabase.from('borrower_t').select()
+
+      if(error){
+          setFetchError('Could not fetch')
+          setBorrower(null)
+          console.log(error)
+      }
+
+      if(data){
+        console.log(data)
+          setBorrower(data)
+          setFetchError(null)
+      }
+  }
+  
     useEffect(() => {
-        const fetchBorrower = async () => {
-            const {data, error} = await supabase.from('borrower_t').select()
-
-            if(error){
-                setFetchError('Could not fetch')
-                setBorrower(null)
-                console.log(error)
-            }
-
-            if(data){
-              console.log(data)
-                setBorrower(data)
-                setFetchError(null)
-            }
-        }
-
         fetchBorrower()
     }, [])
 
@@ -44,7 +45,7 @@ const TableBorrower = () => {
 
   return (
     <div>
-      <ModalBorrower/>
+      <ModalBorrower selectedBorrower={selectedBorrower} refresh={fetchBorrower}/>
       {fetchError && (<p>{fetchError}</p>)}
       <table className="table table-bordered" style={{width:"1500px"}}>
         <thead>

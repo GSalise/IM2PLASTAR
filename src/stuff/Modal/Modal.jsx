@@ -1,8 +1,13 @@
 import React, { useState,useEffect } from 'react'
 import { supabase } from '../../client'
+import { useRef } from 'react';
 
-const Modal = ({ selectedItem })  => {
+const Modal = ({ selectedItem , refresh })  => {
     
+    const addModalRef = useRef(null);
+    const updateModalRef = useRef(null);
+    const confirmDeleteModalRef = useRef(null);
+
 
     const [itemData, setItemData] = useState({
         itemName: '',
@@ -68,7 +73,7 @@ const Modal = ({ selectedItem })  => {
         }
         if(data){
           console.log('success',data)
-          window.location.reload()
+          refresh()
         }
         
   
@@ -90,7 +95,7 @@ const Modal = ({ selectedItem })  => {
               }
               if(data){
                 console.log('success',data);
-                window.location.reload();
+                refresh()
               }
                 
        }
@@ -105,10 +110,12 @@ const Modal = ({ selectedItem })  => {
         }
         if(data){
           console.log('success',data);
-          window.location.reload();
+          refresh() 
         }
       
       }
+      
+      
         
 
 
@@ -116,7 +123,7 @@ const Modal = ({ selectedItem })  => {
     <div>
         <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginTop: "10px", marginLeft: "10px"}}>ADD ITEM</button>
           
-          <div className="modal" id="myModal">
+          <div className="modal" id="myModal" ref={addModalRef}>
             <div className="modal-dialog">
               <div className="modal-content">
 
@@ -175,7 +182,7 @@ const Modal = ({ selectedItem })  => {
 
                   {/* <!-- Modal footer --> */}
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" onClick={handleSubmit}>Submit</button>
+                    <button type="button" className="btn btn-danger" onClick={handleSubmit} data-bs-dismiss="modal">Submit</button>
                   </div>
 
           </div>
@@ -183,7 +190,7 @@ const Modal = ({ selectedItem })  => {
       </div>
 
      {/* UPDATE MODAL */}
-     <div className="modal" id="updateModal">
+     <div className="modal" id="updateModal" ref={updateModalRef}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -244,7 +251,7 @@ const Modal = ({ selectedItem })  => {
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={handleUpdate}>
+              <button type="button" className="btn btn-danger" onClick={handleUpdate} data-bs-dismiss="modal">
                 UPDATE
               </button>
               <button type='button' className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
@@ -255,7 +262,7 @@ const Modal = ({ selectedItem })  => {
         </div>
       </div>
 
-      <div className="modal" id="confirmDeleteModal">
+      <div className="modal" id="confirmDeleteModal" ref={confirmDeleteModalRef}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -265,7 +272,7 @@ const Modal = ({ selectedItem })  => {
               <h4 className="modal-title">ARE YOU SURE YOU WANT TO DELETE THIS ITEM?</h4>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={handleDelete}>
+              <button type="button" className="btn btn-danger" onClick={handleDelete} data-bs-dismiss="modal">
                 YES
               </button>
               <button type='button' className='btn btn-primary' data-bs-dismiss="modal">

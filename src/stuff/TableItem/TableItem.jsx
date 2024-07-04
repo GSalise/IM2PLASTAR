@@ -17,23 +17,23 @@ const TableItem = () => {
       width: '30px',
     }
 
+    const fetchItems = async () => {
+      const {data, error} = await supabase.from('item_t').select()
+
+      if(error){
+          setFetchError('Could not fetch')
+          setItems(null)
+          console.log(error)
+      }
+
+      if(data){
+        console.log(data)
+          setItems(data)
+          setFetchError(null)
+      }
+  }
+
     useEffect(() => {
-        const fetchItems = async () => {
-            const {data, error} = await supabase.from('item_t').select()
-
-            if(error){
-                setFetchError('Could not fetch')
-                setItems(null)
-                console.log(error)
-            }
-
-            if(data){
-              console.log(data)
-                setItems(data)
-                setFetchError(null)
-            }
-        }
-
         fetchItems()
     }, [])
 
@@ -47,7 +47,7 @@ const TableItem = () => {
 
   return (
     <div>
-      <ModalAddItem selectedItem={selectedItem }/>
+      <ModalAddItem selectedItem={selectedItem} refresh={fetchItems}/>
       {fetchError && (<p>{fetchError}</p>)}
       <table className="table table-bordered" style={{width:"1300px"}}>
         <thead>
