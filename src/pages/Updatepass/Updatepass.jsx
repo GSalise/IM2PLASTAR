@@ -1,32 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../../client';
 import { useNavigate } from 'react-router-dom';
 
-function ResetPassword({token}) {
+function ResetPassword({ token }) {
   const [newPass, setNewPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
-    
-    if (!token) {
-      setMessage('Invalid or missing token.');
-    }
-  }, []);
-
   const handlePasswordReset = async () => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
-
     try {
       if (newPass !== confirmPass) {
         throw new Error('New passwords do not match');
       }
 
-      const { data, error } = await supabase.auth.updateUser({
+      // Update the user's password using Supabase auth API
+      const { error } = await supabase.auth.updateUser({
         access_token: token,
         password: newPass,
       });
@@ -35,9 +24,10 @@ function ResetPassword({token}) {
         throw error;
       }
 
+      // Password updated successfully
       setMessage('Password updated successfully');
       setTimeout(() => {
-        navigate('/login');
+        navigate('/'); // Redirect to login page after 3 seconds
       }, 3000);
     } catch (error) {
       console.error('Password update error:', error.message);
@@ -61,7 +51,6 @@ function ResetPassword({token}) {
       />
       <button onClick={handlePasswordReset}>Reset Password</button>
       {message && <p>{message}</p>}
-      <h3>Welcome,</h3>
     </div>
   );
 }
