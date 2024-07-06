@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Sidebar.module.css';
-
+import { Link } from 'react-router-dom';
 const Sidebar = ({ handleTableSelect }) => {
   return (
     <div className={styles.sidebarContainer}>
@@ -14,7 +14,7 @@ const Sidebar = ({ handleTableSelect }) => {
         <button className={styles.sidebarButton} onClick={() => handleTableSelect('borrower')}>
           Borrowers
         </button>
-        <button className={styles.sidebarButton}>Initiate Borrow</button>
+        <Link to='/borrow'><button className={styles.sidebarButton}>Initiate Borrow</button></Link>
       </div>
     </div>
   );
