@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { supabase } from '../../client'
+import styles from '../Borrow/Borrow.module.css'
+import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
 
-const Borrow = () => {
 
+const Borrow = ({token}) => {
   const [scanResult, setScanResult] = useState(null);
   const [startScan, setStartScan] = useState(false);
-  const [currentItem, setCurrentItem] = useState(0); // Track the current item
-  const [scannedItems, setScannedItems] = useState([]); // Manage the list of scanned items
-  const [loading, setLoading] = useState(false); // Loading state for fetching item details
-  const [fetchedItems, setFetchedItems] = useState([]); // Store fetched item details
+  const [currentItem, setCurrentItem] = useState(0); 
+  const [scannedItems, setScannedItems] = useState([]); 
+  const [loading, setLoading] = useState(false); 
+  const [fetchedItems, setFetchedItems] = useState([]); 
+  const alreadyScannedIDS = useRef([]);
 
 
   useEffect(() => {
@@ -40,11 +43,22 @@ const Borrow = () => {
           try{
             const { data, error } = await supabase.from('item_t').select('*').eq('itemid', PureIDofItem);
             if (error) throw error;
+            console.log(data)
+            console.log(alreadyScannedIDS)
 
             if(data.length === 0){
               alert('Item not found in the database')
-            }else{
+            }
+            else if(data.some(item => item.status === true)){
+              alert('Item is currently in use');
+            }
+            else if(alreadyScannedIDS.current.includes(PureIDofItem))
+            {
+              alert('Item has already been scanned');
+            }
+            else{
               setFetchedItems(prevItems => [...prevItems, ...data]);
+              alreadyScannedIDS.current.push(PureIDofItem)
             }
 
             
@@ -59,7 +73,7 @@ const Borrow = () => {
 
 
       }, (err) => {
-        console.warn(err);
+        //console.warn(err);
       });
 
     }
@@ -83,14 +97,31 @@ const Borrow = () => {
 
   return (
     <div>
-      <center><div id="reader" style={{width:'500px', height:'auto'}}></div></center>
+      <TableNBorrower />
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* Naa diri ang tig scan */}
       <div>
         <button onClick={() => setStartScan(!startScan)}>{startScan ? 'End Process' : 'Start Process'}</button>
       </div>
+      {/* Mao ning kato para scan */}
+      <center><div id="reader" style={{width:'500px', height:'auto'}}></div></center> 
       <div>
         {loading && <p>Loading item details...</p>}
         {fetchedItems.length > 0 && (
           <div>
+            {/* DIRI MU DISPLAY ANG GI SCAN */}
             <h4>Scanned Item Details</h4>
             <ul>
               {fetchedItems.map((item,index) => (
@@ -99,11 +130,10 @@ const Borrow = () => {
                 </li>
               ))}
             </ul>
-            
-            
           </div>
         )}
       </div>
+      <button>Confirm Borrow?</button>
       
     </div>
   )

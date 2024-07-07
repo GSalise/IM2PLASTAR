@@ -14,7 +14,7 @@ const Sidebar = ({ handleTableSelect }) => {
         <button className={styles.sidebarButton} onClick={() => handleTableSelect('borrower')}>
           Borrowers
         </button>
-        <Link to='/borrow'><button className={styles.sidebarButton}>Initiate Borrow</button></Link>
+        <Link to= '/borrow'><button className={styles.sidebarButton}>Initiate Borrow</button></Link>
       </div>
     </div>
   );

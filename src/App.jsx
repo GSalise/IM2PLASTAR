@@ -28,7 +28,7 @@ const App = () => {
           <Route path={'/'} element={<Login setToken={setToken}/>} />
           <Route path={'/forgotpass'} element={<Forgot />} />
           <Route path={'/updatepass'} element={<Updatepass token={token}/>}/>
-          <Route path={'/borrow'} element={<Borrow/>}/>
+          <Route path={'/borrow'} element={<Borrow />}/>
           {token?<Route path={'/homepage'} element={<Homepage token={token}/>} />:""}
       </Routes>
       
