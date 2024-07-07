@@ -33,7 +33,9 @@ const Borrow = () => {
 
         const regex = /^ITEM-ID-(\d+)$/
         const match = result.match(regex)
-        if(match && match[1]){
+        if(!match || !match[1]){
+          alert('QR Code does not match the expected pattern');
+        }else {
           const PureIDofItem = match[1]
           try{
             const { data, error } = await supabase.from('item_t').select('*').eq('itemid', PureIDofItem);
@@ -45,15 +47,13 @@ const Borrow = () => {
               setFetchedItems(prevItems => [...prevItems, ...data]);
             }
 
-
+            
             
           }catch (error) {
             console.error('Failed to fetch item: ', error.message);
           }finally{
             setLoading(false)
           }
-        }else{
-          alert('QR code does not match expected pattern')
         }
 
 
@@ -83,22 +83,10 @@ const Borrow = () => {
 
   return (
     <div>
-      <div id="reader" style={{width:'500px', height:'auto'}}>
-      {
-        scanResult ? <div>Success {scanResult}</div> :null
-      }
-      </div>
+      <center><div id="reader" style={{width:'500px', height:'auto'}}></div></center>
       <div>
         <button onClick={() => setStartScan(!startScan)}>{startScan ? 'End Process' : 'Start Process'}</button>
       </div>
-      {/* <div>
-        <h3>Scanned Items</h3>
-        <ul>
-          {scannedItems.map((item, index) => (
-            <li key={index}>Item {index + 1}: {item}</li>
-          ))}
-        </ul>
-      </div> */}
       <div>
         {loading && <p>Loading item details...</p>}
         {fetchedItems.length > 0 && (
