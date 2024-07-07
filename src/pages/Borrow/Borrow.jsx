@@ -13,6 +13,7 @@ const Borrow = ({token}) => {
   const [loading, setLoading] = useState(false); 
   const [fetchedItems, setFetchedItems] = useState([]); 
   const alreadyScannedIDS = useRef([]);
+  const [selectedBorrower, setSelectedBorrower] = useState(null);
 
 
   useEffect(() => {
@@ -88,6 +89,14 @@ const Borrow = ({token}) => {
 
   }, [startScan, currentItem])
 
+  const initiateBorrow = async (e) => {
+    e.preventDefault();
+
+    console.log(selectedBorrower)
+    console.log(fetchedItems)
+
+  }
+
 
   
 
@@ -97,7 +106,9 @@ const Borrow = ({token}) => {
 
   return (
     <div>
-      <TableNBorrower />
+      <h3>Available Borrowers</h3>
+      <TableNBorrower onSelectBorrower={setSelectedBorrower} />
+      <h2>Borrower Selected: {selectedBorrower ? selectedBorrower.name : 'None'}</h2>
 
 
 
@@ -133,7 +144,10 @@ const Borrow = ({token}) => {
           </div>
         )}
       </div>
-      <button>Confirm Borrow?</button>
+
+      <div>
+      </div>
+      <button onClick={initiateBorrow}>Confirm Borrow?</button>
       
     </div>
   )
