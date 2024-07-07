@@ -1,91 +1,76 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from 'react'
+import { Html5QrcodeScanner } from 'html5-qrcode'
 
-function Borrow() {
-  const [scannedCodes, setScannedCodes] = useState([]);
-  let barcodeDetected = false;
-  let quaggaInitialized = false;
-
-  function initQuagga() {
-    if (window.Quagga && !quaggaInitialized) {
-      quaggaInitialized = true; // Ensure initialization happens only once
-      window.Quagga.init(
-        {
-          inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: document.querySelector("#scanner"), // Targeting the element by ID
-            constraints: {
-              width: 640,
-              height: 480,
-              facingMode: "environment",
-            },
-          },
-          decoder: {
-            readers: ["code_128_reader"], // you can add more readers if needed
-          },
-        },
-        function (err) {
-          if (err) {
-            console.error("Quagga initialization failed:", err);
-            return;
-          }
-          console.log("Quagga initialization succeeded");
-          window.Quagga.start();
-        }
-      );
-
-      window.Quagga.onDetected(function (result) {
-        if (!barcodeDetected) {
-          barcodeDetected = true;
-          var code = result.codeResult.code;
-          console.log("Detected code:", code);
-          setScannedCodes((prevCodes) => [...prevCodes, code]);
-          setTimeout(() => {
-            barcodeDetected = false; // Allow scanning of new barcodes after a short delay
-          }, 2000);
-        }
-      });
-    } else {
-      console.error("Quagga not loaded or already initialized");
-    }
-  }
-
-  function Start() {
-     document.querySelector(".scaner").style.display="block"
-    initQuagga()
-   
-    }
-  function stop() {
-   
-    window.Quagga.stop();
-    document.querySelector(".scaner").style.display="none"
-    if (window.Quagga && quaggaInitialized) {
-      quaggaInitialized = false; // Reset initialization flag
-    }
-  }
+const Borrow = () => {
+  const [scanResult, setScanResult] = useState(null)
+  const scannerRef = useRef(null)
+  const [scanning, setScanning] = useState(false)
 
   useEffect(() => {
-    return function cleanup() {
-        stop(); // Ensure Quagga stops when component unmounts
-      };
-  }, []);
+    if (scanning && !scannerRef.current) {
+      scannerRef.current = new Html5QrcodeScanner('reader', {
+        qrbox: {
+          width: 250,
+          height: 250,
+        },
+        fps: 5,
+      })
+
+      const success = (decodedText, decodedResult) => {
+        setScanResult(decodedText)
+        scannerRef.current.clear()
+          .then(() => setScanning(false))
+          .catch(error => console.error('Failed to clear the scanner:', error))
+      }
+
+      const error = (err) => {
+        console.warn('QR code parse error, error =', err)
+      }
+
+      scannerRef.current.render(success, error)
+    }
+
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.clear()
+          .catch(error => console.error('Failed to clear the scanner:', error))
+        scannerRef.current = null
+      }
+    }
+  }, [scanning])
+
+  const startScanning = () => {
+    setScanResult(null)
+    setScanning(true)
+  }
+
+  const cancelScanning = () =>{
+    if(scannerRef.current){
+      scannerRef.current.clear()
+          .then(() => setScanning(false))
+          .catch(error => console.error('Failed to clear the scanner:', error))
+    }
+  }
 
   return (
     <div>
-      <button onClick={Start}>Start Scanning</button>
-      <button onClick={stop}>Stop Scanning</button>
-      <h1>Borrow Component</h1>
+      <button onClick={startScanning} disabled={scanning}>
+        {scanning ? 'Scanning...' : 'Start Scanning'}
+      </button>
+      {scanning && (
+        <button onClick={cancelScanning} style={{marginLeft: '10px'}}>
+          Abort Scan
+        </button>
+      )}
       <div>
-        <h2>Scanned Codes:</h2>
-        <ul>
-          {scannedCodes.map((code, index) => (
-            <li key={index}>{code}</li>
-          ))}
-        </ul>
+      {scanResult
+        ? <div>Success: {scanResult}</div>
+        : <div id='reader'></div>
+      }
       </div>
-      <div id="scanner" className="scaner"style={{ width: "100%", height: "100%" }} />
+      
     </div>
-  );
+  )
 }
 
-export default Borrow;
+export default Borrow
