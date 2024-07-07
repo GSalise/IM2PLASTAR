@@ -5,7 +5,7 @@ import styles from '../Borrow/Borrow.module.css'
 import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
 
 
-const Borrow = ({token}) => {
+const Borrow = () => {
   const [scanResult, setScanResult] = useState(null);
   const [startScan, setStartScan] = useState(false);
   const [currentItem, setCurrentItem] = useState(0); 
@@ -14,6 +14,37 @@ const Borrow = ({token}) => {
   const [fetchedItems, setFetchedItems] = useState([]); 
   const alreadyScannedIDS = useRef([]);
   const [selectedBorrower, setSelectedBorrower] = useState(null);
+  const [minDate, setMinDate] = useState('');
+  const [dateData, setDateData] = useState({
+    start: '',
+    end: '',
+  });
+
+  useEffect(() => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const todayDate = `${year}-${month}-${day}`;
+
+    setMinDate(todayDate);
+  }, []);
+
+  const handleDateChange = (e) => {
+    const { name,value } = e.target;
+    setDateData({...dateData, [name]: value});
+
+    const startDate = new Date(value);
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 1);
+
+    const formattedEndDate = endDate.toISOString().slice(0, 10);
+
+    setDateData((prev) => ({
+      ...prev,
+      end: formattedEndDate,
+    }))
+  }
 
 
   useEffect(() => {
@@ -92,10 +123,49 @@ const Borrow = ({token}) => {
   const initiateBorrow = async (e) => {
     e.preventDefault();
 
-    console.log(selectedBorrower)
+    console.log(selectedBorrower.borrowerid)
     console.log(fetchedItems)
+    console.log(dateData.start)
+    console.log(dateData.end)
+
+    for(let i=0; i<fetchedItems.length; i++){
+      const { data , error } = await supabase.from('borrowinfo_t').insert({
+        borrow_start_date: dateData.start,
+        borrow_end_date: dateData.end,
+        borrowerid: selectedBorrower.borrowerid,
+        itemid: fetchedItems[i].itemid,
+        isdamaged: false
+      });
+
+      if (error) {
+        console.log(error, 'something is wrong');
+      }
+
+      if (data) {
+        console.log('success', data);
+      }
+
+
+      const { data: itemD, error:itemE } = await supabase.from('item_t').update({
+        status: true
+      }).eq('itemid', fetchedItems[i].itemid);
+
+      if (error) {
+        console.log(itemE, 'something is wrong');
+      }
+
+      if(itemD){
+        console.log('success', itemD);
+      }
+    }
+
+    
+
+
 
   }
+
+
 
 
   
@@ -146,7 +216,31 @@ const Borrow = ({token}) => {
       </div>
 
       <div>
+        <form>
+          <div>
+            <label>Start Date</label>
+            <input
+              type='date'
+              name='start'
+              value={dateData.start}
+              min={minDate}
+              onChange={handleDateChange}
+              />
+          </div>
+          <div>
+            <label>End Date</label>
+            <input
+              type='date'
+              name='end'
+              value={dateData.end}
+              min={dateData.start}
+              onChange={(e) => setDateData({ ...dateData, end: e.target.value })}
+              />
+          </div>
+        </form>
       </div>
+
+
       <button onClick={initiateBorrow}>Confirm Borrow?</button>
       
     </div>
