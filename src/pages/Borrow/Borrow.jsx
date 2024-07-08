@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
-import { supabase } from '../../client';
-import styles from '../Borrow/Borrow.module.css';
-import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower';
-import CardItem from '../../stuff/CardItem/CardItem';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react'
+import { Html5QrcodeScanner } from 'html5-qrcode'
+import { supabase } from '../../client'
+import styles from '../Borrow/Borrow.module.css'
+import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
+import CardItem from '../../stuff/CardItem/CardItem'
+import { useNavigate } from 'react-router-dom'
 
-const Borrow = () => {
+const Borrow = ({ token }) => {
   const [scanResult, setScanResult] = useState(null);
   const [startScan, setStartScan] = useState(false);
   const [currentItem, setCurrentItem] = useState(0); 
@@ -158,10 +158,8 @@ const Borrow = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <button className={styles.button} onClick={returnHome}>
-        Return to Main page
-      </button>
+    <div>
+      <button onClick={returnHome}>Return to Main page</button>
       <h3>Available Borrowers</h3>
       <TableNBorrower onSelectBorrower={setSelectedBorrower} />
       <h2 className={styles['selected-borrower']}>

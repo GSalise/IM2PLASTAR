@@ -4,6 +4,8 @@ import Homepage from './Homepage/Homepage'
 import Forgot from './Forgot/Forgot'
 import Updatepass from './Updatepass/Updatepass'
 import Borrow from './Borrow/Borrow'
+import Account from './Account/Account'
+
 export{
-    Login,Signup, Homepage, Forgot, Updatepass, Borrow
+    Login,Signup, Homepage, Forgot, Updatepass, Borrow, Account
 }
