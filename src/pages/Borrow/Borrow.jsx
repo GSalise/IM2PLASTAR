@@ -3,7 +3,8 @@ import { Html5QrcodeScanner } from 'html5-qrcode'
 import { supabase } from '../../client'
 import styles from '../Borrow/Borrow.module.css'
 import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
-
+import CardItem from '../../stuff/CardItem/CardItem'
+import { useNavigate } from 'react-router-dom'
 
 const Borrow = () => {
   const [scanResult, setScanResult] = useState(null);
@@ -19,6 +20,7 @@ const Borrow = () => {
     start: '',
     end: '',
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const today = new Date();
@@ -46,6 +48,10 @@ const Borrow = () => {
     }))
   }
 
+  function returnHome() {
+    navigate('/homepage');
+  }
+
 
   useEffect(() => {
     let scanner;
@@ -55,7 +61,7 @@ const Borrow = () => {
           width: 250,
           height: 250,
         },
-        fps: 5,
+        fps: 2,
         aspectRatio: 1.0,
       });
 
@@ -123,10 +129,16 @@ const Borrow = () => {
   const initiateBorrow = async (e) => {
     e.preventDefault();
 
-    console.log(selectedBorrower.borrowerid)
-    console.log(fetchedItems)
-    console.log(dateData.start)
-    console.log(dateData.end)
+    // console.log(selectedBorrower.borrowerid)
+    // console.log(fetchedItems)
+    // console.log(dateData.start)
+    // console.log(dateData.end)
+    if(!fetchedItems || !dateData.start || !dateData.end || !selectedBorrower){
+      alert('Empty parameters detected. Please fill up everything');
+      return;
+    }
+
+
 
     for(let i=0; i<fetchedItems.length; i++){
       const { data , error } = await supabase.from('borrowinfo_t').insert({
@@ -159,6 +171,9 @@ const Borrow = () => {
       }
     }
 
+
+    
+
     
 
 
@@ -176,6 +191,7 @@ const Borrow = () => {
 
   return (
     <div>
+      <button onClick={returnHome}>Return to Main page</button>
       <h3>Available Borrowers</h3>
       <TableNBorrower onSelectBorrower={setSelectedBorrower} />
       <h2>Borrower Selected: {selectedBorrower ? selectedBorrower.name : 'None'}</h2>
@@ -204,13 +220,7 @@ const Borrow = () => {
           <div>
             {/* DIRI MU DISPLAY ANG GI SCAN */}
             <h4>Scanned Item Details</h4>
-            <ul>
-              {fetchedItems.map((item,index) => (
-                <li key={index}>
-                  ID: {item.itemid} - Name: {item.item_name} - Category: {item.category} - Penalty Price: {item.item_cost}
-                </li>
-              ))}
-            </ul>
+            <CardItem items={fetchedItems}/>
           </div>
         )}
       </div>
@@ -242,6 +252,7 @@ const Borrow = () => {
 
 
       <button onClick={initiateBorrow}>Confirm Borrow?</button>
+      
       
     </div>
   )
