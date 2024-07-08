@@ -5,6 +5,7 @@ import styles from '../Borrow/Borrow.module.css'
 import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
 import CardItem from '../../stuff/CardItem/CardItem'
 import { useNavigate } from 'react-router-dom'
+import Header from '../../stuff/Header/Header'
 
 const Borrow = ({ token }) => {
   const [scanResult, setScanResult] = useState(null);
@@ -159,7 +160,7 @@ const Borrow = ({ token }) => {
 
   return (
     <div>
-      <button onClick={returnHome}>Return to Main page</button>
+      <Header token={token} returnHome={returnHome} currentpage='borrow' />
       <h3>Available Borrowers</h3>
       <TableNBorrower onSelectBorrower={setSelectedBorrower} />
       <h2 className={styles['selected-borrower']}>
