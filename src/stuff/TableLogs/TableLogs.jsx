@@ -43,7 +43,7 @@ const TableLogsBorrow = () => {
         </thead>
         <tbody>
           {LogsBorrow && LogsBorrow.map((LogsBorrow) => (
-            <tr key={LogsBorrow.borrow_start_date}>
+            <tr key={LogsBorrow.borrowid}>
               <td>{LogsBorrow.borrow_start_date}</td>
               <td>{LogsBorrow.borrow_end_date}</td>
               <td>{LogsBorrow.borrower_t.name}</td>

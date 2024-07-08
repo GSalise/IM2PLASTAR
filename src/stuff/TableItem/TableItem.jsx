@@ -48,11 +48,11 @@ const TableItem = () => {
 
     const filteredItems = selectedCategory === 'All' ? items : items.filter(item => item.category === selectedCategory)
 
-    return (
+  return (
+    <div>
+      <ModalAddItem selectedItem={selectedItem} refresh={fetchItems}/>
+      {fetchError && (<p>{fetchError}</p>)}
       <div>
-        <ModalAddItem selectedItem={selectedItem} refresh={fetchItems} />
-        {fetchError && (<p>{fetchError}</p>)}
-        <div>
           <select onChange={handleCategoryChange} value={selectedCategory}>
             <option value="All">All</option>
             <option value="Tools">Tools</option>
@@ -61,18 +61,18 @@ const TableItem = () => {
             {/* Add more categories as needed */}
           </select>
         </div>
-        <table className="table table-bordered" style={{ width: "1300px" }}>
-          <thead>
-            <tr>
-              <th>Item name</th>
-              <th>Category</th>
-              <th>Penalty Price</th>
-              <th>Status</th>
-              <th style={colsizepic}></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredItems && filteredItems.map((item) => (
+      <table className="table table-bordered" style={{width:"1300px"}}>
+        <thead>
+          <tr>
+            <th>Item name</th>
+            <th>Category</th>
+            <th>Penalty Price</th>
+            <th>Status</th>
+            <th style={colsizepic}></th>
+          </tr>
+        </thead>
+        <tbody>
+        {filteredItems && filteredItems.map((item) => (
               <tr key={item.itemid}>
                 {selectedCategory === 'Tools' && item.category === 'Tools' ? (
                   <>
@@ -90,16 +90,16 @@ const TableItem = () => {
                   </>
                 )}
                 <td>
-                  <button type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style={{ border: "none", backgroundColor: "white" }}>
-                    <img style={picsize} src={editpic} onClick={() => select(item)} />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    )
+                <button type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style={{border:"none", backgroundColor:"white"}}>
+                  <img style={picsize} src={editpic} onClick={() => select(item)} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export default TableItem
