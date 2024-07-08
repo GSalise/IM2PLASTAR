@@ -53,6 +53,8 @@ const Borrow = ({ token }) => {
     navigate('/homepage');
   }
 
+
+  // Scanner part of code
   useEffect(() => {
     let scanner;
     if (startScan) {
