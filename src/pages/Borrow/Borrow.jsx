@@ -5,7 +5,6 @@ import styles from '../Borrow/Borrow.module.css'
 import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
 import CardItem from '../../stuff/CardItem/CardItem'
 import { useNavigate } from 'react-router-dom'
-import Header from '../../stuff/Header/Header'
 
 const Borrow = ({ token }) => {
   const [scanResult, setScanResult] = useState(null);
@@ -34,8 +33,8 @@ const Borrow = ({ token }) => {
   }, []);
 
   const handleDateChange = (e) => {
-    const { name,value } = e.target;
-    setDateData({...dateData, [name]: value});
+    const { name, value } = e.target;
+    setDateData({ ...dateData, [name]: value });
 
     const startDate = new Date(value);
     const endDate = new Date(startDate);
@@ -46,18 +45,17 @@ const Borrow = ({ token }) => {
     setDateData((prev) => ({
       ...prev,
       end: formattedEndDate,
-    }))
-  }
+    }));
+  };
 
   function returnHome() {
     navigate('/homepage');
   }
 
-
   useEffect(() => {
     let scanner;
-    if(startScan){
-      scanner = new Html5QrcodeScanner('reader',{
+    if (startScan) {
+      scanner = new Html5QrcodeScanner('reader', {
         qrbox: {
           width: 250,
           height: 250,
@@ -66,88 +64,72 @@ const Borrow = ({ token }) => {
         aspectRatio: 1.0,
       });
 
-      scanner.render(async (result) => {
-        scanner.clear();
-        setScanResult(result);
-        setCurrentItem(currentItem + 1);
-        setScannedItems([...scannedItems, result]);
-        setLoading(true);
+      scanner.render(
+        async (result) => {
+          scanner.clear();
+          setScanResult(result);
+          setCurrentItem(currentItem + 1);
+          setScannedItems([...scannedItems, result]);
+          setLoading(true);
 
-        const regex = /^ITEM-ID-(\d+)$/
-        const match = result.match(regex)
-        if(!match || !match[1]){
-          alert('QR Code does not match the expected pattern');
-        }else {
-          const PureIDofItem = match[1]
-          try{
-            const { data, error } = await supabase.from('item_t').select('*').eq('itemid', PureIDofItem);
-            if (error) throw error;
-            console.log(data)
-            console.log(alreadyScannedIDS)
+          const regex = /^ITEM-ID-(\d+)$/;
+          const match = result.match(regex);
+          if (!match || !match[1]) {
+            alert('QR Code does not match the expected pattern');
+          } else {
+            const PureIDofItem = match[1];
+            try {
+              const { data, error } = await supabase
+                .from('item_t')
+                .select('*')
+                .eq('itemid', PureIDofItem);
+              if (error) throw error;
 
-            if(data.length === 0){
-              alert('Item not found in the database')
+              if (data.length === 0) {
+                alert('Item not found in the database');
+              } else if (data.some((item) => item.status === true)) {
+                alert('Item is currently in use');
+              } else if (alreadyScannedIDS.current.includes(PureIDofItem)) {
+                alert('Item has already been scanned');
+              } else {
+                setFetchedItems((prevItems) => [...prevItems, ...data]);
+                alreadyScannedIDS.current.push(PureIDofItem);
+              }
+            } catch (error) {
+              console.error('Failed to fetch item: ', error.message);
+            } finally {
+              setLoading(false);
             }
-            else if(data.some(item => item.status === true)){
-              alert('Item is currently in use');
-            }
-            else if(alreadyScannedIDS.current.includes(PureIDofItem))
-            {
-              alert('Item has already been scanned');
-            }
-            else{
-              setFetchedItems(prevItems => [...prevItems, ...data]);
-              alreadyScannedIDS.current.push(PureIDofItem)
-            }
-
-            
-            
-          }catch (error) {
-            console.error('Failed to fetch item: ', error.message);
-          }finally{
-            setLoading(false)
           }
+        },
+        (err) => {
+          console.warn(err);
         }
-
-
-
-      }, (err) => {
-        //console.warn(err);
-      });
-
+      );
     }
 
     return () => {
-      if(scanner) {
+      if (scanner) {
         scanner.clear();
-        
       }
-    }
-
-
-  }, [startScan, currentItem])
+    };
+  }, [startScan, currentItem]);
 
   const initiateBorrow = async (e) => {
     e.preventDefault();
 
-    // console.log(selectedBorrower.borrowerid)
-    // console.log(fetchedItems)
-    // console.log(dateData.start)
-    // console.log(dateData.end)
-    if(!fetchedItems || !dateData.start || !dateData.end || !selectedBorrower){
+    if (!fetchedItems || !dateData.start || !dateData.end || !selectedBorrower) {
       alert('Empty parameters detected. Please fill up everything');
       return;
     }
 
-
-
-    for(let i=0; i<fetchedItems.length; i++){
-      const { data , error } = await supabase.from('borrowinfo_t').insert({
+    for (let i = 0; i < fetchedItems.length; i++) {
+      const { data, error } = await supabase.from('borrowinfo_t').insert({
         borrow_start_date: dateData.start,
         borrow_end_date: dateData.end,
         borrowerid: selectedBorrower.borrowerid,
         itemid: fetchedItems[i].itemid,
-        isdamaged: false
+        isdamaged: false,
       });
 
       if (error) {
@@ -158,105 +140,82 @@ const Borrow = ({ token }) => {
         console.log('success', data);
       }
 
+      const { data: itemD, error: itemE } = await supabase
+        .from('item_t')
+        .update({
+          status: true,
+        })
+        .eq('itemid', fetchedItems[i].itemid);
 
-      const { data: itemD, error:itemE } = await supabase.from('item_t').update({
-        status: true
-      }).eq('itemid', fetchedItems[i].itemid);
-
-      if (error) {
+      if (itemE) {
         console.log(itemE, 'something is wrong');
       }
 
-      if(itemD){
+      if (itemD) {
         console.log('success', itemD);
       }
     }
-
-
-    
-
-    
-
-
-
-  }
-
-
-
-
-  
-
-  
-
-  
+  };
 
   return (
     <div>
-      <Header token={token} currentpage='borrow' returnHome={returnHome}/>
+      <button onClick={returnHome}>Return to Main page</button>
       <h3>Available Borrowers</h3>
       <TableNBorrower onSelectBorrower={setSelectedBorrower} />
-      <h2>Borrower Selected: {selectedBorrower ? selectedBorrower.name : 'None'}</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* Naa diri ang tig scan */}
-      <div>
-        <button onClick={() => setStartScan(!startScan)}>{startScan ? 'End Process' : 'Start Process'}</button>
+      <h2 className={styles['selected-borrower']}>
+        Borrower Selected: {selectedBorrower ? selectedBorrower.name : 'None'}
+      </h2>
+      <div className={styles['scanner-container']}>
+        <button
+          className={styles.button}
+          onClick={() => setStartScan(!startScan)}
+        >
+          {startScan ? 'End Process' : 'Start Process'}
+        </button>
       </div>
-      {/* Mao ning kato para scan */}
-      <center><div id="reader" style={{width:'500px', height:'auto'}}></div></center> 
+      <center>
+        <div id="reader" className={styles.reader}></div>
+      </center>
       <div>
-        {loading && <p>Loading item details...</p>}
+        {loading && <p className={styles['loading-message']}>Loading item details...</p>}
         {fetchedItems.length > 0 && (
-          <div>
-            {/* DIRI MU DISPLAY ANG GI SCAN */}
+          <div className={styles['scanned-item-container']}>
             <h4>Scanned Item Details</h4>
-            <CardItem items={fetchedItems}/>
+            <CardItem items={fetchedItems} />
           </div>
         )}
       </div>
-
-      <div>
+      <div className={styles['form-container']}>
         <form>
           <div>
             <label>Start Date</label>
             <input
-              type='date'
-              name='start'
+              type="date"
+              name="start"
               value={dateData.start}
               min={minDate}
               onChange={handleDateChange}
-              />
+            />
           </div>
           <div>
             <label>End Date</label>
             <input
-              type='date'
-              name='end'
+              type="date"
+              name="end"
               value={dateData.end}
               min={dateData.start}
-              onChange={(e) => setDateData({ ...dateData, end: e.target.value })}
-              />
+              onChange={(e) =>
+                setDateData({ ...dateData, end: e.target.value })
+              }
+            />
           </div>
         </form>
       </div>
-
-
-      <button onClick={initiateBorrow}>Confirm Borrow?</button>
-      
-      
+      <button className={styles.button} onClick={initiateBorrow}>
+        Confirm Borrow?
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Borrow
+export default Borrow;
