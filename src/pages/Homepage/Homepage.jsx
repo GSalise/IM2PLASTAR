@@ -10,7 +10,6 @@ import Sidebar from '../../stuff/Sidebar/Sidebar'
 
 const Homepage = ({token}) => {
   let navigate = useNavigate()
-
   function handleLogout(){
     sessionStorage.removeItem('token')
     navigate('/')
@@ -42,7 +41,7 @@ const Homepage = ({token}) => {
   return (
     <div className={styles.body}>
       <div>
-        <Header token={token} handleLogout={handleLogout}/>
+        <Header token={token} handleLogout={handleLogout} currentpage='homepage'/>
         <Sidebar handleTableSelect={handleTableSelect} />
         <div style={{marginLeft:"300px"}}>
           {activeTable === 'items' && <TableItem items={items} />}

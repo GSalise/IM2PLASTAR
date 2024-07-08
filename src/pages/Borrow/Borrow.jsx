@@ -5,8 +5,9 @@ import styles from '../Borrow/Borrow.module.css'
 import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
 import CardItem from '../../stuff/CardItem/CardItem'
 import { useNavigate } from 'react-router-dom'
+import Header from '../../stuff/Header/Header'
 
-const Borrow = () => {
+const Borrow = ({ token }) => {
   const [scanResult, setScanResult] = useState(null);
   const [startScan, setStartScan] = useState(false);
   const [currentItem, setCurrentItem] = useState(0); 
@@ -191,7 +192,7 @@ const Borrow = () => {
 
   return (
     <div>
-      <button onClick={returnHome}>Return to Main page</button>
+      <Header token={token} currentpage='borrow' returnHome={returnHome}/>
       <h3>Available Borrowers</h3>
       <TableNBorrower onSelectBorrower={setSelectedBorrower} />
       <h2>Borrower Selected: {selectedBorrower ? selectedBorrower.name : 'None'}</h2>
