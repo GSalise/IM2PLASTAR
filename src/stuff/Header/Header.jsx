@@ -14,6 +14,7 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
     width: '50px',
     height: 'auto',
   };
+  
 
   const navigate = useNavigate();
 
