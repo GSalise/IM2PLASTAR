@@ -51,15 +51,13 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
         <img style={logostyle} src={logo} alt="Plastar" />
       </section>
       <section className={styles.textSection}>
-        <h3>
-          Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay},{' '}
-          {token.user.user_metadata.contact}
-        </h3>
       </section>
       <section className={styles.rightAligned}>
       </section>
       <section>
-        <img style={hbmenu} src={hamburger} alt="menu button" onClick={goToAccPage}/>
+        <button className={styles.logoutButton} onClick={returnHome}>
+            Return
+        </button>   
       </section>
     </div>
     );
@@ -78,10 +76,10 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
       <section className={styles.rightAligned}>
       </section>
       <section>
-          <button className={styles.logoutButton} onClick={returnHome}>
+        <button className={styles.logoutButton} onClick={returnHome}>
             Return
-          </button>      
-        </section>
+        </button>      
+      </section>
     </div>
     );
   }
