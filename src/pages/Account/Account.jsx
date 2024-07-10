@@ -3,8 +3,35 @@ import Header from '../../stuff/Header/Header'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { supabase } from '../../client';
+import { useEffect } from 'react';
 
 const Account = ({ token }) => {
+  const [name, setName] = useState('');
+  const [cntct, setCntct] = useState('');
+  const [addrs, setAddrs] = useState('');
+  const [brgy, setBrgy] = useState('');
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setName(userData.username || '');
+      setCntct(userData.contact || '');
+      setAddrs(userData.address || '');
+      setBrgy(userData.baranggay || '');
+    } else {
+    
+      setName(token.user.user_metadata.username);
+      setCntct(token.user.user_metadata.contact);
+      setAddrs(token.user.user_metadata.address);
+      setBrgy(token.user.user_metadata.baranggay);
+    }
+
+  }, []);
+
+ 
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
@@ -26,9 +53,7 @@ const Account = ({ token }) => {
   }
 
   async function handleSubmit(e){
-    e.preventDefault()
-
-  
+    e.preventDefault();
 
     try {
       const { data, error } = await supabase.auth.updateUser({
@@ -40,28 +65,15 @@ const Account = ({ token }) => {
         },
       });
 
-      
- 
-      
-      const { data:refreshD, error: refreshE} = await supabase.auth.refreshSession();
-  
+    localStorage.setItem('userData', JSON.stringify({
+      username: formData.username,
+      contact: formData.contact,
+      address: formData.address,
+      baranggay: formData.baranggay,
+    }));
 
-      if(error){
-          console.log(refreshE);
-      }else{
-        console.log(refreshD);
-        const { data: D, error: E } = await supabase.auth.setSession({
-          access_token: refreshD.session.access_token,
-          refresh_token: refreshD.session.refresh_token,
-        })
+    windows.location.reload();
 
-        if(E){
-          console.log(E);
-        }else{
-          console.log(D);
-        }
-      }
-      
     } catch (error) {
       console.log('out', error)
       
@@ -69,19 +81,43 @@ const Account = ({ token }) => {
     
   }
 
- 
+  
 
+ 
   function returnHome() {
     navigate('/homepage');
   }
 
   function handleLogout(){
     sessionStorage.removeItem('token')
+    localStorage.clear();
     navigate('/')
   }
 
   const transformToEdit = () => {
     setEditMode(!editMode);
+  }
+
+  async function handleDelete(e){
+    e.preventDefault();
+
+
+    try {
+
+      const { data, error } = await supabase.auth.admin.deleteUser(
+
+        token.user.id
+         
+  
+
+
+      );  
+      handleLogout();
+
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
 
@@ -94,11 +130,11 @@ const Account = ({ token }) => {
         !editMode ? (
         
           <div id='accDetails'>
-              <p> Name: {token.user.user_metadata.username}</p>
-              <p>Contact Number: {token.user.user_metadata.contact}</p>
+              <p> Name: {name}</p>
+              <p>Contact Number: {cntct}</p>
               <p>Email: {token.user.user_metadata.email}</p>
-              <p>Address: {token.user.user_metadata.address}</p>
-              <p>Baranggay Assignment: {token.user.user_metadata.baranggay}</p>
+              <p>Address: {addrs}</p>
+              <p>Baranggay Assignment: {brgy}</p>
               <button onClick={transformToEdit}>EDIT</button>
           </div>
 
@@ -164,7 +200,7 @@ const Account = ({ token }) => {
         <button onClick={handleLogout}>Log Out</button>
       </div>
       <div>
-        <button>Retire</button>
+        <button onClick={handleDelete}>Retire</button>
       </div>
 
     </div>
