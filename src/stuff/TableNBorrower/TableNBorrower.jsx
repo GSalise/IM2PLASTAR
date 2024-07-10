@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../client';
+import './TableNBorrower.module.css';
 
 const TableNBorrower = ({ onSelectBorrower }) => {
     const [fetchError, setFetchError] = useState(null);
