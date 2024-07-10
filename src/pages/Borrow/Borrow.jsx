@@ -1,19 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Html5QrcodeScanner } from 'html5-qrcode'
-import { supabase } from '../../client'
-import styles from '../Borrow/Borrow.module.css'
-import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower'
-import CardItem from '../../stuff/CardItem/CardItem'
-import { useNavigate } from 'react-router-dom'
-import Header from '../../stuff/Header/Header'
+import React, { useEffect, useRef, useState } from 'react';
+import { Html5QrcodeScanner } from 'html5-qrcode';
+import { supabase } from '../../client';
+import styles from './Borrow.module.css';
+import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower';
+import CardItem from '../../stuff/CardItem/CardItem';
+import { useNavigate } from 'react-router-dom';
+import Header from '../../stuff/Header/Header';
 
 const Borrow = ({ token }) => {
   const [scanResult, setScanResult] = useState(null);
   const [startScan, setStartScan] = useState(false);
-  const [currentItem, setCurrentItem] = useState(0); 
-  const [scannedItems, setScannedItems] = useState([]); 
-  const [loading, setLoading] = useState(false); 
-  const [fetchedItems, setFetchedItems] = useState([]); 
+  const [currentItem, setCurrentItem] = useState(0);
+  const [scannedItems, setScannedItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [fetchedItems, setFetchedItems] = useState([]);
   const alreadyScannedIDS = useRef([]);
   const [selectedBorrower, setSelectedBorrower] = useState(null);
   const [minDate, setMinDate] = useState('');
@@ -52,7 +52,6 @@ const Borrow = ({ token }) => {
   function returnHome() {
     navigate('/homepage');
   }
-
 
   // Scanner part of code
   useEffect(() => {
@@ -161,7 +160,7 @@ const Borrow = ({ token }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Header token={token} returnHome={returnHome} currentpage='borrow' />
       <h3>Available Borrowers</h3>
       <TableNBorrower onSelectBorrower={setSelectedBorrower} />
@@ -176,18 +175,14 @@ const Borrow = ({ token }) => {
           {startScan ? 'End Process' : 'Start Process'}
         </button>
       </div>
-      <center>
-        <div id="reader" className={styles.reader}></div>
-      </center>
-      <div>
-        {loading && <p className={styles['loading-message']}>Loading item details...</p>}
-        {fetchedItems.length > 0 && (
-          <div className={styles['scanned-item-container']}>
-            <h4>Scanned Item Details</h4>
-            <CardItem items={fetchedItems} />
-          </div>
-        )}
-      </div>
+      <div id="reader" className={styles.reader}></div>
+      {loading && <p className={styles['loading-message']}>Loading item details...</p>}
+      {fetchedItems.length > 0 && (
+        <div className={styles['scanned-item-container']}>
+          <h4>Scanned Item Details</h4>
+          <CardItem items={fetchedItems} />
+        </div>
+      )}
       <div className={styles['form-container']}>
         <form>
           <div>
