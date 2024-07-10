@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../stuff/Header/Header'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { supabase } from '../../client';
+import { supabase, supabaseAD } from '../../client';
 import { useEffect } from 'react';
 
 const Account = ({ token }) => {
@@ -104,7 +104,7 @@ const Account = ({ token }) => {
 
     try {
 
-      const { data, error } = await supabase.auth.admin.deleteUser(
+      const { data, error } = await supabaseAD.auth.admin.deleteUser(
 
         token.user.id
          
