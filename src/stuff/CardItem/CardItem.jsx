@@ -6,10 +6,10 @@ const CardItem = ({ items }) => {
     <div className={styles.cardContainer}>
         {items.map((items, index) =>
         <div className={styles.cardBorrow} key={index}>
-            <h2>{items.item_name}</h2>
-            <p>Item ID: {items.itemid}</p>
-            <p>Category: {items.category}</p>
-            <p>Penalty Price: {items.item_cost}</p>
+            <h2 style={{color:"black"}}>{items.item_name}</h2>
+            <p style={{color:"black"}} >Item ID: {items.itemid}</p>
+            <p style={{color:"black"}}>Category: {items.category}</p>
+            <p style={{color:"black"}}>Penalty Price: {items.item_cost}</p>
         </div>
         )}
       
