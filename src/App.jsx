@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Signup, Login, Homepage, Forgot, Updatepass, Borrow, Account} from './pages'
+import { Signup, Login, Homepage, Forgot, Updatepass, Borrow, Account, Retrieve} from './pages'
 import {Routes, Route} from 'react-router-dom'
 
 
@@ -31,6 +31,7 @@ const App = () => {
           {token?<Route path={'/homepage'} element={<Homepage token={token}/>} />:""}
           {token?<Route path={'/account'} element={<Account token={token}/>} />:""}
           {token?<Route path={'/borrow'} element={<Borrow token={token}/>} />:""}
+          {token?<Route path={'/retrieve'} element={<Retrieve token={token}/>} />:""}
       </Routes>
       
     </div>
