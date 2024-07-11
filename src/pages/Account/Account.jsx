@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { supabase, supabaseAD } from '../../client';
 import { useEffect } from 'react';
-
+import Deleteacc from '../../stuff/ModalAcc/Deleteacc'
 const Account = ({ token }) => {
   const [name, setName] = useState('');
   const [cntct, setCntct] = useState('');
@@ -195,6 +195,7 @@ const Account = ({ token }) => {
         <button onClick={handleLogout}>Log Out</button>
       </div>
       <div>
+        <Deleteacc onDelete={handleDelete} />
         {/* <button onClick={handleDelete}>Retire</button> */}
       </div>
 
