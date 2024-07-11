@@ -6,7 +6,8 @@ import ModalBorrower from '../ModalBorrower/ModalBorrower'
 const TableBorrower = () => {
     const [fetchError, setFetchError] = useState(null)
     const [Borrower, setBorrower] = useState(null)
-    const [selectedBorrower, setSelectedBorrower] = useState(null);
+    const [selectedBorrower, setSelectedBorrower] = useState(null)
+    const [selectedStatus, setSelectedStatus] = useState('All') // State for selected status
 
     const picsize = {
       width: '20px',
@@ -18,65 +19,79 @@ const TableBorrower = () => {
     }
 
     const fetchBorrower = async () => {
-      const {data, error} = await supabase.from('borrower_t').select()
+      const { data, error } = await supabase.from('borrower_t').select()
 
-      if(error){
-          setFetchError('Could not fetch')
-          setBorrower(null)
-          console.log(error)
+      if (error) {
+        setFetchError('Could not fetch')
+        setBorrower(null)
+        console.log(error)
       }
 
-      if(data){
+      if (data) {
         console.log(data)
-          setBorrower(data)
-          setFetchError(null)
+        setBorrower(data)
+        setFetchError(null)
       }
-  }
-  
+    }
+
     useEffect(() => {
-        fetchBorrower()
+      fetchBorrower()
     }, [])
 
     const select = (borrower) => {
-      setSelectedBorrower(borrower); // Set the selected item
-  }
-  
+      setSelectedBorrower(borrower) // Set the selected item
+    }
 
+    const handleStatusChange = (event) => {
+      setSelectedStatus(event.target.value) // Set the selected status
+    }
 
-  return (
-    <div>
-      <ModalBorrower selectedBorrower={selectedBorrower} refresh={fetchBorrower}/>
-      {fetchError && (<p>{fetchError}</p>)}
-      <table className="table table-bordered" style={{width:"1500px"}}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Contact</th>
-            <th>Address</th>
-            <th>Infraction</th>
-            <th>Status</th>
-            <th style={colsizepic}></th>
-          </tr>
-        </thead>
-        <tbody>
-          {Borrower && Borrower.map((borrower) => (
-            <tr key={borrower.name}>
-              <td>{borrower.name}</td>
-              <td>{borrower.contact}</td>
-              <td>{borrower.address}</td>
-              <td>{borrower.infraction}</td>
-              <td>{borrower.is_banned? 'Banned' : 'Not Banned'}</td>
-              <td>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#updateModalBorrower" style={{border:"none", backgroundColor:"white"}}>
-                  <img style={picsize} src={editpic} onClick={() => select(borrower)}/>
-                </button>
-              </td>
+    const filteredBorrowers = Borrower?.filter(borrower => {
+      const statusMatch = selectedStatus === 'All' || (selectedStatus === 'Banned' && borrower.is_banned) || (selectedStatus === 'Not Banned' && !borrower.is_banned)
+      return statusMatch
+    })
+
+    return (
+      <div>
+        <ModalBorrower selectedBorrower={selectedBorrower} refresh={fetchBorrower}/>
+        {fetchError && (<p>{fetchError}</p>)}
+        <div>
+          <select onChange={handleStatusChange} value={selectedStatus}>
+            <option value="All">All</option>
+            <option value="Banned">Banned</option>
+            <option value="Not Banned">Not Banned</option>
+          </select>
+        </div>
+        <table className="table table-bordered" style={{width:"1500px"}}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>Infraction</th>
+              <th>Status</th>
+              <th style={colsizepic}></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
+          </thead>
+          <tbody>
+            {filteredBorrowers && filteredBorrowers.map((borrower) => (
+              <tr key={borrower.name}>
+                <td>{borrower.name}</td>
+                <td>{borrower.contact}</td>
+                <td>{borrower.address}</td>
+                <td>{borrower.infraction}</td>
+                <td>{borrower.is_banned ? 'Banned' : 'Not Banned'}</td>
+                <td>
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#updateModalBorrower" style={{border:"none", backgroundColor:"white"}}>
+                    <img style={picsize} src={editpic} onClick={() => select(borrower)}/>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
 }
 
 export default TableBorrower
