@@ -105,7 +105,7 @@ const Borrow = ({ token }) => {
           }
         },
         (err) => {
-          console.warn(err);
+          //console.warn(err);
         }
       );
     }
@@ -126,12 +126,12 @@ const Borrow = ({ token }) => {
     }
 
     for (let i = 0; i < fetchedItems.length; i++) {
+      console.log('loop',fetchedItems)
       const { data, error } = await supabase.from('borrowinfo_t').insert({
         borrow_start_date: dateData.start,
         borrow_end_date: dateData.end,
         borrowerid: selectedBorrower.borrowerid,
         itemid: fetchedItems[i].itemid,
-        isdamaged: false,
       });
 
       if (error) {
@@ -157,7 +157,27 @@ const Borrow = ({ token }) => {
         console.log('success', itemD);
       }
     }
+
+    if(!fetchedItems){
+      alert('a');
+      window.location.reload();
+      
+    }else{
+      alert('Process Complete');
+      window.location.reload();
+    }
+    
   };
+
+  const removeItemFromFetchedItems = (itemIdToRemove) => {
+    setFetchedItems(prevItems => prevItems.filter(item => item.itemid !== itemIdToRemove));
+    console.log('test:', fetchedItems)
+  };  
+  
+  console.log(fetchedItems)
+
+
+
 
   return (
     <div className={styles.container}>
@@ -180,7 +200,7 @@ const Borrow = ({ token }) => {
       {fetchedItems.length > 0 && (
         <div className={styles['scanned-item-container']}>
           <h4>Scanned Item Details</h4>
-          <CardItem items={fetchedItems} />
+          <CardItem items={fetchedItems} removeItem={removeItemFromFetchedItems} />
         </div>
       )}
       <div className={styles['form-container']}>

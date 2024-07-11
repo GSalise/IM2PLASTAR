@@ -105,12 +105,7 @@ const Account = ({ token }) => {
     try {
 
       const { data, error } = await supabaseAD.auth.admin.deleteUser(
-
         token.user.id
-         
-  
-
-
       );  
       handleLogout();
 
@@ -200,7 +195,7 @@ const Account = ({ token }) => {
         <button onClick={handleLogout}>Log Out</button>
       </div>
       <div>
-        <button onClick={handleDelete}>Retire</button>
+        {/* <button onClick={handleDelete}>Retire</button> */}
       </div>
 
     </div>

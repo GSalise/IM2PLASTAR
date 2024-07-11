@@ -7,7 +7,7 @@ const TableLogsBorrow = () => {
 
     useEffect(() => {
         const fetchLogsBorrow = async () => {
-            const {data, error} = await supabase.from('borrowinfo_t').select(`borrowid,borrower_t (name), item_t(item_name),borrow_start_date,borrow_end_date`)
+            const {data, error} = await supabase.from('borrowinfo_t').select(`borrowid,borrower_t (name), item_t(item_name),borrow_start_date,borrow_end_date, item_status`)
 
             if(error){
                 setFetchError('Could not fetch')
@@ -48,7 +48,7 @@ const TableLogsBorrow = () => {
               <td>{LogsBorrow.borrow_end_date}</td>
               <td>{LogsBorrow.borrower_t.name}</td>
               <td>{LogsBorrow.item_t.item_name}</td>
-              <td>{LogsBorrow.isdamaged? 'Banned' : 'Not Banned'}</td>
+              <td>{LogsBorrow.item_status}</td>
             </tr>
           ))}
         </tbody>
