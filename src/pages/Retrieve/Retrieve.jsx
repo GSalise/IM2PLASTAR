@@ -129,17 +129,28 @@ const Retrieve = ({ token }) => {
         return;
       }
     for (let i = 0; i < fetchedItems.length; i++) {
+      // const { data, error } = await supabase.from('borrowinfo_t').update({
+      //   item_status: selectedItemStatus,
+      // }).eq('itemid',fetchedItems[i].itemid).eq('item_status',"ongoing");
+
+      // if (error) {
+      //   console.log(error, 'something is wrong');
+      // }
+
+      // if (data) {
+      //   console.log('success', data);
+      // }
       const { data, error } = await supabase.from('borrowinfo_t').update({
-        item_status: selectedItemStatus,
-      }).eq('itemid',fetchedItems[i].itemid);
+                item_status: selectedItemStatus, 
+              }).or(`itemid.eq.${fetchedItems[i].itemid},item_status.eq.ongoing,item_status.eq.not returned`);
 
-      if (error) {
-        console.log(error, 'something is wrong');
-      }
+            if (error) {
+              console.log(error, 'something is wrong');
+            }
 
-      if (data) {
-        console.log('success', data);
-      }
+            if (data) {
+              console.log('success', data);
+        }
 
       const { data: itemD, error: itemE } = await supabase
         .from('item_t')
