@@ -5,6 +5,14 @@ const TableLogsBorrow = () => {
     const [fetchError, setFetchError] = useState(null)
     const [LogsBorrow, setLogsBorrow] = useState(null)
 
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log(formattedDate); 
+
+
     useEffect(() => {
         const fetchLogsBorrow = async () => {
             const {data, error} = await supabase.from('borrowinfo_t').select(`borrowid,borrower_t (name), item_t(item_name),borrow_start_date,borrow_end_date, item_status`)
@@ -17,13 +25,20 @@ const TableLogsBorrow = () => {
 
             if(data){
                 console.log(data)
+                await supabase.from('borrowinfo_t').update({
+                  item_status: 'not returned'
+                }).eq('item_status', 'ongoing').lt('borrow_end_date', formattedDate) 
                 setLogsBorrow(data)
                 setFetchError(null)
             }
         }
 
+
+
         fetchLogsBorrow()
     }, [])
+
+
 
 
 
