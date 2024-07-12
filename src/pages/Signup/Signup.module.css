@@ -1,21 +1,11 @@
-/* Reset styles */
-.html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Main body styling */
 .body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #ff6600; /* Orange background color */
-  position: relative; /* Relative positioning for logo */
 }
 
-/* Container for the form */
 .container {
   background-color: #8000ff; /* Purple background color */
   padding: 20px;
@@ -24,69 +14,56 @@
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading inside the form */
 h1 {
-  text-align: center; /* Center align heading */
-  color: white; /* White text color */
-  font-size: 2em; /* Larger font size */
-  margin-bottom: 20px; /* Spacing at the bottom */
+  text-align: center;
+  color: white;
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
-/* Form structure */
 form {
-  display: flex; /* Flex container */
-  flex-wrap: wrap; /* Wrap items */
-  justify-content: space-between; /* Space items evenly */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-/* Form group */
 .sformGroup {
-  width: 45%; /* Width of form group */
-  margin-bottom: 20px; /* Spacing at the bottom */
+  width: 45%;
+  margin-bottom: 20px; /* Added margin bottom for spacing */
 }
 
-/* Label styling */
 .sformGroup label {
-  display: block; /* Block level display */
-  margin-bottom: 5px; /* Spacing at the bottom */
-  color: white; /* White text color */
-  font-weight: bold; /* Bold font */
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+  font-weight: bold;
 }
 
-/* Input styling */
 .sformGroup input {
-  width: 100%; /* Full width */
-  padding: 10px; /* Padding inside */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  margin-bottom: 10px; /* Spacing at the bottom */
-  background-color: white; /* White background */
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-/* Button styling */
+.sformGroup input[type='text'], .sformGroup input[type='email'], .sformGroup input[type='password'] {
+  background-color: white;
+}
+
 .ssignupButton {
-  width: 100%; /* Full width */
-  padding: 10px; /* Padding inside */
-  background-color: white; /* White background */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 1em; /* Font size */
-  font-weight: bold; /* Bold text */
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
   color: #8000ff; /* Purple text color */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s; /* Smooth background transition */
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Hover effect for button */
 .ssignupButton:hover {
-  background-color: #d1d1d1; /* Light grey background on hover */
-}
-
-/* Logo positioning */
-.logo {
-  position: absolute; /* Absolute positioning */
-  top: 2rem; /* Distance from top */
-  right: 2rem; /* Distance from right */
-  width: 100px; /* Adjust size as needed */
-  height: auto; /* Maintain aspect ratio */
+  background-color: #d1d1d1;
 }
