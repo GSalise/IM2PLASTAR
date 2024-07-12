@@ -200,7 +200,7 @@ const Borrow = ({ token }) => {
       {fetchedItems.length > 0 && (
         <div className={styles['scanned-item-container']}>
           <h4>Scanned Item Details</h4>
-          <CardItem items={fetchedItems} removeItem={removeItemFromFetchedItems} />
+          <CardItem items={fetchedItems} removeItem={removeItemFromFetchedItems} mode='borrow'/>
         </div>
       )}
       <div className={styles['form-container']}>

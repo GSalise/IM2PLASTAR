@@ -14,40 +14,9 @@ const Retrieve = ({ token }) => {
   const [loading, setLoading] = useState(false);
   const [fetchedItems, setFetchedItems] = useState([]);
   const alreadyScannedIDS = useRef([]);
-  const [selectedBorrower, setSelectedBorrower] = useState(null);
-  const [minDate, setMinDate] = useState('');
-  const [dateData, setDateData] = useState({
-    start: '',
-    end: '',
-  });
   const [selectedItemStatus,setselectedItemStatus]=useState(null)
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    const todayDate = `${year}-${month}-${day}`;
-
-    setMinDate(todayDate);
-  }, []);
-
-  const handleDateChange = (e) => {
-    const { name, value } = e.target;
-    setDateData({ ...dateData, [name]: value });
-
-    const startDate = new Date(value);
-    const endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + 1);
-
-    const formattedEndDate = endDate.toISOString().slice(0, 10);
-
-    setDateData((prev) => ({
-      ...prev,
-      end: formattedEndDate,
-    }));
-  };
+ 
 
   function returnHome() {
     navigate('/homepage');
@@ -161,6 +130,11 @@ const Retrieve = ({ token }) => {
     window.location.reload();
   };
 
+  const removeItemFromFetchedItems = (itemIdToRemove) => {
+    setFetchedItems(prevItems => prevItems.filter(item => item.itemid !== itemIdToRemove));
+    console.log('test:', fetchedItems)
+  };  
+
   return (
     <div className={styles.container}>
       <Header token={token} returnHome={returnHome} currentpage='borrow' />
@@ -199,7 +173,7 @@ const Retrieve = ({ token }) => {
       {fetchedItems.length > 0 && (
         <div className={styles['scanned-item-container']}>
           <h4>Scanned Item Details</h4>
-          <CardItem items={fetchedItems} />
+          <CardItem items={fetchedItems} mode='retrieve' />
         </div>
       )}
       <button className={styles.button} onClick={initiateRetrieve}>
