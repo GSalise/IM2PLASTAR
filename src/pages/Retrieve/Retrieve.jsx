@@ -105,7 +105,7 @@ const Retrieve = ({ token }) => {
     for (let i = 0; i < fetchedItems.length; i++) {
       const { data, error } = await supabase.from('borrowinfo_t').update({
                 item_status: selectedItemStatus, 
-              }).or(`itemid.eq.${fetchedItems[i].itemid},item_status.eq.ongoing,item_status.eq.not returned`);
+              }).eq('itemid', fetchedItems[i].itemid).eq('item_status', 'ongoing').or('item_status', 'eq', 'not returned')
 
             if (error) {
               console.log(error, 'something is wrong');
