@@ -92,7 +92,7 @@ const TableItem = () => {
                 <td>{item.item_name}</td>
                 <td>{item.category}</td>
                 <td>{item.item_cost}</td>
-                <td>{item.status ? 'Available' : 'Not Available'}</td>
+                <td>{item.status ? 'Not Available' : 'Available'}</td>
                 <td>
                   <button type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style={{border:"none", backgroundColor:"white"}}>
                     <img style={picsize} src={editpic} onClick={() => select(item)} />
