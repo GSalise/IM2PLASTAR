@@ -82,11 +82,11 @@ const Retrieve = ({ token }) => {
             const PureIDofItem = match[1];
             try {
               const { data, error } = await supabase
-                .from('item_t')
-                .select('*')
-                .eq('itemid', PureIDofItem);
+              .from('item_t')
+              .select('itemid, item_name, category, item_cost, borrowinfo_t(borrow_start_date, borrow_end_date)')
+              .eq('itemid', PureIDofItem);
               if (error) throw error;
-
+              console.log(data);
               if (data.length === 0) {
                 alert('Item not found in the database');
               } else if (data.some((item) => item.status === false)) {
@@ -105,7 +105,7 @@ const Retrieve = ({ token }) => {
           }
         },
         (err) => {
-          console.warn(err);
+          // console.warn(err);
         }
       );
     }
@@ -128,18 +128,12 @@ const Retrieve = ({ token }) => {
         alert('Please select an item status');
         return;
       }
+     
+      if (fetchedItems.length === 0) {
+        alert('Please scan at least one item.');
+        return; // Exit the function early if no items are scanned
+      }
     for (let i = 0; i < fetchedItems.length; i++) {
-      // const { data, error } = await supabase.from('borrowinfo_t').update({
-      //   item_status: selectedItemStatus,
-      // }).eq('itemid',fetchedItems[i].itemid).eq('item_status',"ongoing");
-
-      // if (error) {
-      //   console.log(error, 'something is wrong');
-      // }
-
-      // if (data) {
-      //   console.log('success', data);
-      // }
       const { data, error } = await supabase.from('borrowinfo_t').update({
                 item_status: selectedItemStatus, 
               }).or(`itemid.eq.${fetchedItems[i].itemid},item_status.eq.ongoing,item_status.eq.not returned`);
@@ -171,7 +165,10 @@ const Retrieve = ({ token }) => {
     alert('Retrieval Success!');
     window.location.reload();
   };
-
+  const removeItemFromFetchedItems = (itemIdToRemove) => {
+    setFetchedItems(prevItems => prevItems.filter(item => item.itemid !== itemIdToRemove));
+    console.log('test:', fetchedItems)
+  };  
   return (
     <div className={styles.container}>
       <Header token={token} returnHome={returnHome} currentpage='borrow' />
@@ -210,7 +207,7 @@ const Retrieve = ({ token }) => {
       {fetchedItems.length > 0 && (
         <div className={styles['scanned-item-container']}>
           <h4>Scanned Item Details</h4>
-          <CardItem items={fetchedItems} />
+          <CardItem items={fetchedItems} removeItem={removeItemFromFetchedItems} mode='retrieve' />
         </div>
       )}
       <button className={styles.button} onClick={initiateRetrieve}>
