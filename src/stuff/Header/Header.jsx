@@ -28,17 +28,13 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
         <section>
           <img style={logostyle} src={logo} alt="Plastar" />
         </section>
-        <section className={styles.textSection}>
-          <h3>
-            Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay},{' '}
-            {token.user.user_metadata.contact}
-          </h3>
+        <section>
+          
         </section>
-        <section className={styles.rightAligned}>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            Logout
-          </button>
+        <section>
+
         </section>
+        {/* Move the hamburger button a bit to the left */}
         <section>
           <img style={hbmenu} src={hamburger} alt="menu button" onClick={goToAccPage}/>
         </section>
@@ -67,13 +63,11 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
       <section>
         <img style={logostyle} src={logo} alt="Plastar" />
       </section>
-      <section className={styles.textSection}>
-        <h3>
-          Welcome back, {token.user.user_metadata.username}, {token.user.user_metadata.baranggay},{' '}
-          {token.user.user_metadata.contact}
-        </h3>
+      <section>
+
       </section>
-      <section className={styles.rightAligned}>
+      <section>
+        
       </section>
       <section>
         <button className={styles.logoutButton} onClick={returnHome}>

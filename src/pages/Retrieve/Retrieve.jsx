@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { supabase } from '../../client';
-import styles from './Borrow.module.css';
-import TableNBorrower from '../../stuff/TableNBorrower/TableNBorrower';
+import styles from '../Borrow/Borrow.module.css';
 import CardItem from '../../stuff/CardItem/CardItem';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../stuff/Header/Header';
 
-const Borrow = ({ token }) => {
+const Retrieve = ({ token }) => {
   const [scanResult, setScanResult] = useState(null);
   const [startScan, setStartScan] = useState(false);
   const [currentItem, setCurrentItem] = useState(0);
@@ -15,39 +14,9 @@ const Borrow = ({ token }) => {
   const [loading, setLoading] = useState(false);
   const [fetchedItems, setFetchedItems] = useState([]);
   const alreadyScannedIDS = useRef([]);
-  const [selectedBorrower, setSelectedBorrower] = useState(null);
-  const [minDate, setMinDate] = useState('');
-  const [dateData, setDateData] = useState({
-    start: '',
-    end: '',
-  });
+  const [selectedItemStatus,setselectedItemStatus]=useState(null)
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    const todayDate = `${year}-${month}-${day}`;
-
-    setMinDate(todayDate);
-  }, []);
-
-  const handleDateChange = (e) => {
-    const { name, value } = e.target;
-    setDateData({ ...dateData, [name]: value });
-
-    const startDate = new Date(value);
-    const endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + 1);
-
-    const formattedEndDate = endDate.toISOString().slice(0, 10);
-
-    setDateData((prev) => ({
-      ...prev,
-      end: formattedEndDate,
-    }));
-  };
+ 
 
   function returnHome() {
     navigate('/homepage');
@@ -82,15 +51,15 @@ const Borrow = ({ token }) => {
             const PureIDofItem = match[1];
             try {
               const { data, error } = await supabase
-                .from('item_t')
-                .select('*')
-                .eq('itemid', PureIDofItem);
+              .from('item_t')
+              .select('itemid, item_name, category, item_cost, borrowinfo_t(borrow_start_date, borrow_end_date)')
+              .eq('itemid', PureIDofItem);
               if (error) throw error;
-
+              console.log(data);
               if (data.length === 0) {
                 alert('Item not found in the database');
-              } else if (data.some((item) => item.status === true)) {
-                alert('Item is currently in use');
+              } else if (data.some((item) => item.status === false)) {
+                alert('Item is not being borrowed');
               } else if (alreadyScannedIDS.current.includes(PureIDofItem)) {
                 alert('Item has already been scanned');
               } else {
@@ -105,7 +74,7 @@ const Borrow = ({ token }) => {
           }
         },
         (err) => {
-          //console.warn(err);
+          // console.warn(err);
         }
       );
     }
@@ -117,35 +86,39 @@ const Borrow = ({ token }) => {
     };
   }, [startScan, currentItem]);
 
-  const initiateBorrow = async (e) => {
+  const initiateRetrieve = async (e) => {
     e.preventDefault();
 
-    if (!fetchedItems || !dateData.start || !dateData.end || !selectedBorrower) {
+    if (!fetchedItems) {
       alert('Empty parameters detected. Please fill up everything');
       return;
     }
-
+    if (!selectedItemStatus) {
+        alert('Please select an item status');
+        return;
+      }
+     
+      if (fetchedItems.length === 0) {
+        alert('Please scan at least one item.');
+        return; // Exit the function early if no items are scanned
+      }
     for (let i = 0; i < fetchedItems.length; i++) {
-      console.log('loop',fetchedItems)
-      const { data, error } = await supabase.from('borrowinfo_t').insert({
-        borrow_start_date: dateData.start,
-        borrow_end_date: dateData.end,
-        borrowerid: selectedBorrower.borrowerid,
-        itemid: fetchedItems[i].itemid,
-      });
+      const { data, error } = await supabase.from('borrowinfo_t').update({
+                item_status: selectedItemStatus, 
+              }).eq('itemid', fetchedItems[i].itemid).or('item_status.eq.ongoing,item_status.eq.not returned')
 
-      if (error) {
-        console.log(error, 'something is wrong');
-      }
+            if (error) {
+              console.log(error, 'something is wrong');
+            }
 
-      if (data) {
-        console.log('success', data);
-      }
+            if (data) {
+              console.log('success', data);
+        }
 
       const { data: itemD, error: itemE } = await supabase
         .from('item_t')
         .update({
-          status: true,
+          status: false,
         })
         .eq('itemid', fetchedItems[i].itemid);
 
@@ -158,35 +131,38 @@ const Borrow = ({ token }) => {
       }
     }
 
-    if(!fetchedItems){
-      alert('a');
-      window.location.reload();
-      
-    }else{
-      alert('Process Complete');
-      window.location.reload();
-    }
-    
+    alert('Retrieval Success!');
+    window.location.reload();
   };
-
   const removeItemFromFetchedItems = (itemIdToRemove) => {
     setFetchedItems(prevItems => prevItems.filter(item => item.itemid !== itemIdToRemove));
     console.log('test:', fetchedItems)
   };  
-  
-  console.log(fetchedItems)
-
-
-
-
   return (
     <div className={styles.container}>
       <Header token={token} returnHome={returnHome} currentpage='borrow' />
-      <h3>Available Borrowers</h3>
-      <TableNBorrower onSelectBorrower={setSelectedBorrower} />
-      <h2 className={styles['selected-borrower']}>
-        Borrower Selected: {selectedBorrower ? selectedBorrower.name : 'None'}
-      </h2>
+      <div className='container'>
+    <p>Select status type</p>
+    <div className="d-flex">
+        <div className="form-check me-3">
+            <input type="radio" className="form-check-input" id="late" name="itemstat" value="late" onChange={() => setselectedItemStatus("late")}/>
+            <label className="form-check-label" htmlFor="late">late</label>
+        </div>
+        <div className="form-check me-3">
+            <input type="radio" className="form-check-input" id="on time" name="itemstat" value="on time"  onChange={() => setselectedItemStatus("on time")}/>
+            <label className="form-check-label" htmlFor="on time">on time</label>
+        </div>
+        <div className="form-check me-3">
+            <input type="radio" className="form-check-input" id="not returned" name="itemstat" value="not returned" onChange={() => setselectedItemStatus("not returned")}/>
+            <label className="form-check-label" htmlFor="not returned">not returned</label>
+        </div>
+        <div className="form-check me-3">
+            <input type="radio" className="form-check-input" id="ongoing" name="itemstat" value="ongoing" onChange={() => setselectedItemStatus("ongoing")}/>
+            <label className="form-check-label" htmlFor="ongoing">ongoing</label>
+        </div>
+    </div>
+</div>
+
       <div className={styles['scanner-container']}>
         <button
           className={styles.button}
@@ -200,40 +176,14 @@ const Borrow = ({ token }) => {
       {fetchedItems.length > 0 && (
         <div className={styles['scanned-item-container']}>
           <h4>Scanned Item Details</h4>
-          <CardItem items={fetchedItems} removeItem={removeItemFromFetchedItems} mode='borrow' />
+          <CardItem items={fetchedItems} removeItem={removeItemFromFetchedItems} mode='retrieve' />
         </div>
       )}
-      <div className={styles['form-container']}>
-        <form>
-          <div>
-            <label>Start Date</label>
-            <input
-              type="date"
-              name="start"
-              value={dateData.start}
-              min={minDate}
-              onChange={handleDateChange}
-            />
-          </div>
-          <div>
-            <label>End Date</label>
-            <input
-              type="date"
-              name="end"
-              value={dateData.end}
-              min={dateData.start}
-              onChange={(e) =>
-                setDateData({ ...dateData, end: e.target.value })
-              }
-            />
-          </div>
-        </form>
-      </div>
-      <button className={styles.button} onClick={initiateBorrow}>
-        Confirm Borrow?
+      <button className={styles.button} onClick={initiateRetrieve}>
+        Confirm Retrieval?
       </button>
     </div>
   );
 };
 
-export default Borrow;
+export default Retrieve;

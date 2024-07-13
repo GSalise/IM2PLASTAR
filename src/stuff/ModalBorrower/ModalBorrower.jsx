@@ -130,7 +130,10 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                 <div style={{marginBottom:"10px", height : "fit-content"}}>
                                     <label>Infraction</label>
                                     <input
+                                        type='number'
                                         name='infraction'
+                                        min='1'
+                                        max='3'
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -194,6 +197,9 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                 <div>
                                     <label>Infraction</label>
                                     <input
+                                        type='number'
+                                        min='0'
+                                        max='3'
                                         name="infraction"
                                         value={borrowerData.infraction}
                                         onChange={handleChange}
