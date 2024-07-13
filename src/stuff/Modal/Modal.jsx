@@ -137,44 +137,44 @@ const Modal = ({ selectedItem , refresh })  => {
                   <div className="modal-body">
                     <form>
                       <div>
-                        <label>Name</label>
+                        <label style={{color:'black'}}>Name</label>
                         <input
                           name='itemName'
                           onChange={handleChange}
                         />
                       </div>
                       <div>
-                        <label>Item price upon purchase</label>
+                        <label style={{color:'black'}}>Item price upon purchase</label>
                         <input
                           name='penaltyP'
                           onChange={handleChange}
                         />
                       </div>
                       <div>
-                        <p>Select type</p>
+                        <p style={{color:'black'}}>Select type</p>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="furniture" name="category" value="furniture" onChange={handleChange} />
-                          <label className="form-check-label" htmlFor="furniture">Furniture</label>
+                          <label style={{color:'black'}} className="form-check-label" htmlFor="furniture">Furniture</label>
                         </div>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="misc" name="category" value="misc" onChange={handleChange} />
-                          <label className="form-check-label" htmlFor="misc">Misc</label>
+                          <label style={{color:'black'}} className="form-check-label" htmlFor="misc">Misc</label>
                         </div>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="tools" name="category" value="tools" onChange={handleChange} />
-                          <label className="form-check-label" htmlFor="tools">Tools</label>
+                          <label style={{color:'black'}} className="form-check-label" htmlFor="tools">Tools</label>
                         </div>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="equipment" name="category" value="equipment" onChange={handleChange} />
-                          <label className="form-check-label" htmlFor="equipment">Equipment</label>
+                          <label style={{color:'black'}} className="form-check-label" htmlFor="equipment">Equipment</label>
                         </div>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="electronics" name="category" value="electronics" onChange={handleChange} />
-                          <label className="form-check-label" htmlFor="electronics">Electronics</label>
+                          <label style={{color:'black'}} className="form-check-label" htmlFor="electronics">Electronics</label>
                         </div>
                         <div className="form-check me-3">
                           <input type="radio" className="form-check-input" id="vehicle" name="category" value="vehicle" onChange={handleChange} />
-                          <label className="form-check-label" htmlFor="vehicle">Vehicle</label>
+                          <label style={{color:'black'}} className="form-check-label" htmlFor="vehicle">Vehicle</label>
                         </div>
                       </div>
                     </form>
@@ -200,7 +200,7 @@ const Modal = ({ selectedItem , refresh })  => {
             <div className="modal-body">
               <form>
                 <div>
-                  <label>Name</label>
+                  <label style={{color:'black'}}>Name</label>
                   <input
                     name="nitemName"
                     value={nitemData.nitemName}
@@ -209,7 +209,7 @@ const Modal = ({ selectedItem , refresh })  => {
                   />
                 </div>
                 <div>
-                  <label>Item price upon purchase</label>
+                  <label style={{color:'black'}}>Item price upon purchase</label>
                   <input
                     name="npenaltyP"
                     value={nitemData.npenaltyP}
@@ -218,7 +218,7 @@ const Modal = ({ selectedItem , refresh })  => {
                   />
                 </div>
                 <div className="d-flex flex-wrap">
-                  <p>STATUS</p>
+                  <p style={{color:'black'}}>STATUS</p>
                   <div className="form-check me-3">
                     <input
                       type="radio"
@@ -229,7 +229,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       checked={nitemData.nstatus === 'true'}
                       onChange={handleUpdateChange}
                     />
-                    <label className="form-check-label" htmlFor="Available">
+                    <label style={{color:'black'}} className="form-check-label" htmlFor="Available">
                       AVAILABLE
                     </label>
                   </div>
@@ -243,7 +243,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       checked={nitemData.nstatus === 'false'}
                       onChange={handleUpdateChange}
                     />
-                    <label className="form-check-label" htmlFor="NotAvailable">
+                    <label style={{color:'black'}} className="form-check-label" htmlFor="NotAvailable">
                       NOT AVAILABLE
                     </label>
                   </div>
@@ -251,10 +251,10 @@ const Modal = ({ selectedItem , refresh })  => {
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={handleUpdate} data-bs-dismiss="modal">
+              <button type="button" className="btn btn-primary" onClick={handleUpdate} data-bs-dismiss="modal">
                 UPDATE
               </button>
-              <button type='button' className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+              <button type='button' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                 DELETE
               </button>
             </div>
@@ -266,7 +266,7 @@ const Modal = ({ selectedItem , refresh })  => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <p>Confirmation</p>
+              <p style={{color:'black'}}>Confirmation</p>
             </div>
             <div className="modal-body">
               <h4 className="modal-title">ARE YOU SURE YOU WANT TO DELETE THIS ITEM?</h4>

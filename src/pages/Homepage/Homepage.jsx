@@ -7,6 +7,7 @@ import TableItem from '../../stuff/TableItem/TableItem'
 import TableBorrower from '../../stuff/TableBorrower/TableBorrower'
 import TableLogsBorrow from '../../stuff/TableLogs/TableLogs'
 import Sidebar from '../../stuff/Sidebar/Sidebar'
+import TableFines from '../../stuff/TableFines/TableFines'
 
 const Homepage = ({token}) => {
   let navigate = useNavigate()
@@ -47,6 +48,7 @@ const Homepage = ({token}) => {
           {activeTable === 'items' && <TableItem items={items} />}
           {activeTable === 'log' && <TableLogsBorrow />}
           {activeTable === 'borrower' && <TableBorrower />}
+          {activeTable === 'fines' && <TableFines />}
       </div>
     </div>
   </div>

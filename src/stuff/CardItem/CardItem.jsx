@@ -29,15 +29,16 @@ const CardItem = ({ items, removeItem, mode }) => {
       <div className={styles.cardContainer}>
         {items.map((item, index) => {
           // Log the borrow_end_date for each item
-           console.log(item.borrowinfo_t[0].borrow_start_date);
+           //console.log(item);
           return (
             <div className={styles.cardBorrow} key={index}>
-              <h2 style={{ color: "black" }}>{item.item_name}</h2>
+              <h2 style={{ color: "black" }}>{item.item_t.item_name}</h2>
               <p style={{ color: "black" }}>Item ID: {item.itemid}</p>
-              <p style={{ color: "black" }}>Category: {item.category}</p>
-              <p style={{ color: "black" }}>borrow_start_date: {item.borrowinfo_t[0].borrow_start_date}</p>
-              <p style={{ color: "black" }}>borrow_end_date: {item.borrowinfo_t[0].borrow_end_date}</p>
-              <p style={{ color: "black" }}>Penalty Price: {item.item_cost}</p>
+              <p style={{ color: "black" }}>Category: {item.item_t.category}</p>
+              <p style={{ color: "black" }}>Start_date: {item.borrow_start_date}</p>
+              <p style={{ color: "black" }}>End_date: {item.borrow_end_date}</p>
+              <p style={{ color: "black" }}>Penalty Price: {item.item_t.item_cost}</p>
+              <p style={{ color: "black" }}>Borrow ID: {item.borrowid}</p>
               <div>
                 <img style={xbutton} src={cancel} alt="remove item" onClick={() => { removeItem(item.itemid); }} />
               </div>

@@ -14,13 +14,18 @@ const Retrieve = ({ token }) => {
   const [loading, setLoading] = useState(false);
   const [fetchedItems, setFetchedItems] = useState([]);
   const alreadyScannedIDS = useRef([]);
-  const [selectedItemStatus,setselectedItemStatus]=useState(null)
   const navigate = useNavigate();
  
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
 
   function returnHome() {
     navigate('/homepage');
   }
+
 
   // Scanner part of code
   useEffect(() => {
@@ -34,6 +39,7 @@ const Retrieve = ({ token }) => {
         fps: 2,
         aspectRatio: 1.0,
       });
+
 
       scanner.render(
         async (result) => {
@@ -50,31 +56,40 @@ const Retrieve = ({ token }) => {
           } else {
             const PureIDofItem = match[1];
             try {
-              const { data, error } = await supabase
-              .from('item_t')
-              .select('itemid, item_name, category, item_cost, borrowinfo_t(borrow_start_date, borrow_end_date)')
-              .eq('itemid', PureIDofItem);
+              // const { data, error } = await supabase
+              // .from('item_t')
+              // .select('itemid, item_name, category, item_cost, status, borrowinfo_t(borrowid, borrow_start_date, borrow_end_date, item_status)')
+              // .eq('itemid', PureIDofItem)
+              const { data, error } = await supabase.from('borrowinfo_t')
+              .select('borrowid, borrow_start_date, borrow_end_date, item_status, itemid, item_t(item_name, category, item_cost, status)')
+              .eq('itemid', PureIDofItem)
+              .or('item_status.eq.ongoing, item_status.eq.not returned')
+              
               if (error) throw error;
               console.log(data);
+
               if (data.length === 0) {
-                alert('Item not found in the database');
-              } else if (data.some((item) => item.status === false)) {
                 alert('Item is not being borrowed');
+
               } else if (alreadyScannedIDS.current.includes(PureIDofItem)) {
                 alert('Item has already been scanned');
+
               } else {
                 setFetchedItems((prevItems) => [...prevItems, ...data]);
                 alreadyScannedIDS.current.push(PureIDofItem);
+
               }
+
             } catch (error) {
               console.error('Failed to fetch item: ', error.message);
+
             } finally {
               setLoading(false);
+
             }
           }
         },
         (err) => {
-          // console.warn(err);
         }
       );
     }
@@ -84,7 +99,16 @@ const Retrieve = ({ token }) => {
         scanner.clear();
       }
     };
+
   }, [startScan, currentItem]);
+
+
+  if(fetchedItems.map(item => item.borrow_end_date) > formattedDate){
+    console.log('early: ', fetchedItems.map(item => item.borrow_end_date))
+  }else if(fetchedItems.map(item => item.borrow_end_date) < formattedDate){
+    console.log('late', fetchedItems.map(item => item.borrow_end_date))
+  }
+  
 
   const initiateRetrieve = async (e) => {
     e.preventDefault();
@@ -93,27 +117,31 @@ const Retrieve = ({ token }) => {
       alert('Empty parameters detected. Please fill up everything');
       return;
     }
-    if (!selectedItemStatus) {
-        alert('Please select an item status');
-        return;
-      }
+    // if (!selectedItemStatus) {
+    //     alert('Please select an item status');
+    //     return;
+    // }
      
-      if (fetchedItems.length === 0) {
-        alert('Please scan at least one item.');
-        return; // Exit the function early if no items are scanned
-      }
+    if (fetchedItems.length === 0) {
+      alert('Please scan at least one item.');
+      return; // Exit the function early if no items are scanned
+    }
+
+    
     for (let i = 0; i < fetchedItems.length; i++) {
+
       const { data, error } = await supabase.from('borrowinfo_t').update({
-                item_status: selectedItemStatus, 
-              }).eq('itemid', fetchedItems[i].itemid).or('item_status.eq.ongoing,item_status.eq.not returned')
+        item_status: fetchedItems[i].borrow_end_date > formattedDate ? 'on time' : 'late', 
+      }).eq('borrowid', fetchedItems[i].borrowid)
 
-            if (error) {
-              console.log(error, 'something is wrong');
-            }
+      if (error) {
+        console.log(error, 'something is wrong');
+      }
 
-            if (data) {
-              console.log('success', data);
-        }
+      if (data) {
+        console.log('success', data);
+      }
+
 
       const { data: itemD, error: itemE } = await supabase
         .from('item_t')
@@ -129,10 +157,12 @@ const Retrieve = ({ token }) => {
       if (itemD) {
         console.log('success', itemD);
       }
+ 
     }
-
+    
     alert('Retrieval Success!');
     window.location.reload();
+
   };
   const removeItemFromFetchedItems = (itemIdToRemove) => {
     setFetchedItems(prevItems => prevItems.filter(item => item.itemid !== itemIdToRemove));
@@ -144,22 +174,7 @@ const Retrieve = ({ token }) => {
       <div className='container'>
     <p>Select status type</p>
     <div className="d-flex">
-        <div className="form-check me-3">
-            <input type="radio" className="form-check-input" id="late" name="itemstat" value="late" onChange={() => setselectedItemStatus("late")}/>
-            <label className="form-check-label" htmlFor="late">late</label>
-        </div>
-        <div className="form-check me-3">
-            <input type="radio" className="form-check-input" id="on time" name="itemstat" value="on time"  onChange={() => setselectedItemStatus("on time")}/>
-            <label className="form-check-label" htmlFor="on time">on time</label>
-        </div>
-        <div className="form-check me-3">
-            <input type="radio" className="form-check-input" id="not returned" name="itemstat" value="not returned" onChange={() => setselectedItemStatus("not returned")}/>
-            <label className="form-check-label" htmlFor="not returned">not returned</label>
-        </div>
-        <div className="form-check me-3">
-            <input type="radio" className="form-check-input" id="ongoing" name="itemstat" value="ongoing" onChange={() => setselectedItemStatus("ongoing")}/>
-            <label className="form-check-label" htmlFor="ongoing">ongoing</label>
-        </div>
+        test
     </div>
 </div>
 

@@ -107,28 +107,28 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                         <div className="modal-body">
                             <form>
                                 <div style={{marginBottom:"10px"}}>
-                                    <label>Name</label>
+                                    <label style={{color:'black'}}>Name</label>
                                     <input
                                         name='name'
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div style={{marginBottom:"10px"}}>
-                                    <label>Contact</label>
+                                    <label style={{color:'black'}}>Contact</label>
                                     <input
                                         name='contact'
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div style={{marginBottom:"10px"}}>
-                                    <label>Address</label>
+                                    <label style={{color:'black'}}>Address</label>
                                     <input
                                         name='address'
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div style={{marginBottom:"10px", height : "fit-content"}}>
-                                    <label>Infraction</label>
+                                    <label style={{color:'black'}}>Infraction</label>
                                     <input
                                         type='number'
                                         name='infraction'
@@ -138,14 +138,14 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                     />
                                 </div>
                                 <div style={{marginRight:"150px",marginTop:"10px", height : "fit-content"}}>
-                                    <p>Status</p>
+                                    <p style={{color:'black'}}>Status</p>
                                     <div className="form-check me-3">
                                         <input type="radio" className="form-check-input" id="is_banned_true" name="is_banned" value="true" onChange={handleChange} />
-                                        <label className="form-check-label" htmlFor="is_banned_true">Banned</label>
+                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_true">Banned</label>
                                     </div>
                                     <div className="form-check me-3">
                                         <input type="radio" className="form-check-input" id="is_banned_false" name="is_banned" value="false" onChange={handleChange} />
-                                        <label className="form-check-label" htmlFor="is_banned_false">Not Banned</label>
+                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_false">Not Banned</label>
                                     </div>
                                 </div>
                             </form>
@@ -168,7 +168,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                         <div className="modal-body">
                             <form>
                                 <div>
-                                    <label>Name</label>
+                                    <label style={{color:'black'}}>Name</label>
                                     <input
                                         name="name"
                                         value={borrowerData.name}
@@ -177,7 +177,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Contact</label>
+                                    <label style={{color:'black'}}>Contact</label>
                                     <input
                                         name="contact"
                                         value={borrowerData.contact}
@@ -186,7 +186,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Address</label>
+                                    <label style={{color:'black'}}>Address</label>
                                     <input
                                         name="address"
                                         value={borrowerData.address}
@@ -195,7 +195,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Infraction</label>
+                                    <label style={{color:'black'}}>Infraction</label>
                                     <input
                                         type='number'
                                         min='0'
@@ -207,7 +207,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                     />
                                 </div>
                                 <div>
-                                    <p>Status</p>
+                                    <p style={{color:'black'}}>Status</p>
                                     <div className="form-check me-3">
                                         <input
                                             type="radio"
@@ -218,7 +218,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                             checked={borrowerData.is_banned === 'true'}
                                             onChange={handleChange}
                                         />
-                                        <label className="form-check-label" htmlFor="is_banned_true_update">
+                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_true_update">
                                             Banned
                                         </label>
                                     </div>
@@ -232,7 +232,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                             checked={borrowerData.is_banned === 'false'}
                                             onChange={handleChange}
                                         />
-                                        <label className="form-check-label" htmlFor="is_banned_false_update">
+                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_false_update">
                                             Not Banned
                                         </label>
                                     </div>
@@ -240,10 +240,10 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" onClick={handleUpdate} data-bs-dismiss="modal">
+                            <button type="button" className="btn btn-primary" onClick={handleUpdate} data-bs-dismiss="modal">
                                 UPDATE
                             </button>
-                            <button type='button' className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                            <button type='button' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                                 DELETE
                             </button>
                         </div>
@@ -255,7 +255,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <p>Confirmation</p>
+                            <p style={{color:'black'}}>Confirmation</p>
                         </div>
                         <div className="modal-body">
                             <h4 className="modal-title">ARE YOU SURE YOU WANT TO DELETE THIS BORROWER?</h4>

@@ -14,8 +14,11 @@ const Sidebar = ({ handleTableSelect }) => {
         <button className={styles.sidebarButton} onClick={() => handleTableSelect('borrower')}>
           Borrowers
         </button>
-        <Link to= '/borrow'><button className={styles.sidebarButton}>Initiate Borrow</button></Link>
-        <Link to= '/retrieve'><button className={styles.sidebarButton}>Initiate Retrieve</button></Link>
+        <button className={styles.sidebarButton} onClick={() => handleTableSelect('fines')}>
+          Fines
+        </button>
+        <Link to= '/borrow' className={styles.noUnderline}><button className={styles.sidebarButton}>Initiate Borrow</button></Link>
+        <Link to= '/retrieve' className={styles.noUnderline}><button className={styles.sidebarButton}>Initiate Retrieve</button></Link>
       </div>
     </div>
   );

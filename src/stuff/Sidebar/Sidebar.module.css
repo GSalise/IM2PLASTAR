@@ -31,5 +31,12 @@
   
   .sidebarButton:hover {
     background-color: #ffbb7f;
+    text-decoration: none;
   }
+
+  .noUnderline{
+    text-decoration: none;
+  }
+
+  
   
