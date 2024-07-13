@@ -28,8 +28,6 @@ const Account = ({ token }) => {
   async function handleSubmit(e){
     e.preventDefault()
 
-  
-
     try {
       const { data, error } = await supabase.auth.updateUser({
         data: {
@@ -40,9 +38,6 @@ const Account = ({ token }) => {
         },
       });
 
-      
- 
-      
       const { data:refreshD, error: refreshE} = await supabase.auth.refreshSession();
   
 
@@ -54,19 +49,18 @@ const Account = ({ token }) => {
           access_token: refreshD.session.access_token,
           refresh_token: refreshD.session.refresh_token,
         })
-
         if(E){
           console.log(E);
         }else{
           console.log(D);
         }
       }
+
       
     } catch (error) {
       console.log('out', error)
       
     }
-    
   }
 
  
