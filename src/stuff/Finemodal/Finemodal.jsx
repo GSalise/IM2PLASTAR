@@ -36,7 +36,14 @@ const Finemodal = () => {
             console.log(f);
             const FID = f[0].fineid;
             console.log(FID);
-
+               
+              const{ data:binfo, error} = await supabase.from('borrowinfo_t').update([{fineid:FID,}])
+              .eq('borrowid',LOG.borrowid).select();
+              if(error){
+                  console.log(error);
+              }else{
+                console.log(binfo);
+              }
         }
    }
 

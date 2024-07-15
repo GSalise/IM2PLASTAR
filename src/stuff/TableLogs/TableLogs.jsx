@@ -69,35 +69,35 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
     };
- if(mode ==='Fines'){return (
-    <div>
-        {fetchError && (<p>{fetchError}</p>)}
-        <table className="table table-bordered" style={{ width: "100%" }}>
-            <thead>
-                <tr >
-                    <th style={{width:"50px"}}>End date</th>
-                    <th style={{width:"50px"}}>Borrower</th>
-                    <th style={{width:"50px"}}>Item</th>
-                    <th style={{width:"50px"}}>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {filteredLogs && filteredLogs.map((log) => (
-                    <tr key={log.borrowid}>
-                        <td onClick={() => select(log)}>{log.borrowid}</td>
-                        <td>{log.borrow_end_date}</td>
-                        <td>{log.borrower_t.name}</td>
-                        <td>{log.item_t.item_name}</td>
-                        <td style={{ color: log.item_status === 'ongoing' ? 'blue' : log.item_status === 'on time' ? 'green' : log.item_status === 'late' ? 'orange' : 'red' }}>
-                            {log.item_status}
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </div>
-);
-}else{
+    if (mode === 'Fines') {
+        return (
+            <div>
+                {fetchError && (<p>{fetchError}</p>)}
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>End Date</th>
+                            <th>Borrower</th>
+                            <th>Item</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredLogs && filteredLogs.map((log) => (
+                            <tr key={log.borrowid} onClick={() => select(log)}>
+                                <td>{log.borrow_end_date}</td>
+                                <td>{log.borrower_t.name}</td>
+                                <td>{log.item_t.item_name}</td>
+                                <td style={{ color: log.item_status === 'ongoing' ? 'blue' : log.item_status === 'on time' ? 'green' : log.item_status === 'late' ? 'orange' : 'red' }}>
+                                    {log.item_status}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }else{
     return (
         <div>
             {fetchError && (<p>{fetchError}</p>)}
