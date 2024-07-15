@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { supabase } from '../../client'
 import styles from '../TableFines/TableFines.module.css'
 import editpic from '../../assets/edit.svg'
+import Finemodal from '../Finemodal/Finemodal'
 
 const TableFines = () => {
     const [fetchError, setFetchError] = useState(null);
     const [fines, setFines] = useState(null);
     const [selectedFine, setSelectedFine] = useState(null);
+    
 
     const picsize = {
         width: '20px',
@@ -42,12 +44,28 @@ const TableFines = () => {
         setSelectedFine(fines);
     }
 
+   
 
 
 
 
   return (
+
+   
     <div>
+          <Finemodal />
+
+
+
+
+
+
+
+
+
+
+
+
         <table className='table table-bordered' style={{width:'1500px'}}>
             <thead>
                 <tr>

@@ -1,11 +1,12 @@
 import { supabase } from "../../client";
 import React, { useEffect, useState } from 'react';
 
-const TableLogsBorrow = () => {
+const TableLogsBorrow = ({mode, onselectLog}) => {
     const [fetchError, setFetchError] = useState(null);
     const [LogsBorrow, setLogsBorrow] = useState([]);
     const [filteredLogs, setFilteredLogs] = useState([]);
     const [filter, setFilter] = useState('all');
+    
 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -13,6 +14,17 @@ const TableLogsBorrow = () => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     console.log(formattedDate);
+
+    const [borrowInfo,setsBorrowInfo]=useState(null);
+
+    const select = (log) =>{
+        setsBorrowInfo(log);
+        onselectLog(log)
+    }
+
+    
+
+
 
     useEffect(() => {
         const fetchLogsBorrow = async () => {
@@ -57,7 +69,35 @@ const TableLogsBorrow = () => {
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
     };
-
+ if(mode ==='Fines'){return (
+    <div>
+        {fetchError && (<p>{fetchError}</p>)}
+        <table className="table table-bordered" style={{ width: "100%" }}>
+            <thead>
+                <tr >
+                    <th style={{width:"50px"}}>End date</th>
+                    <th style={{width:"50px"}}>Borrower</th>
+                    <th style={{width:"50px"}}>Item</th>
+                    <th style={{width:"50px"}}>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filteredLogs && filteredLogs.map((log) => (
+                    <tr key={log.borrowid}>
+                        <td onClick={() => select(log)}>{log.borrowid}</td>
+                        <td>{log.borrow_end_date}</td>
+                        <td>{log.borrower_t.name}</td>
+                        <td>{log.item_t.item_name}</td>
+                        <td style={{ color: log.item_status === 'ongoing' ? 'blue' : log.item_status === 'on time' ? 'green' : log.item_status === 'late' ? 'orange' : 'red' }}>
+                            {log.item_status}
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </div>
+);
+}else{
     return (
         <div>
             {fetchError && (<p>{fetchError}</p>)}
@@ -99,6 +139,7 @@ const TableLogsBorrow = () => {
             </table>
         </div>
     );
+    }
 };
 
 export default TableLogsBorrow;
