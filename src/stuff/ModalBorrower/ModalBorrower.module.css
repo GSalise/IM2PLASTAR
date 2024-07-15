@@ -1,0 +1,13 @@
+.modal-content {
+    text-align: left;
+    background-color: #ffffff; /* Change this color to your preferred background color */
+}
+
+.modal-header {
+    background-color: #ff7300; /* Change this color to your preferred header background color */
+    color: white;
+}
+
+.modal-footer {
+    background-color: #f8f9fa; /* Change this color to your preferred footer background color */
+}

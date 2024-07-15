@@ -34,3 +34,12 @@
   background-color: white;
   color: #ff7b00;
 }
+
+.hamburger {
+  position: absolute;
+  top: 50%;
+  right: 40px; /* Adjust as needed */
+  transform: translateY(-50%);
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+}

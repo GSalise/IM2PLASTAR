@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #ff6600; /* Orange background color */
+  background-image: url('../../assets/test.png');
 }
 
 .container {
-  background-color: #8000ff; /* Purple background color */
+  text-align: center;
+  background-image: linear-gradient(to right, #7f00ff, #ff7b00);
   padding: 20px;
   border-radius: 15px;
   width: 600px; /* Adjusted width for better spacing */
@@ -52,18 +53,22 @@ form {
 }
 
 .ssignupButton {
-  width: 100%;
+  width: 500px;
   padding: 10px;
-  background-color: white;
+  margin-top: 1rem; /* Adjust spacing */
+  background-color: #ff7300;
   border: none;
-  border-radius: 5px;
-  font-size: 1em;
+  color: white;
+  text-align: center;
+  text-decoration: none;
   font-weight: bold;
-  color: #8000ff; /* Purple text color */
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .ssignupButton:hover {
-  background-color: #d1d1d1;
+  background-color: #ffbb7f;
 }

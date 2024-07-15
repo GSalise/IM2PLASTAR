@@ -1,6 +1,8 @@
+// Updatepass.jsx
 import React, { useState } from 'react';
 import { supabase } from '../../client';
 import { useNavigate } from 'react-router-dom';
+import styles from './Updatepass.module.css';
 
 function ResetPassword({ token }) {
   const [newPass, setNewPass] = useState('');
@@ -36,21 +38,24 @@ function ResetPassword({ token }) {
   };
 
   return (
-    <div>
+    <div className={styles.resetform}>
+      <h2>Reset Password</h2>
       <input
         type="password"
         placeholder="New Password"
         value={newPass}
         onChange={(e) => setNewPass(e.target.value)}
+        className={styles.input}
       />
       <input
         type="password"
         placeholder="Confirm New Password"
         value={confirmPass}
         onChange={(e) => setConfirmPass(e.target.value)}
+        className={styles.input}
       />
-      <button onClick={handlePasswordReset}>Reset Password</button>
-      {message && <p>{message}</p>}
+      <button onClick={handlePasswordReset} className={styles.button}>Reset Password</button>
+      {message && <p className={styles.message}>{message}</p>}
     </div>
   );
 }

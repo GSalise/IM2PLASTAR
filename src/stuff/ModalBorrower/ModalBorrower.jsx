@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../client';
 import { useRef } from 'react';
+import styles from './ModalBorrower.module.css';
 
 const ModalBorrower = ({ selectedBorrower, refresh }) => {
-
     const [borrowerData, setBorrowerData] = useState({
         name: '',
         contact: '',
@@ -99,8 +99,8 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
 
             <div className="modal" id="myModal">
                 <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
+                    <div className={`modal-content ${styles['modal-content']}`}>
+                        <div className={`modal-header ${styles['modal-header']}`}>
                             <h4 className="modal-title">Add Borrower</h4>
                             <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
@@ -150,7 +150,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                 </div>
                             </form>
                         </div>
-                        <div className="modal-footer">
+                        <div className={`modal-footer ${styles['modal-footer']}`}>
                             <button type="button" className="btn btn-danger" onClick={handleSubmit} data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
@@ -160,8 +160,8 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
             {/* UPDATE MODAL */}
             <div className="modal" id="updateModalBorrower">
                 <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
+                    <div className={`modal-content ${styles['modal-content']}`}>
+                        <div className={`modal-header ${styles['modal-header']}`}>
                             <h4 className="modal-title">Update Borrower</h4>
                             <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
@@ -239,7 +239,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                 </div>
                             </form>
                         </div>
-                        <div className="modal-footer">
+                        <div className={`modal-footer ${styles['modal-footer']}`}>
                             <button type="button" className="btn btn-primary" onClick={handleUpdate} data-bs-dismiss="modal">
                                 UPDATE
                             </button>
@@ -253,14 +253,14 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
 
             <div className="modal" id="confirmDeleteModal">
                 <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
+                    <div className={`modal-content ${styles['modal-content']}`}>
+                        <div className={`modal-header ${styles['modal-header']}`}>
                             <p style={{color:'black'}}>Confirmation</p>
                         </div>
                         <div className="modal-body">
                             <h4 className="modal-title">ARE YOU SURE YOU WANT TO DELETE THIS BORROWER?</h4>
                         </div>
-                        <div className="modal-footer">
+                        <div className={`modal-footer ${styles['modal-footer']}`}>
                             <button type="button" className="btn btn-danger" onClick={handleDelete} data-bs-dismiss="modal">
                                 YES
                             </button>
