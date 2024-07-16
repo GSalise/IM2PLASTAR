@@ -138,47 +138,75 @@ const Modal = ({ selectedItem , refresh })  => {
                   {/* <!-- Modal body --> */}
                   <div className="modal-body">
                     <form>
-                      <div>
+                      <div className='container-fluid mt-3'>
                         <label style={{color:'black'}}>Name</label>
                         <input
+                          style={{marginLeft:'10px'}}
                           name='itemName'
                           onChange={handleChange}
                         />
                       </div>
-                      <div>
-                        <label style={{color:'black'}}>Item price upon purchase</label>
+                      <div className='container-fluid mt-3'>
+                        <label style={{color:'black'}}>Item price </label>
                         <input
+                         style={{marginLeft:'10px'}}
                           name='penaltyP'
                           onChange={handleChange}
                         />
                       </div>
-                      <div>
-                        <p style={{color:'black'}}>Select type</p>
-                        <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="furniture" name="category" value="furniture" onChange={handleChange} />
-                          <label style={{color:'black'}} className="form-check-label" htmlFor="furniture">Furniture</label>
-                        </div>
-                        <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="misc" name="category" value="misc" onChange={handleChange} />
-                          <label style={{color:'black'}} className="form-check-label" htmlFor="misc">Misc</label>
-                        </div>
-                        <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="tools" name="category" value="tools" onChange={handleChange} />
-                          <label style={{color:'black'}} className="form-check-label" htmlFor="tools">Tools</label>
-                        </div>
-                        <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="equipment" name="category" value="equipment" onChange={handleChange} />
-                          <label style={{color:'black'}} className="form-check-label" htmlFor="equipment">Equipment</label>
-                        </div>
-                        <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="electronics" name="category" value="electronics" onChange={handleChange} />
-                          <label style={{color:'black'}} className="form-check-label" htmlFor="electronics">Electronics</label>
-                        </div>
-                        <div className="form-check me-3">
-                          <input type="radio" className="form-check-input" id="vehicle" name="category" value="vehicle" onChange={handleChange} />
-                          <label style={{color:'black'}} className="form-check-label" htmlFor="vehicle">Vehicle</label>
-                        </div>
-                      </div>
+                      <div className='container-fluid mt-3'>
+                          <b><p style={{ color: 'black' }}>Select type</p></b>
+                          <div className="row">
+                            <div className="col-md-auto">
+                              <div className="form-check">
+                                
+                                <label style={{ color: 'black' }} className="form-check-label" htmlFor="furniture">
+                                  <input type="radio" className="form-check-input" id="furniture" name="category" value="furniture" onChange={handleChange} />
+                                Furniture</label>
+                              </div>
+                            </div>
+                            <div className="col-md-auto">
+                              <div className="form-check">
+                                
+                                <label style={{ color: 'black' }} className="form-check-label" htmlFor="misc">
+                                  <input type="radio" className="form-check-input" id="misc" name="category" value="misc" onChange={handleChange} />
+                                Misc</label>
+                              </div>
+                            </div>
+                            <div className="col-md-auto">
+                              <div className="form-check">
+                                
+                                <label style={{ color: 'black' }} className="form-check-label" htmlFor="tools">
+                                  <input type="radio" className="form-check-input" id="tools" name="category" value="tools" onChange={handleChange} />
+                                  Tools</label>
+                              </div>
+                            </div>
+                            <div className="col-md-auto">
+                              <div className="form-check">
+                                
+                                <label style={{ color: 'black' }} className="form-check-label" htmlFor="equipment">
+                                  <input type="radio" className="form-check-input" id="equipment" name="category" value="equipment" onChange={handleChange} />
+                                  Equipment</label>
+                              </div>
+                            </div>
+                            <div className="col-md-auto">
+                              <div className="form-check">
+                                
+                                <label style={{ color: 'black' }} className="form-check-label" htmlFor="electronics">
+                                  <input type="radio" className="form-check-input" id="electronics" name="category" value="electronics" onChange={handleChange} />
+                                  Electronics</label>
+                              </div>
+                            </div>
+                            <div className="col-md-auto">
+                              <div className="form-check">
+                                
+                                <label style={{ color: 'black' }} className="form-check-label" htmlFor="vehicle">
+                                <input type="radio" className="form-check-input" id="vehicle" name="category" value="vehicle" onChange={handleChange} />
+                                Vehicle</label>
+                              </div>
+                            </div>
+                          </div>
+</div>
                     </form>
                   </div>
 
@@ -200,14 +228,16 @@ const Modal = ({ selectedItem , refresh })  => {
               <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div className="modal-body">
-              <div>
-                <QRCodeCanvas
+            <div className="col-md-4" style={{marginTop:'30px' , width:'fitContent',height:'fitContent',position:'fixed'}}>
+            <div>
+              <QRCodeCanvas
                 value={`ITEM-ID-${nitemData.nitemid}`}
                 size='128'
-                />
-              </div>
+              />
+            </div>
+          </div>
               <form>
-                <div>
+                <div style={{marginLeft:'50px'}}>
                   <label style={{color:'black'}}>Name</label>
                   <input
                     name="nitemName"
@@ -216,7 +246,7 @@ const Modal = ({ selectedItem , refresh })  => {
                     className="form-control"
                   />
                 </div>
-                <div>
+                <div style={{marginLeft:'50px'}}>
                   <label style={{color:'black'}}>Item price upon purchase</label>
                   <input
                     name="npenaltyP"
@@ -224,13 +254,12 @@ const Modal = ({ selectedItem , refresh })  => {
                     onChange={handleUpdateChange}
                     className="form-control"
                   />
-                </div>
+                </div><br/>
+                <b><p style={{color:'black'}}>STATUS</p></b>
                 <div className="d-flex flex-wrap">
-                  <p style={{color:'black'}}>STATUS</p>
+                 
                   <div className="form-check me-3">
                   <label style={{color:'black'}} className="form-check-label" htmlFor="Available">
-                      NOT AVAILABLE
-                  </label>
                     <input
                       type="radio"
                       className="form-check-input"
@@ -240,12 +269,13 @@ const Modal = ({ selectedItem , refresh })  => {
                       checked={nitemData.nstatus === 'true'}
                       onChange={handleUpdateChange}
                     />
+                      NOT AVAILABLE
+                  </label>
+                    
                   </div>
                   <div className="form-check me-3">
                     <label style={{color:'black'}} className="form-check-label" htmlFor="NotAvailable">
-                      AVAILABLE
-                    </label>
-                    <input
+                      <input
                       type="radio"
                       className="form-check-input"
                       id="NotAvailable"
@@ -254,6 +284,9 @@ const Modal = ({ selectedItem , refresh })  => {
                       checked={nitemData.nstatus === 'false'}
                       onChange={handleUpdateChange}
                     />
+                      AVAILABLE
+                    </label>
+                    
                     
                   </div>
                 </div>
