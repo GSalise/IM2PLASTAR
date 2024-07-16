@@ -39,7 +39,7 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
             if (data) {
                 console.log(data);
                 await supabase.from('borrowinfo_t').update({
-                    item_status: 'late'
+                    item_status: 'not returned'
                 }).eq('item_status', 'ongoing').lt('borrow_end_date', formattedDate);
 
                 // Sort data by borrow_start_date in descending order

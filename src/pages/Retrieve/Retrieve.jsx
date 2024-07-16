@@ -172,9 +172,9 @@ const Retrieve = ({ token }) => {
     <div className={styles.container}>
       <Header token={token} returnHome={returnHome} currentpage='borrow' />
       <div className='container'>
-    <p>Select status type</p>
+   
     <div className="d-flex">
-        test
+       
     </div>
 </div>
 
