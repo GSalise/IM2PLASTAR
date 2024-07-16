@@ -220,6 +220,9 @@ const Modal = ({ selectedItem , refresh })  => {
                 <div className="d-flex flex-wrap">
                   <p style={{color:'black'}}>STATUS</p>
                   <div className="form-check me-3">
+                  <label style={{color:'black'}} className="form-check-label" htmlFor="Available">
+                      NOT AVAILABLE
+                  </label>
                     <input
                       type="radio"
                       className="form-check-input"
@@ -229,11 +232,11 @@ const Modal = ({ selectedItem , refresh })  => {
                       checked={nitemData.nstatus === 'true'}
                       onChange={handleUpdateChange}
                     />
-                    <label style={{color:'black'}} className="form-check-label" htmlFor="Available">
-                      AVAILABLE
-                    </label>
                   </div>
                   <div className="form-check me-3">
+                    <label style={{color:'black'}} className="form-check-label" htmlFor="NotAvailable">
+                      AVAILABLE
+                    </label>
                     <input
                       type="radio"
                       className="form-check-input"
@@ -243,9 +246,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       checked={nitemData.nstatus === 'false'}
                       onChange={handleUpdateChange}
                     />
-                    <label style={{color:'black'}} className="form-check-label" htmlFor="NotAvailable">
-                      NOT AVAILABLE
-                    </label>
+                    
                   </div>
                 </div>
               </form>
