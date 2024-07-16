@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { supabase } from '../../client'
 import { useRef } from 'react';
 import TableLogsBorrow from '../TableLogs/TableLogs';
-const Finemodal = () => {
+const Finemodal = ({ refresh }) => {
 
    const [LOG, setLOG] = useState(null);
   
@@ -43,6 +43,7 @@ const Finemodal = () => {
                   console.log(error);
               }else{
                 console.log(binfo);
+                refresh();
               }
         }
    }

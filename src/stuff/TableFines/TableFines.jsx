@@ -53,19 +53,7 @@ const TableFines = () => {
 
    
     <div>
-          <Finemodal />
-
-
-
-
-
-
-
-
-
-
-
-
+        <Finemodal refresh={fetchFines}/>
         <table className='table table-bordered' style={{width:'1500px'}}>
             <thead>
                 <tr>
