@@ -1,9 +1,11 @@
 import React, { useState,useEffect } from 'react'
 import { supabase } from '../../client'
 import { useRef } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 const Modal = ({ selectedItem , refresh })  => {
-    
+
     const addModalRef = useRef(null);
     const updateModalRef = useRef(null);
     const confirmDeleteModalRef = useRef(null);
@@ -198,6 +200,12 @@ const Modal = ({ selectedItem , refresh })  => {
               <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div className="modal-body">
+              <div>
+                <QRCodeCanvas
+                value={`ITEM-ID-${nitemData.nitemid}`}
+                size='128'
+                />
+              </div>
               <form>
                 <div>
                   <label style={{color:'black'}}>Name</label>
