@@ -54,18 +54,6 @@ const TableFines = () => {
    
     <div>
           <Finemodal />
-
-
-
-
-
-
-
-
-
-
-
-
         <table className='table table-bordered' style={{width:'1500px'}}>
             <thead>
                 <tr>

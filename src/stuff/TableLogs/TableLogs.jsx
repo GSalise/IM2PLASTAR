@@ -25,6 +25,7 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
     
 
 
+    
 
     useEffect(() => {
         const fetchLogsBorrow = async () => {
@@ -58,14 +59,20 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
     }, [filter, LogsBorrow]);
 
     const filterLogs = () => {
-        if (filter === 'all') {
-            setFilteredLogs(LogsBorrow);
-        } else {
-            const filtered = LogsBorrow.filter(log => log.item_status === filter);
+        if (mode === 'Fines') {
+            
+            const filtered = LogsBorrow.filter(log => log.item_status === 'late' || log.item_status === 'not returned');
             setFilteredLogs(filtered);
+        } else {
+            
+            if (filter === 'all') {
+                setFilteredLogs(LogsBorrow);
+            } else {
+                const filtered = LogsBorrow.filter(log => log.item_status === filter);
+                setFilteredLogs(filtered);
+            }
         }
     };
-
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
     };
