@@ -22,7 +22,11 @@ const Finemodal = ({ refresh }) => {
     console.log(fineData);
 
    const finefunc =async()=>{
-
+     
+    if (!fineData.fineamount || !fineData.reason || !fineData.status || !LOG) {
+      alert('Please fill in all fields');
+      
+    }else{
         const{ data:f, error} = await supabase.from('fines_t').insert([{
             fine:fineData.fineamount,
             reason:fineData.reason,
@@ -32,6 +36,7 @@ const Finemodal = ({ refresh }) => {
 
         if(error){
             console.log(error);
+
         }else{
             console.log(f);
             const FID = f[0].fineid;
@@ -47,7 +52,7 @@ const Finemodal = ({ refresh }) => {
               }
         }
    }
-
+    }
 
     function handleChange(event){
         setFineData((prevFineData)=>{
@@ -87,22 +92,24 @@ const Finemodal = ({ refresh }) => {
                 <form className="row g-3 justify-content-center">
                   <div className="col-md-6">
                     <label className="form-label" style={{ color: "black" }} name='fineamount' >Fine Amount</label>
-                    <input  className="form-control" name="fineamount" onChange={handleChange} />
+                    <input  className="form-control" name="fineamount" onChange={handleChange} required />
                   </div>
                   <div className="col-md-6">
                     <label className="form-label" style={{ color: "black" }} >Reason</label>
-                    <textarea name='reason' className="form-control" rows="3" onChange={handleChange}></textarea>
+                    <textarea name='reason' className="form-control" rows="3" onChange={handleChange} required></textarea>
                   </div>
                   <center><label className="form-label" style={{ color: "black" }}>STATUS</label></center>
                   <div className="col-md-12 d-flex justify-content-center">
                   
                     <div className="form-check me-3">
-                      <input className="form-check-input" type="radio" id="paid" name="status" value="paid" onChange={handleChange} />
-                      <label className="form-check-label" htmlFor="paid" style={{ color: 'black' }}>Paid</label>
+                      <label className="form-check-label" htmlFor="paid" style={{ color: 'black'}}>
+                        <input className="form-check-input" type="radio" id="paid" name="status" value="paid" onChange={handleChange} required/>Paid
+                        </label>
                     </div>
                     <div className="form-check">
-                      <input className="form-check-input" type="radio" id="unpaid" name="status" value="unpaid" onChange={handleChange} />
-                      <label className="form-check-label" htmlFor="unpaid" style={{ color: 'black' }}>Unpaid</label>
+                      <label className="form-check-label" htmlFor="unpaid" style={{ color: 'black' }}>Unpaid
+                      <input className="form-check-input" type="radio" id="unpaid" name="status" value="unpaid" onChange={handleChange} required/>
+                      </label>
                     </div>
                   </div>
                 </form>
@@ -111,7 +118,7 @@ const Finemodal = ({ refresh }) => {
   
               {/* Modal Footer */}
               <div className="modal-footer">
-                <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => finefunc()}>
+                <button type="button" className="btn btn-danger" onClick={() => finefunc()}>
                   Submit
                 </button>
               </div>
