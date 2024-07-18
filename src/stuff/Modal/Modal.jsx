@@ -228,8 +228,8 @@ const Modal = ({ selectedItem , refresh })  => {
               <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div className="modal-body">
-            <div className="col-md-4" style={{marginTop:'30px' , width:'fitContent',height:'fitContent',position:'fixed'}}>
-            <div>
+            <div className="col-md-4" >
+            <div style={{marginTop:'30px' , width:'fitContent',height:'fitContent',position:'fixed', zIndex: 1}}>
               <QRCodeCanvas
                 value={`ITEM-ID-${nitemData.nitemid}`}
                 size='128'

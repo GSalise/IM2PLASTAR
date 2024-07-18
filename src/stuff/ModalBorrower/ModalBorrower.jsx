@@ -140,12 +140,16 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                 <div style={{marginRight:"150px",marginTop:"10px", height : "fit-content"}}>
                                     <p style={{color:'black'}}>Status</p>
                                     <div className="form-check me-3">
+                                       
+                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_true">
                                         <input type="radio" className="form-check-input" id="is_banned_true" name="is_banned" value="true" onChange={handleChange} />
-                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_true">Banned</label>
+                                        Banned</label>
                                     </div>
                                     <div className="form-check me-3">
+                                       
+                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_false"> 
                                         <input type="radio" className="form-check-input" id="is_banned_false" name="is_banned" value="false" onChange={handleChange} />
-                                        <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_false">Not Banned</label>
+                                        Not Banned</label>
                                     </div>
                                 </div>
                             </form>

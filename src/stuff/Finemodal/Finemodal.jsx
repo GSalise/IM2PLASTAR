@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { supabase } from '../../client'
 import { useRef } from 'react';
 import TableLogsBorrow from '../TableLogs/TableLogs';
-const Finemodal = ({ refresh }) => {
+const Finemodal = ({ refresh, selectedFine }) => {
 
    const [LOG, setLOG] = useState(null);
   
@@ -12,6 +12,7 @@ const Finemodal = ({ refresh }) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     console.log(formattedDate);
+    console.log(selectedFine)
 
     const [fineData,setFineData]=useState({
         fineamount:"",
@@ -20,6 +21,27 @@ const Finemodal = ({ refresh }) => {
         date: formattedDate,
     })
     console.log(fineData);
+
+    const [existingFineData, setExistingFineData] = useState({
+      EFineID:'',
+      EFineAmount:'',
+      EFineStatus:'',
+      EReason:'',
+    })
+    
+
+    useEffect(() => {
+      if(selectedFine){
+        setExistingFineData({
+          EFineID: selectedFine.fineid,
+          EFineAmount: selectedFine.fine,
+          EFineStatus: selectedFine.status, 
+          EReason: selectedFine.reason,
+        })
+      }
+    }, [selectedFine])
+
+    console.log(existingFineData)
 
    const finefunc =async()=>{
      
@@ -54,6 +76,24 @@ const Finemodal = ({ refresh }) => {
    }
     }
 
+    async function handleUpdate(e){
+      e.preventDefault();
+
+      const {data,error} = await supabase.from('fines_t').update({
+        reason: existingFineData.EReason,
+        status: existingFineData.EFineStatus,
+      }).eq('fineid',existingFineData.EFineID).select();
+
+           if(error){
+             console.log(error, 'something is wrong')
+           }
+           if(data){
+             console.log('success',data);
+             refresh()
+           }
+             
+    }
+
     function handleChange(event){
         setFineData((prevFineData)=>{
             return{
@@ -61,6 +101,14 @@ const Finemodal = ({ refresh }) => {
                 [event.target.name]:event.target.value,
             }
         })
+    }
+
+    function handleEditChange(event){
+      const { name, value } = event.target;
+      setExistingFineData((prevData)=>({
+          ...prevData,
+          [name]:value,
+      }))
     }
 
     console.log(LOG);
@@ -118,7 +166,52 @@ const Finemodal = ({ refresh }) => {
   
               {/* Modal Footer */}
               <div className="modal-footer">
-                <button type="button" className="btn btn-danger" onClick={() => finefunc()}>
+                <button type="button" className="btn btn-danger" onClick={() => finefunc()} data-bs-dismiss="modal">
+                  Submit
+                </button>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+
+        <div className="modal" id="fineEDIT" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div className="modal-content">
+  
+              {/* Modal Header */}
+              <div className="modal-header">
+                <h4 className="modal-title">Edit Fine</h4>
+                <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+  
+              {/* Modal Body */}
+              <div className="modal-body" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+                <form className="row g-3 justify-content-center">
+                  <div className="col-md-6">
+                    <label className="form-label" style={{ color: "black" }} >Reason</label>
+                    <textarea name='EReason' className="form-control" rows="3" value={existingFineData.EReason} onChange={handleEditChange} required></textarea>
+                  </div>
+                  <center><label className="form-label" style={{ color: "black" }}>STATUS</label></center>
+                  <div className="col-md-12 d-flex justify-content-center">
+                  
+                    <div className="form-check me-3">
+                      <label className="form-check-label" htmlFor="paid" style={{ color: 'black'}}>
+                        <input className="form-check-input" type="radio" id="paid" name="EFineStatus" value="paid" onChange={handleEditChange} checked={existingFineData.EFineStatus === 'paid'} required/>Paid
+                        </label>
+                    </div>
+                    <div className="form-check">
+                      <label className="form-check-label" htmlFor="unpaid" style={{ color: 'black' }}>Unpaid
+                      <input className="form-check-input" type="radio" id="unpaid" name="EFineStatus" value="unpaid" onChange={handleEditChange} checked={existingFineData.EFineStatus === 'unpaid'} required/>
+                      </label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+  
+              {/* Modal Footer */}
+              <div className="modal-footer">
+                <button type="button" className="btn btn-danger" onClick={handleUpdate} data-bs-dismiss="modal">
                   Submit
                 </button>
               </div>

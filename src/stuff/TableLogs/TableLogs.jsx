@@ -13,6 +13,13 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
+    console.log(formattedDate);
+
+    const point = {
+        cursor: 'pointer',
+    }
+
+    const [borrowInfo,setsBorrowInfo]=useState(null);
 
     const select = (log) => {
         onselectLog(log);
@@ -53,7 +60,8 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
 
     const filterLogs = () => {
         if (mode === 'Fines') {
-            const filtered = logsBorrow.filter(log => log.item_status === 'late' || log.item_status === 'not returned');
+            
+            const filtered = LogsBorrow.filter(log => (log.item_status === 'late' || log.item_status === 'not returned') && log.fineid === null);
             setFilteredLogs(filtered);
         } else {
             if (filter === 'all') {
@@ -68,7 +76,35 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
     };
-
+    if (mode === 'Fines') {
+        return (
+            <div>
+                {fetchError && (<p>{fetchError}</p>)}
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>End Date</th>
+                            <th>Borrower</th>
+                            <th>Item</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredLogs && filteredLogs.map((log) => (
+                            <tr key={log.borrowid} onClick={() => select(log)} style={point}>
+                                <td>{log.borrow_end_date}</td>
+                                <td>{log.borrower_t.name}</td>
+                                <td>{log.item_t.item_name}</td>
+                                <td style={{ color: log.item_status === 'ongoing' ? 'blue' : log.item_status === 'on time' ? 'green' : log.item_status === 'late' ? 'orange' : 'red' }}>
+                                    {log.item_status}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }else{
     return (
         <div className={styles["table-container"]}>
             {fetchError && (<p>{fetchError}</p>)}

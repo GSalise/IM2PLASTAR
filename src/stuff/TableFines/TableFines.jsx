@@ -26,45 +26,54 @@ const TableFines = () => {
     }
   };
 
-  useEffect(() => {
-    fetchFines();
-  }, []);
+    useEffect(() => {
+        fetchFines()
+    }, [])
 
-  const selectFine = (fine) => {
-    setSelectedFine(fine);
-  };
+    const select = (fine) => {
+        setSelectedFine(fine);
+    }
+
+    console.log(selectedFine)
+
+   
+
+
+
 
   return (
-    <div className={styles['table-container']}>
-      <Finemodal refresh={fetchFines} />
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Fine ID</th>
-            <th>Fine</th>
-            <th>Date imposed</th>
-            <th>Status</th>
-            <th>Reason</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {fines.map((fine) => (
-            <tr key={fine.fineid}>
-              <td>{fine.fineid}</td>
-              <td>{fine.fine}</td>
-              <td>{fine.date_imposed}</td>
-              <td style={{ color: fine.status === 'paid' ? 'green' : 'red' }}>{fine.status}</td>
-              <td>{fine.reason}</td>
-              <td>
-                <button type="button" className={styles.smallsize} onClick={() => selectFine(fine)}>
-                  <img src={editpic} alt="Edit" className={styles.smallsize} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+   
+    <div>
+        <Finemodal refresh={fetchFines} selectedFine={selectedFine}/>
+        <table className='table table-bordered' style={{width:'1500px'}}>
+            <thead>
+                <tr>
+                    <th>Fine ID</th>
+                    <th>Fine</th>
+                    <th>Date imposed</th>
+                    <th>Status</th>
+                    <th>Reason</th>
+                    <th style={colsizepic}></th>
+                </tr>
+            </thead>
+            <tbody>
+                {fines && fines.map((fine) => (
+                    <tr key={fine.fineid}>
+                        <td>{fine.fineid}</td>
+                        <td>{fine.fine}</td>
+                        <td>{fine.date_imposed}</td>
+                        <td  style={{color : fine.status === 'paid' ? 'green' : 'red'}}>{fine.status}</td>
+                        <td>{fine.reason}</td>
+                        <td>
+                            <button type='button' data-bs-toggle="modal" data-bs-target="#fineEDIT" style={{border:"none", backgroundColor:"white"}}>
+                            <img style={picsize} src={editpic} onClick={() => select(fine)} />
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     </div>
   );
 };
