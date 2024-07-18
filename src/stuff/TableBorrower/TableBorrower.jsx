@@ -73,7 +73,7 @@ const TableBorrower = () => {
               <td>{borrower.address}</td>
               <td>{borrower.infraction}</td>
               <td>{borrower.is_banned ? 'Banned' : 'Not Banned'}</td>
-              <td>
+              <td style={{width:"20px"}}>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#updateModalBorrower" className={styles.editButton}>
                   <img className={styles.editIcon} src={editpic} onClick={() => select(borrower)} alt="Edit"/>
                 </button>
