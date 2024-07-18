@@ -42,6 +42,7 @@ const TableItem = () => {
     const select = (item) => {
       setSelectedItem(item) // Set the selected item
     }
+    console.log(selectedItem)
 
     const handleCategoryChange = (event) => {
       setSelectedCategory(event.target.value) // Set the selected category

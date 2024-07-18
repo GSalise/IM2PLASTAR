@@ -15,6 +15,10 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
     const formattedDate = `${year}-${month}-${day}`;
     console.log(formattedDate);
 
+    const point = {
+        cursor: 'pointer',
+    }
+
     const [borrowInfo,setsBorrowInfo]=useState(null);
 
     const select = (log) =>{
@@ -61,7 +65,7 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
     const filterLogs = () => {
         if (mode === 'Fines') {
             
-            const filtered = LogsBorrow.filter(log => log.item_status === 'late' || log.item_status === 'not returned');
+            const filtered = LogsBorrow.filter(log => (log.item_status === 'late' || log.item_status === 'not returned') && log.fineid === null);
             setFilteredLogs(filtered);
         } else {
             
@@ -91,7 +95,7 @@ const TableLogsBorrow = ({mode, onselectLog}) => {
                     </thead>
                     <tbody>
                         {filteredLogs && filteredLogs.map((log) => (
-                            <tr key={log.borrowid} onClick={() => select(log)}>
+                            <tr key={log.borrowid} onClick={() => select(log)} style={point}>
                                 <td>{log.borrow_end_date}</td>
                                 <td>{log.borrower_t.name}</td>
                                 <td>{log.item_t.item_name}</td>

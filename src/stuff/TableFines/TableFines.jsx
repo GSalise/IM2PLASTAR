@@ -40,9 +40,11 @@ const TableFines = () => {
         fetchFines()
     }, [])
 
-    const select = (fines) => {
-        setSelectedFine(fines);
+    const select = (fine) => {
+        setSelectedFine(fine);
     }
+
+    console.log(selectedFine)
 
    
 
@@ -53,7 +55,7 @@ const TableFines = () => {
 
    
     <div>
-        <Finemodal refresh={fetchFines}/>
+        <Finemodal refresh={fetchFines} selectedFine={selectedFine}/>
         <table className='table table-bordered' style={{width:'1500px'}}>
             <thead>
                 <tr>
@@ -74,8 +76,8 @@ const TableFines = () => {
                         <td  style={{color : fine.status === 'paid' ? 'green' : 'red'}}>{fine.status}</td>
                         <td>{fine.reason}</td>
                         <td>
-                            <button type='button' style={{border:"none", backgroundColor:"white"}}>
-                            <img style={picsize} src={editpic} onClick={() => select(fines)} />
+                            <button type='button' data-bs-toggle="modal" data-bs-target="#fineEDIT" style={{border:"none", backgroundColor:"white"}}>
+                            <img style={picsize} src={editpic} onClick={() => select(fine)} />
                             </button>
                         </td>
                     </tr>
