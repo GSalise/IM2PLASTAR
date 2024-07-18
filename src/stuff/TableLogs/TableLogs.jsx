@@ -61,7 +61,7 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
     const filterLogs = () => {
         if (mode === 'Fines') {
             
-            const filtered = LogsBorrow.filter(log => (log.item_status === 'late' || log.item_status === 'not returned') && log.fineid === null);
+            const filtered = logsBorrow.filter(log => (log.item_status === 'late' || log.item_status === 'not returned') && log.fineid === null);
             setFilteredLogs(filtered);
         } else {
             if (filter === 'all') {
@@ -171,5 +171,6 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
         </div>
     );
 };
+}
 
 export default TableLogsBorrow;

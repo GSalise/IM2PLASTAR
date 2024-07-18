@@ -54,7 +54,7 @@ const TableFines = () => {
                     <th>Date imposed</th>
                     <th>Status</th>
                     <th>Reason</th>
-                    <th style={colsizepic}></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@ const TableFines = () => {
                         <td>{fine.reason}</td>
                         <td>
                             <button type='button' data-bs-toggle="modal" data-bs-target="#fineEDIT" style={{border:"none", backgroundColor:"white"}}>
-                            <img style={picsize} src={editpic} onClick={() => select(fine)} />
+                            <img className={styles.smallsize} src={editpic} onClick={() => select(fine)} />
                             </button>
                         </td>
                     </tr>
