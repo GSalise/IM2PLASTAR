@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../client';
-import './TableNBorrower.module.css';
+import styles from './TableNBorrower.module.css';
 
 const TableNBorrower = ({ onSelectBorrower }) => {
     const [fetchError, setFetchError] = useState(null);
     const [Borrower, setBorrower] = useState(null);
     const [selectedBorrower, setSelectedBorrower] = useState(null);
-
-    const point = {
-        cursor: 'pointer',
-    }
-
-    const smallsize = {
-        width: '30px',
-    }
 
     const fetchBorrower = async () => {
         const {data, error} = await supabase.from('borrower_t').select().eq('is_banned', false)
@@ -25,7 +17,7 @@ const TableNBorrower = ({ onSelectBorrower }) => {
         }
   
         if(data){
-          console.log(data)
+            console.log(data)
             setBorrower(data)
             setFetchError(null)
         }
@@ -42,37 +34,33 @@ const TableNBorrower = ({ onSelectBorrower }) => {
 
     console.log(selectedBorrower)
 
-
-
-  return (
-    <div>
-       <div>
-       {fetchError && (<p>{fetchError}</p>)}
-        <table className="table table-bordered" style={{width:"1500px"}}>
-            <thead>
-            <tr>
-                <th style={smallsize}>ID</th>
-                <th>Name</th>
-                <th>Contact</th>
-                <th>Address</th>
-                <th style={smallsize}>Infraction</th>
-            </tr>
-            </thead>
-            <tbody>
-            {Borrower && Borrower.map((borrower) => (
-                <tr key={borrower.name}>
-                    <td onClick={() => select(borrower)} style={point}>{borrower.borrowerid}</td>
-                    <td onClick={() => select(borrower)} style={point}>{borrower.name}</td>
-                    <td>{borrower.contact}</td>
-                    <td>{borrower.address}</td>
-                    <td>{borrower.infraction}</td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
+    return (
+        <div className={styles["table-container"]}>
+            {fetchError && (<p>{fetchError}</p>)}
+            <table className={`table table-bordered ${styles.table}`}>
+                <thead>
+                    <tr>
+                        <th className={styles.smallsize}>ID</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                        <th className={styles.smallsize}>Infraction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Borrower && Borrower.map((borrower) => (
+                        <tr key={borrower.name}>
+                            <td onClick={() => select(borrower)} className={styles.pointer}>{borrower.borrowerid}</td>
+                            <td onClick={() => select(borrower)} className={styles.pointer}>{borrower.name}</td>
+                            <td>{borrower.contact}</td>
+                            <td>{borrower.address}</td>
+                            <td>{borrower.infraction}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
-    </div>
-  )
+    )
 }
 
 export default TableNBorrower
