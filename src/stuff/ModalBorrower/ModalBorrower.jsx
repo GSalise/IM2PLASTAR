@@ -94,13 +94,8 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
     };
 
     return (
-<<<<<<< HEAD
         <div>
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px', backgroundColor: '#7f00ff', color: 'white',  borderColor: '#7f00ff'}}>ADD BORROWER</button>
-=======
-        <div style={{width:"fit-content"}}>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginTop: "10px"}}>ADD BORROWER</button>
->>>>>>> 0a81892a30ed3f78c3b25df3357dac182c0d7ddf
 
             <div className="modal" id="myModal">
                 <div className="modal-dialog">
