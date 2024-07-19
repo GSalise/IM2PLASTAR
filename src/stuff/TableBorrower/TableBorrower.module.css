@@ -1,6 +1,11 @@
 .tableContainer {
   color: black;
+<<<<<<< HEAD
   margin: 40px auto;
+=======
+  margin: 40px;
+  width: 90%;
+>>>>>>> 0a81892a30ed3f78c3b25df3357dac182c0d7ddf
   padding: 20px;
   border-radius: 8px;
   width: 118%;

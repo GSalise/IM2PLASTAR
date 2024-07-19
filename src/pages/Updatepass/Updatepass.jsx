@@ -38,7 +38,8 @@ function ResetPassword({ token }) {
   };
 
   return (
-    <div className={styles.resetform}>
+    <div className={styles.body}>
+      <div className={styles.resetform}>
       <h2>Reset Password</h2>
       <input
         type="password"
@@ -56,6 +57,7 @@ function ResetPassword({ token }) {
       />
       <button onClick={handlePasswordReset} className={styles.button}>Reset Password</button>
       {message && <p className={styles.message}>{message}</p>}
+      </div>
     </div>
   );
 }

@@ -23,7 +23,7 @@
     position: relative;
     max-width: 600px; /* Increase max-width for a bigger form */
     width: 100%;
-    margin-right: 46%; /* Adjust right margin for positioning */
+    /* margin-right: ; Adjust right margin for positioning */
   }
   
   .resetform h2 {

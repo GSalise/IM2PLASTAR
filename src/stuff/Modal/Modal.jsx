@@ -89,7 +89,7 @@ const Modal = ({ selectedItem , refresh })  => {
           item_name:nitemData.nitemName, 
           category:nitemData.ncategory,
           item_cost:nitemData.npenaltyP,
-          status: nitemData.nstatus === 'true',
+          status: nitemData.nstatus,
          }).eq('itemid',nitemData.nitemid).select();
 
               if(error){
@@ -123,7 +123,11 @@ const Modal = ({ selectedItem , refresh })  => {
 
   return (
     <div>
+<<<<<<< HEAD
         <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px', backgroundColor: '#7f00ff', color: 'white',  borderColor: '#7f00ff'}}>ADD ITEM</button>
+=======
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginTop: "10px"}}>ADD ITEM</button>
+>>>>>>> 0a81892a30ed3f78c3b25df3357dac182c0d7ddf
           
           <div className="modal" id="myModal" ref={addModalRef}>
             <div className="modal-dialog">

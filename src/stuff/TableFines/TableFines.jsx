@@ -36,6 +36,7 @@ const TableFines = () => {
 
   return (
     <div className={styles.tableContainer}>
+<<<<<<< HEAD
       <Finemodal refresh={fetchFines} selectedFine={selectedFine} />
       {fetchError && <p>{fetchError}</p>}
       <table className={`table table-bordered ${styles.table}`}>
@@ -66,6 +67,37 @@ const TableFines = () => {
           ))}
         </tbody>
       </table>
+=======
+        <Finemodal refresh={fetchFines} selectedFine={selectedFine}/><br></br>
+        <table  className={`table table-bordered table-hover ${styles.table}`} style={{width:"90%"}} >
+            <thead>
+                <tr>
+                    <th>Fine ID</th>
+                    <th>Fine</th>
+                    <th>Date imposed</th>
+                    <th>Status</th>
+                    <th>Reason</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {fines && fines.map((fine) => (
+                    <tr key={fine.fineid}>
+                        <td>{fine.fineid}</td>
+                        <td>{fine.fine}</td>
+                        <td>{fine.date_imposed}</td>
+                        <td  style={{color : fine.status === 'paid' ? 'green' : 'red'}}>{fine.status}</td>
+                        <td>{fine.reason}</td>
+                        <td>
+                            <button type='button' data-bs-toggle="modal" data-bs-target="#fineEDIT" style={{border:"none", backgroundColor:"white"}}>
+                            <img className={styles.smallsize} src={editpic} onClick={() => select(fine)} />
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+>>>>>>> 0a81892a30ed3f78c3b25df3357dac182c0d7ddf
     </div>
   );
 };

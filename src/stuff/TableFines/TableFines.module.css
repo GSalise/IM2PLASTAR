@@ -19,6 +19,7 @@
   padding: 12px;
   text-align: left;
   border: 1px solid #e6e6e6;
+  width: fit-content;
 }
 
 .table th {
@@ -41,7 +42,7 @@
 }
 
 .smallsize {
-  width: 30px;
+  width: 20px;
 }
 
 .editButton {
