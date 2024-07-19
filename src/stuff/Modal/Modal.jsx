@@ -89,7 +89,7 @@ const Modal = ({ selectedItem , refresh })  => {
           item_name:nitemData.nitemName, 
           category:nitemData.ncategory,
           item_cost:nitemData.npenaltyP,
-          status: nitemData.nstatus === 'true',
+          status: nitemData.nstatus,
          }).eq('itemid',nitemData.nitemid).select();
 
               if(error){
