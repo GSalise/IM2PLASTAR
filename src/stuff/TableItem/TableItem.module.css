@@ -6,7 +6,7 @@
   background-color: #ffffff;
   width: 95%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
-  margin-top: -9px; /* Adjust this value to move the container lower */
+  margin-top: 15px; /* Adjust this value to move the container lower */
 }
 
 .table {
