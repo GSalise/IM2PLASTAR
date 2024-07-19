@@ -48,13 +48,14 @@ const TableBorrower = () => {
       <ModalBorrower selectedBorrower={selectedBorrower} refresh={fetchBorrower}/>
       {fetchError && (<p>{fetchError}</p>)}
       <div>
-        <select className={styles.selectStatus} onChange={handleStatusChange} value={selectedStatus}>
+        <label htmlFor="statusFilter" className={styles.filterLabel}>Filter by status:</label>
+        <select id="statusFilter" className={styles.selectStatus} onChange={handleStatusChange} value={selectedStatus}>
           <option value="All">All</option>
           <option value="Banned">Banned</option>
           <option value="Not Banned">Not Banned</option>
         </select>
       </div>
-      <table className={`table table-bordered table-hover  ${styles.table}`}>
+      <table className={`table table-bordered ${styles.table}`}>
         <thead>
           <tr>
             <th>Name</th>

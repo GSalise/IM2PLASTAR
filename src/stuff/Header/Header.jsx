@@ -11,74 +11,63 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
   };
 
   const hbmenu = {
-    width: '50px',
+    width: '100px',
     height: 'auto',
+    padding: '15px',
   };
-  
 
   const navigate = useNavigate();
 
-  function goToAccPage(){
+  function goToAccPage() {
     navigate('/account');
   }
 
-  if(currentpage === 'homepage'){
+  if (currentpage === 'homepage') {
     return (
       <div className={styles.header}>
-        <section>
+        <section className={styles.logoSection}>
           <img style={logostyle} src={logo} alt="Plastar" />
         </section>
-        <section>
-          
-        </section>
-        <section>
-
-        </section>
-        {/* Move the hamburger button a bit to the left */}
-        <section>
-          <img style={hbmenu} src={hamburger} alt="menu button" onClick={goToAccPage}/>
+        <section className={styles.menuSection}>
+          <img style={hbmenu} src={hamburger} alt="menu button" onClick={goToAccPage} />
         </section>
       </div>
     );
-  }else if(currentpage === 'account'){
-    return(
-      <div className={styles.headerbr}>
-      <section>
-        <img style={logostyle} src={logo} alt="Plastar" />
-      </section>
-      <section className={styles.textSection}>
-      </section>
-      <section className={styles.rightAligned}>
-      </section>
-      <section>
-        <button className={styles.logoutButton} onClick={returnHome}>
+  } else if (currentpage === 'account') {
+    return (
+      <div className={styles.header}>
+        <section className={styles.logoSection}>
+          <img style={logostyle} src={logo} alt="Plastar" />
+        </section>
+        <section className={styles.textSection}>
+        </section>
+        <section className={styles.rightAligned}>
+        </section>
+        <section>
+          <button className={styles.logoutButton} onClick={returnHome}>
             Return
-        </button>   
-      </section>
-    </div>
+          </button>
+        </section>
+      </div>
     );
-  }else if(currentpage === 'borrow' || currentpage ==='retrieve'){
-    return(
-      <div className={styles.headerbr}>
-      <section>
-        <img style={logostyle} src={logo} alt="Plastar" />
-      </section>
-      <section>
-
-      </section>
-      <section>
-        
-      </section>
-      <section>
-        <button className={styles.logoutButton} onClick={returnHome}>
+  } else if (currentpage === 'borrow') {
+    return (
+      <div className={styles.header}>
+        <section className={styles.logoSection}>
+          <img style={logostyle} src={logo} alt="Plastar" />
+        </section>
+        <section>
+        </section>
+        <section>
+        </section>
+        <section>
+          <button className={styles.logoutButton} onClick={returnHome}>
             Return
-        </button>      
-      </section>
-    </div>
+          </button>
+        </section>
+      </div>
     );
   }
-
-  
 };
 
 export default Header;

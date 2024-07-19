@@ -2,24 +2,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-image: url('../../assets/test.png');
 }
 
 .container {
+  height: 100%;
   text-align: center;
   background-image: linear-gradient(to right, #7f00ff, #ff7b00);
   padding: 20px;
   border-radius: 15px;
-  width: 600px; /* Adjusted width for better spacing */
+  width: 400px; /* Reduced width for a shorter form */
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   text-align: center;
   color: white;
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 1.5em; /* Adjusted font size */
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 form {
@@ -29,20 +29,19 @@ form {
 }
 
 .sformGroup {
-  width: 45%;
-  margin-bottom: 20px; /* Added margin bottom for spacing */
+  width: 100%; /* Full width for each group */
+  margin-bottom: 10px; /* Reduced margin bottom */
 }
 
 .sformGroup label {
   display: block;
-  margin-bottom: 5px;
   color: white;
   font-weight: bold;
 }
 
 .sformGroup input {
   width: 100%;
-  padding: 10px;
+  padding: 8px; /* Reduced padding */
   border: none;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -53,9 +52,9 @@ form {
 }
 
 .ssignupButton {
-  width: 500px;
+  width: 100%; /* Full width button */
   padding: 10px;
-  margin-top: 1rem; /* Adjust spacing */
+  margin-top: 1rem; /* Spacing remains the same */
   background-color: #ff7300;
   border: none;
   color: white;

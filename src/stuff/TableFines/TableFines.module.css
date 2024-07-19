@@ -1,21 +1,21 @@
-.table-container {
-  justify-content: center;
+.tableContainer {
   color: black;
-  margin: 40px;
+  margin: 40px auto; /* Center the container horizontally */
   padding: 20px;
   border-radius: 8px;
+  width: 115%;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
+  margin-top: 125px; /* Adjust this value to move the container lower */
 }
 
 .table {
-  justify-content: center;
-  width: 100%;
   border-collapse: collapse;
 }
 
 .table th,
 .table td {
+  top: 10px;
   padding: 12px;
   text-align: left;
   border: 1px solid #e6e6e6;
@@ -27,9 +27,12 @@
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #ffffff;
+  background-color: #f9f9f9;
 }
 
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
 
 .pointer {
   cursor: pointer;
@@ -41,6 +44,14 @@
   width: 30px;
 }
 
-.filter-label {
-  color: #000000;
+.editButton {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.editIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }

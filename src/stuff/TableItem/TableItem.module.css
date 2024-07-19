@@ -1,14 +1,15 @@
 .table-container {
   color: black;
-  margin: 40px;
+  margin: 40px auto; /* Center the container horizontally */
   padding: 20px;
   border-radius: 8px;
   background-color: #ffffff;
+  width: 135%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
+  margin-top: 125px; /* Adjust this value to move the container lower */
 }
 
 .table {
-  width: 100%;
   border-collapse: collapse;
 }
 
@@ -25,11 +26,11 @@
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #ffffff;
+  background-color: #f9f9f9;
 }
 
 .table tbody tr:hover {
-  background-color: #ffffff;
+  background-color: #f1f1f1;
 }
 
 .pointer {
@@ -54,8 +55,15 @@
   margin-bottom: 20px;
 }
 
-.filters select {
+.filter {
   margin-right: 10px;
+  padding: 4px 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #000000;
+  width: 100px; /* Set a fixed width to make the select element shorter */
 }
 
 .editButton {

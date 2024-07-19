@@ -1,35 +1,26 @@
 .header {
+  position: fixed; /* Fixes the header at the top */
+  top: 0; /* Positions it at the top of the page */
+  left: 0; /* Ensures it stretches across the width of the page */
   height: 15vh;
-  width: 100%;
+  width: 100vw;
   box-sizing: border-box;
   background-image: linear-gradient(to right, #7f00ff, #ff7b00);
   padding: 10px 20px;
-  color: rgba(255, 255, 255, 0);
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  z-index: 1000; /* Ensures the header is on top of other content */
 }
 
-.headerbr{
-  height: 15vh;
-    width: 98vw;
-    box-sizing: border-box;
-    background-image: linear-gradient(to right, #7f00ff, #ff7b00);
-    padding: 10px 20px;
-    color: rgba(255, 255, 255, 0);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+.header .logo-section {
+  flex: 1; /* Take up space on the left */
 }
 
-.textSection {
-  flex: 1; /* Take remaining space */
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center align text */
-  margin-left: 10px;
+.header .menu-section {
+  flex: 0; /* Fit content size */
+  margin-left: 20px; /* Add margin to move it left */
 }
 
 .logoutButton {
@@ -47,13 +38,4 @@
 .logoutButton:hover {
   background-color: white;
   color: #ff7b00;
-}
-
-.hamburger {
-  position: absolute;
-  top: 50%;
-  right: 40px; /* Adjust as needed */
-  transform: translateY(-50%);
-  width: 50px; /* Adjust size as needed */
-  height: auto;
 }

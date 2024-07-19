@@ -123,7 +123,7 @@ const Modal = ({ selectedItem , refresh })  => {
 
   return (
     <div>
-        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginTop: "10px", marginLeft: "10px"}}>ADD ITEM</button>
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px', backgroundColor: '#7f00ff', color: 'white',  borderColor: '#7f00ff'}}>ADD ITEM</button>
           
           <div className="modal" id="myModal" ref={addModalRef}>
             <div className="modal-dialog">
@@ -266,7 +266,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       id="Available"
                       name="nstatus"
                       value="true"
-                      checked={nitemData.nstatus === true}
+                      checked={nitemData.nstatus === 'true'}
                       onChange={handleUpdateChange}
                     />
                       NOT AVAILABLE
@@ -281,7 +281,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       id="NotAvailable"
                       name="nstatus"
                       value="false"
-                      checked={nitemData.nstatus === false}
+                      checked={nitemData.nstatus === 'false'}
                       onChange={handleUpdateChange}
                     />
                       AVAILABLE

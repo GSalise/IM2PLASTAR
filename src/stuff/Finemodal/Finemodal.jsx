@@ -120,9 +120,9 @@ const Finemodal = ({ refresh, selectedFine }) => {
           className="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#fine"
-          style={{ marginTop: '10px', marginLeft: '10px' }}
+          style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px', backgroundColor: '#7f00ff', color: 'white',  borderColor: '#7f00ff'}}
         >
-          Create New Fine
+          CREATE NEW FINE
         </button>
   
         <div className="modal" id="fine" tabIndex="-1">
