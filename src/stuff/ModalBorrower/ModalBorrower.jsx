@@ -219,7 +219,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                             id="is_banned_true_update"
                                             name="is_banned"
                                             value="true"
-                                            checked={borrowerData.is_banned === 'true'}
+                                            checked={borrowerData.is_banned === true}
                                             onChange={handleChange}
                                         />
                                         <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_true_update">
@@ -233,7 +233,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                             id="is_banned_false_update"
                                             name="is_banned"
                                             value="false"
-                                            checked={borrowerData.is_banned === 'false'}
+                                            checked={borrowerData.is_banned === false}
                                             onChange={handleChange}
                                         />
                                         <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_false_update">

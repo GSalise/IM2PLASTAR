@@ -10,6 +10,7 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   height: 100vh;
+  width: 100%;
 }
 
 .loginform {
@@ -84,6 +85,6 @@
   top: 50%;
   left: 700px; /* Adjust as needed */
   transform: translateY(-50%);
-  width: 800px; /* Adjust size as needed */
+  width:700px; /* Adjust size as needed */
   height: auto;
 }

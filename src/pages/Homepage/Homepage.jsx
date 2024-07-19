@@ -44,7 +44,7 @@ const Homepage = ({token}) => {
       <div>
         <Header token={token} handleLogout={handleLogout} currentpage='homepage'/>
         <Sidebar handleTableSelect={handleTableSelect} />
-        <div style={{marginLeft:"300px"}}>
+        <div style={{marginLeft:"300px", marginTop:"16vh", width:"100%"}}>
           {activeTable === 'items' && <TableItem items={items} />}
           {activeTable === 'log' && <TableLogsBorrow />}
           {activeTable === 'borrower' && <TableBorrower />}

@@ -266,7 +266,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       id="Available"
                       name="nstatus"
                       value="true"
-                      checked={nitemData.nstatus === 'true'}
+                      checked={nitemData.nstatus === true}
                       onChange={handleUpdateChange}
                     />
                       NOT AVAILABLE
@@ -281,7 +281,7 @@ const Modal = ({ selectedItem , refresh })  => {
                       id="NotAvailable"
                       name="nstatus"
                       value="false"
-                      checked={nitemData.nstatus === 'false'}
+                      checked={nitemData.nstatus === false}
                       onChange={handleUpdateChange}
                     />
                       AVAILABLE

@@ -80,7 +80,7 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
         return (
             <div>
                 {fetchError && (<p>{fetchError}</p>)}
-                <table className="table table-bordered">
+                <table className="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>End Date</th>
@@ -118,7 +118,7 @@ const TableLogsBorrow = ({ mode, onselectLog }) => {
                     <option value="not returned">Not returned</option>
                 </select>
             </div>
-            <table className={`table table-bordered ${styles.table}`}>
+            <table className={`table table-bordered table-hover ${styles.table}`}>
                 <thead>
                     <tr>
                         {mode === 'Fines' ? (

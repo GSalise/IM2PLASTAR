@@ -1,13 +1,27 @@
 .header {
   height: 15vh;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   background-image: linear-gradient(to right, #7f00ff, #ff7b00);
   padding: 10px 20px;
-  color: white;
+  color: rgba(255, 255, 255, 0);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+}
+
+.headerbr{
+  height: 15vh;
+    width: 98vw;
+    box-sizing: border-box;
+    background-image: linear-gradient(to right, #7f00ff, #ff7b00);
+    padding: 10px 20px;
+    color: rgba(255, 255, 255, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
 .textSection {

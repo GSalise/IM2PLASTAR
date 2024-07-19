@@ -120,7 +120,7 @@ const Borrow = ({ token }) => {
   const initiateBorrow = async (e) => {
     e.preventDefault();
 
-    if (!fetchedItems || !dateData.start || !dateData.end || !selectedBorrower) {
+    if (!fetchedItems.length || !dateData.start || !dateData.end || !selectedBorrower) {
       alert('Empty parameters detected. Please fill up everything');
       return;
     }

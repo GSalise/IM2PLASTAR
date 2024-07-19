@@ -1,6 +1,12 @@
 .tableContainer {
-    margin-top: 20px;
-    overflow-x: auto; /* Enable horizontal scrolling */
+  color: black;
+  margin: 40px;
+  margin-top: 15vh;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
   }
   
   .errorMessage {

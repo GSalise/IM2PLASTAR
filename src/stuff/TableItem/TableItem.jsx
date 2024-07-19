@@ -49,7 +49,7 @@ const TableItem = () => {
 
     const filteredItems = items?.filter(item => {
         const categoryMatch = selectedCategory === 'All' || item.category === selectedCategory;
-        const statusMatch = selectedStatus === 'All' || (selectedStatus === 'Available' && item.status) || (selectedStatus === 'Not Available' && !item.status);
+        const statusMatch = selectedStatus === 'All' || (selectedStatus === 'Available' && !item.status) || (selectedStatus === 'Not Available' && item.status);
         return categoryMatch && statusMatch;
     });
 
@@ -77,7 +77,7 @@ const TableItem = () => {
                     </select>
                 </div>
             </div>
-            <table className={`table table-bordered ${styles.table}`}>
+            <table className={`table table-bordered table-hover ${styles.table}`}>
                 <thead>
                     <tr>
                         <th>Item name</th>

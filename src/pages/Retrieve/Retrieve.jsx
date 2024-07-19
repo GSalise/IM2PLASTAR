@@ -131,7 +131,7 @@ const Retrieve = ({ token }) => {
     for (let i = 0; i < fetchedItems.length; i++) {
 
       const { data, error } = await supabase.from('borrowinfo_t').update({
-        item_status: fetchedItems[i].borrow_end_date > formattedDate ? 'on time' : 'late', 
+        item_status: fetchedItems[i].borrow_end_date >= formattedDate ? 'on time' : 'late', 
       }).eq('borrowid', fetchedItems[i].borrowid)
 
       if (error) {

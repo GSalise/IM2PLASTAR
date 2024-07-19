@@ -37,7 +37,7 @@ const TableNBorrower = ({ onSelectBorrower }) => {
     return (
         <div className={styles["table-container"]}>
             {fetchError && (<p>{fetchError}</p>)}
-            <table className={`table table-bordered ${styles.table}`}>
+            <table className={`table table-bordered table-hover ${styles.table}`}>
                 <thead>
                     <tr>
                         <th className={styles.smallsize}>ID</th>

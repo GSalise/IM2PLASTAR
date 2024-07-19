@@ -42,7 +42,7 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
     );
   }else if(currentpage === 'account'){
     return(
-      <div className={styles.header}>
+      <div className={styles.headerbr}>
       <section>
         <img style={logostyle} src={logo} alt="Plastar" />
       </section>
@@ -57,9 +57,9 @@ const Header = ({ token, handleLogout, currentpage, returnHome }) => {
       </section>
     </div>
     );
-  }else if(currentpage === 'borrow'){
+  }else if(currentpage === 'borrow' || currentpage ==='retrieve'){
     return(
-      <div className={styles.header}>
+      <div className={styles.headerbr}>
       <section>
         <img style={logostyle} src={logo} alt="Plastar" />
       </section>

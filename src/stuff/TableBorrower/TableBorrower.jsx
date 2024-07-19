@@ -54,7 +54,7 @@ const TableBorrower = () => {
           <option value="Not Banned">Not Banned</option>
         </select>
       </div>
-      <table className={`table table-bordered ${styles.table}`}>
+      <table className={`table table-bordered table-hover  ${styles.table}`}>
         <thead>
           <tr>
             <th>Name</th>
