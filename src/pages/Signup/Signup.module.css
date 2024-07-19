@@ -2,59 +2,63 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('../../assets/test.png');
+  height: 100vh;
+  background-image: url('../../assets/test.png'); /* Ensure the correct path to your image */
+  background-size: cover;
+  background-position: center;
+  margin: 0;
 }
 
 .container {
-  height: 100%;
-  text-align: center;
   background-image: linear-gradient(to right, #7f00ff, #ff7b00);
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
-  width: 400px; /* Reduced width for a shorter form */
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  width: 350px; /* Adjust width as necessary */
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 h1 {
-  text-align: center;
   color: white;
-  font-size: 1.5em; /* Adjusted font size */
-  margin-bottom: 15px; /* Reduced margin */
+  font-size: 1.8em; /* Adjusted font size */
+  margin-bottom: 20px; /* Adjusted margin */
 }
 
 form {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sformGroup {
-  width: 100%; /* Full width for each group */
-  margin-bottom: 10px; /* Reduced margin bottom */
+  width: 100%;
+  margin-bottom: 15px; /* Adjusted margin bottom */
 }
 
 .sformGroup label {
   display: block;
   color: white;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .sformGroup input {
   width: 100%;
-  padding: 8px; /* Reduced padding */
+  padding: 10px; /* Adjusted padding */
   border: none;
   border-radius: 5px;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
-.sformGroup input[type='text'], .sformGroup input[type='email'], .sformGroup input[type='password'] {
+.sformGroup input[type='email'], .sformGroup input[type='password'], .sformGroup input[type='text'] {
   background-color: white;
 }
 
 .ssignupButton {
   width: 100%; /* Full width button */
   padding: 10px;
-  margin-top: 1rem; /* Spacing remains the same */
+  margin-top: 20px; /* Adjusted spacing */
   background-color: #ff7300;
   border: none;
   color: white;
@@ -70,4 +74,18 @@ form {
 
 .ssignupButton:hover {
   background-color: #ffbb7f;
+}
+
+p {
+  color: white;
+  font-size: 0.9em; /* Adjust font size */
+}
+
+p a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
 }

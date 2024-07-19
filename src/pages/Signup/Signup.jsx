@@ -54,8 +54,8 @@ const Signup = () => {
           <div className={styles.sformGroup}>
             <label>Name</label>
             <input
-              placeholder='Enter username'
-              name='username'
+              placeholder="Enter username"
+              name="username"
               onChange={handleChange}
             />
           </div>
@@ -63,8 +63,8 @@ const Signup = () => {
           <div className={styles.sformGroup}>
             <label>Email</label>
             <input
-              placeholder='Enter email'
-              name='email'
+              placeholder="Enter email"
+              name="email"
               onChange={handleChange}
             />
           </div>
@@ -72,9 +72,9 @@ const Signup = () => {
           <div className={styles.sformGroup}>
             <label>Passsword</label>
             <input
-              placeholder='Enter password'
-              name='password'
-              type='password'
+              placeholder="Enter password"
+              name="password"
+              type="password"
               onChange={handleChange}
             />
           </div>
@@ -82,8 +82,8 @@ const Signup = () => {
           <div className={styles.sformGroup}>
             <label>Address</label>
             <input
-              placeholder='Enter address'
-              name='address'
+              placeholder="Enter address"
+              name="address"
               onChange={handleChange}
             />
           </div>
@@ -91,10 +91,10 @@ const Signup = () => {
           <div className={styles.sformGroup}>
             <label>Contact No.</label>
             <input
-              placeholder='Enter contact'
-              name='contact'
-              type='text'
-              pattern='\d*'
+              placeholder="Enter contact"
+              name="contact"
+              type="text"
+              pattern="\d*"
               maxLength={11}
               onChange={handleChange}
             />
@@ -103,21 +103,22 @@ const Signup = () => {
           <div className={styles.sformGroup}>
             <label>Assigned Baranggay</label>
             <input
-              placeholder='Enter baranggay'
-              name='baranggay'
+              placeholder="Enter baranggay"
+              name="baranggay"
               onChange={handleChange}
             />
           </div>
 
-          <button type='submit' className={styles.ssignupButton}>
+          <button type="submit" className={styles.ssignupButton}>
             SIGN UP
           </button>
         </form>
-        Already have an account? <Link to='/'>Login</Link>
+        <p>
+          Already have an account? <Link to="/">Login</Link>
+        </p>
       </div>
     </div>
   );
 };
 
 export default Signup;
-
