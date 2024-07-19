@@ -41,15 +41,15 @@ const Homepage = ({token}) => {
 
   return (
     <div className={styles.body}>
-      <div>
+      
         <Header token={token} handleLogout={handleLogout} currentpage='homepage'/>
         <Sidebar handleTableSelect={handleTableSelect} />
         <div style={{marginLeft:"300px", marginTop:"16vh", width:"100%"}}>
-          {activeTable === 'items' && <TableItem items={items} />}
+          {activeTable === 'items' && <TableItem items={items}/>}
           {activeTable === 'log' && <TableLogsBorrow />}
           {activeTable === 'borrower' && <TableBorrower />}
           {activeTable === 'fines' && <TableFines />}
-      </div>
+      
     </div>
   </div>
   )

@@ -94,8 +94,8 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
     };
 
     return (
-        <div>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginTop: "10px", marginLeft: "10px" }}>ADD BORROWER</button>
+        <div style={{width:"fit-content"}}>
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginTop: "10px"}}>ADD BORROWER</button>
 
             <div className="modal" id="myModal">
                 <div className="modal-dialog">
@@ -219,7 +219,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                             id="is_banned_true_update"
                                             name="is_banned"
                                             value="true"
-                                            checked={borrowerData.is_banned === true}
+                                            checked={borrowerData.is_banned === 'true'}
                                             onChange={handleChange}
                                         />
                                         <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_true_update">
@@ -233,7 +233,7 @@ const ModalBorrower = ({ selectedBorrower, refresh }) => {
                                             id="is_banned_false_update"
                                             name="is_banned"
                                             value="false"
-                                            checked={borrowerData.is_banned === false}
+                                            checked={borrowerData.is_banned === 'false'}
                                             onChange={handleChange}
                                         />
                                         <label style={{color:'black'}} className="form-check-label" htmlFor="is_banned_false_update">

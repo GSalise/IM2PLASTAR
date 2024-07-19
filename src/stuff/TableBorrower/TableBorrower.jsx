@@ -47,7 +47,7 @@ const TableBorrower = () => {
     <div className={styles.tableContainer}>
       <ModalBorrower selectedBorrower={selectedBorrower} refresh={fetchBorrower}/>
       {fetchError && (<p>{fetchError}</p>)}
-      <div>
+      <div style={{width:"fit-content"}}>
         <select className={styles.selectStatus} onChange={handleStatusChange} value={selectedStatus}>
           <option value="All">All</option>
           <option value="Banned">Banned</option>

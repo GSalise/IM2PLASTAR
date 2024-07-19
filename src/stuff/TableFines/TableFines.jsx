@@ -46,7 +46,7 @@ const TableFines = () => {
    
     <div className={styles.tableContainer}>
         <Finemodal refresh={fetchFines} selectedFine={selectedFine}/><br></br>
-        <table  className={`table table-bordered table-hover ${styles.table}`} >
+        <table  className={`table table-bordered table-hover ${styles.table}`} style={{width:"90%"}} >
             <thead>
                 <tr>
                     <th>Fine ID</th>
